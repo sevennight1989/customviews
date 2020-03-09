@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <com.android.custview.view.SpeedLimitView
+        android:layout_width="500px"
+        android:layout_height="200px" />
+
+    <TextView
+        android:id="@+id/speed_limit"
+        android:layout_width="140px"
+        android:layout_height="140px"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30px"
+        android:gravity="center"
+        android:text="120"
+        android:textColor="#000000"
+        android:textSize="50px" />
+
+    <LinearLayout
+        android:id="@+id/intervalSpeed_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="13px"
+        android:layout_toEndOf="@+id/speed_limit"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="-5px"
+            android:gravity="center"
+            android:text="359"
+            android:id="@+id/intervalSpeed"
+            android:textColor="#FFFFFF"
+            android:textSize="52px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="-5px"
+            android:gravity="center"
+            android:text="区间速度"
+            android:textColor="#FFFFFF"
+            android:textSize="35px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/remain_miles_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16px"
+        android:layout_toEndOf="@+id/intervalSpeed_root"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="-5px"
+            android:gravity="center"
+            android:text="43"
+            android:id="@+id/remain_miles"
+            android:textColor="#FFFFFF"
+            android:textSize="52px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5px"
+            android:gravity="center"
+            android:text="剩余公里"
+            android:textColor="#FFFFFF"
+            android:textSize="35px" />
+    </LinearLayout>
+
+
+</RelativeLayout>
