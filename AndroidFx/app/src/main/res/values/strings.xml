@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">自定义控件</string>
+    <string name="title_activity_progress_bar">ProgressBarActivity</string>
 </resources>

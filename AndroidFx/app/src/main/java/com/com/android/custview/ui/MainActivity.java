@@ -15,7 +15,7 @@ public class MainActivity extends BaseActivity {
     private RecyclerView mRv;
     private MainAdapter mMainAdapter;
 
-    private String[] items = {"自定义View1", "自定义View2"};
+    private String[] items = {"自定义View1", "进度条变色"};
 
     @Override
     public int getLayout() {
@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
                         intent.setClass(MainActivity.this, CustView01Activity.class);
                         break;
                     case 1:
-                        intent.setClass(MainActivity.this, CustView01Activity.class);
+                        intent.setClass(MainActivity.this, ProgressBarActivity.class);
                         break;
                 }
 

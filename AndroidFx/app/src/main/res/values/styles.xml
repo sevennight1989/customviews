@@ -8,19 +8,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <attr name="titleText" formatted="string"/>
-    <attr name="titleTextSize" format="dimension"/>
-    <attr name="titleTextColor" format="color"/>
-    <attr name="image" format="reference"/>
+    <attr name="titleText" formatted="string" />
+    <attr name="titleTextSize" format="dimension" />
+    <attr name="titleTextColor" format="color" />
+    <attr name="image" format="reference" />
     <attr name="imageScaleType">
-        <enum name="fillXY" value="0"/>
-        <enum name="center" value="1"/>
+        <enum name="fillXY" value="0" />
+        <enum name="center" value="1" />
     </attr>
     <declare-styleable name="CustomView01">
-        <attr name="titleText"/>
-        <attr name="titleTextSize"/>
-        <attr name="titleTextColor"/>
-        <attr name="image"/>
-        <attr name="imageScaleType"/>
+        <attr name="titleText" />
+        <attr name="titleTextSize" />
+        <attr name="titleTextColor" />
+        <attr name="image" />
+        <attr name="imageScaleType" />
     </declare-styleable>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
