@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.android.custview.R;
 import com.com.android.custview.KLog;
 import com.com.android.custview.adapter.MainAdapter;
+import com.com.android.custview.widget.SpacesItemDecoration;
 
 public class MainActivity extends BaseActivity {
 
@@ -52,6 +53,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        mRv.addItemDecoration(new SpacesItemDecoration(20));
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mRv.setAdapter(mMainAdapter);
     }
