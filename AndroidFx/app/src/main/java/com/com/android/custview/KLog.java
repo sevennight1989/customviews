@@ -10,7 +10,7 @@ public class KLog {
 
     public static void logD(String str){
         if(ENABLE_LOG){
-            Log.d(TAG,"-> " + str +" <-");
+            Log.d(TAG,str);
         }
     }
 }

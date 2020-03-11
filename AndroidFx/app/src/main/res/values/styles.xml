@@ -24,6 +24,13 @@
         <attr name="imageScaleType" />
     </declare-styleable>
 
+    <declare-styleable name="CustomProgressBar">
+        <attr name="firstColor" format="color"/>
+        <attr name="secondColor" format="color"/>
+        <attr name="circleWidth" format="dimension"/>
+        <attr name="speed" format="integer"/>
+    </declare-styleable>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
