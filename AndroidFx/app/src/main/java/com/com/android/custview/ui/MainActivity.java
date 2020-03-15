@@ -15,7 +15,7 @@ public class MainActivity extends BaseActivity {
     private RecyclerView mRv;
     private MainAdapter mMainAdapter;
 
-    private String[] items = {"自定义View1", "进度条变色"};
+    private String[] items = {"自定义View1", "进度条变色","自定义音量条"};
 
     @Override
     public int getLayout() {
@@ -47,6 +47,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 1:
                         intent.setClass(MainActivity.this, ProgressBarActivity.class);
+                        break;
+                    case 2:
+                        intent.setClass(MainActivity.this, CustomVolumActivity.class);
                         break;
                 }
 

@@ -18,6 +18,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.android.custview.R;
+import com.com.android.custview.ImageUtils;
 
 
 public class CustomView01 extends View {
@@ -62,7 +63,7 @@ public class CustomView01 extends View {
             int attr = a.getIndex(i);
             switch (attr) {
                 case R.styleable.CustomView01_image:
-                    mImage = getBitmap(context, a.getResourceId(attr, 0));
+                    mImage = ImageUtils.getBitmap(context, a.getResourceId(attr, 0));
                     Log.d("PengLog", "mImage width:" + mImage.getWidth());
                     break;
                 case R.styleable.CustomView01_imageScaleType:
@@ -115,20 +116,6 @@ public class CustomView01 extends View {
         setMeasuredDimension(mWidth, mHeight);
     }
 
-    private Bitmap getBitmap(Context context, int vectorDrawableId) {
-        Bitmap bitmap;
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            Drawable vectorDrawable = context.getDrawable(vectorDrawableId);
-            bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
-                    vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            vectorDrawable.draw(canvas);
-        } else {
-            bitmap = BitmapFactory.decodeResource(context.getResources(), vectorDrawableId);
-        }
-        return bitmap;
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
