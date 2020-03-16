@@ -15,7 +15,7 @@ public class MainActivity extends BaseActivity {
     private RecyclerView mRv;
     private MainAdapter mMainAdapter;
 
-    private String[] items = {"自定义View1", "进度条变色","自定义音量条","自定义ViewGroup"};
+    private String[] items = {"自定义View1", "进度条变色","自定义音量条","自定义ViewGroup","自定义拖拽"};
 
     @Override
     public int getLayout() {
@@ -53,6 +53,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 3:
                         intent.setClass(MainActivity.this, CustViewGroupActivity.class);
+                        break;
+                    case 4:
+                        intent.setClass(MainActivity.this, DraggerActivity.class);
                         break;
                 }
 
