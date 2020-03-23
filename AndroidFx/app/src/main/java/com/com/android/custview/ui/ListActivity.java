@@ -1,5 +1,6 @@
 package com.com.android.custview.ui;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -7,6 +8,8 @@ import android.widget.Toast;
 
 import com.android.custview.R;
 import com.android.custview.view.QQListView;
+import com.com.android.custview.KLog;
+import com.com.android.custview.bean.Person;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +53,12 @@ public class ListActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        String type = getIntent().getStringExtra("type");
+        if (TextUtils.equals(type, "person")) {
+            Person p = getIntent().getParcelableExtra("person");
+            if (p != null) {
+                KLog.logD(p.toString());
+            }
+        }
     }
 }

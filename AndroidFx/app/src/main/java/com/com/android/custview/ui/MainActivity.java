@@ -6,8 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.custview.R;
+import com.android.custview.view.MarqueeTextView;
 import com.com.android.custview.KLog;
 import com.com.android.custview.adapter.MainAdapter;
+import com.com.android.custview.bean.Person;
 import com.com.android.custview.widget.SpacesItemDecoration;
 
 public class MainActivity extends BaseActivity {
@@ -16,7 +18,7 @@ public class MainActivity extends BaseActivity {
     private MainAdapter mMainAdapter;
 
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
-            , "ListView侧滑"};
+            , "ListView侧滑","自定义跑马灯"};
 
     @Override
     public int getLayout() {
@@ -60,9 +62,17 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 5:
                         intent.setClass(MainActivity.this, ListActivity.class);
+                        Person person = new Person();
+                        person.age = 20;
+                        person.money = 5000.00;
+                        person.name = "Tom";
+                        intent.putExtra("type","person");
+                        intent.putExtra("person",person);
                         break;
+                    case 6:
+                    intent.setClass(MainActivity.this, MarqueeActivity.class);
+                    break;
                 }
-
                 startActivity(intent);
             }
         });
