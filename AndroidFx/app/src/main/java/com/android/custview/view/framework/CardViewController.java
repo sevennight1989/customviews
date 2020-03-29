@@ -3,9 +3,10 @@ package com.android.custview.view.framework;
 import android.widget.FrameLayout;
 
 import com.com.android.custview.KLog;
-import com.com.android.custview.StringUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CardViewController {
@@ -13,8 +14,12 @@ public class CardViewController {
     private static CardViewController mInstance;
 
     private FrameLayout mViewRoot;
+    //存放CardView的实体
+    private Map<String, AbstractCardView> mCardViewMap = new HashMap<>();
 
-    private Map<String, AbstractCardView> mMap = new HashMap<>();
+    private int mCurIndex = -1;
+    //用来存放卡片索引的
+    private Map<String, Integer> mIndexMap = new HashMap<>();
 
 
     public synchronized static CardViewController getInstance() {
@@ -33,22 +38,69 @@ public class CardViewController {
     }
 
     public void startCardView(Class<? extends AbstractCardView> clazz) {
-        try {
-            AbstractCardView obj = clazz.getDeclaredConstructor().newInstance();
-            mMap.put(StringUtils.toHash(clazz.getSimpleName()), obj);
-            mViewRoot.addView(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        String key = clazz.getSimpleName();
+        //当前卡片不存在需要添加,注意该框架不支持添加重复的卡片
+        if (!isCardViewExist(key)) {
+            try {
+                AbstractCardView obj = clazz.getDeclaredConstructor().newInstance();
+                mCardViewMap.put(key, obj);
+                mIndexMap.put(key, mCurIndex);
+                mViewRoot.addView(obj);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            //需要将当期要显示的卡片上面的卡婆全部移除
+            List<AbstractCardView> toRemoveCardList = new ArrayList<>();
+            List<String> toRemoveKeyList = new ArrayList<>();
+            int currentIndex = mIndexMap.get(key);
+            for (Map.Entry<String, Integer> entry : mIndexMap.entrySet()) {
+                int index = entry.getValue();
+                if (index > currentIndex) {
+                    toRemoveKeyList.add(entry.getKey());
+                    mIndexMap.remove(entry.getKey());
+                }
+            }
+            for (Map.Entry<String, AbstractCardView> entry : mCardViewMap.entrySet()) {
+                String tempKey = entry.getKey();
+                if (toRemoveKeyList.contains(tempKey)) {
+                    toRemoveCardList.add(entry.getValue());
+                    mCardViewMap.remove(entry.getKey());
+                }
+            }
+            removeCardView(toRemoveCardList);
+            mCurIndex = currentIndex;
         }
+
+
+    }
+
+    private boolean isCardViewExist(String key) {
+        return mIndexMap.get(key) != null && mCardViewMap.get(key) != null;
+
+
     }
 
     public void removeCardView(Class<? extends AbstractCardView> clazz) {
-        AbstractCardView view = mMap.get(StringUtils.toHash(clazz.getSimpleName()));
-        if (mMap.get(StringUtils.toHash(clazz.getSimpleName())) == null) {
-            KLog.logD("CardView " + clazz.getSimpleName() + " not exist");
+        String key = clazz.getSimpleName();
+        if (!isCardViewExist(key)) {
+            KLog.logD("To removeCard not exist!!!");
             return;
         }
-        mMap.remove(StringUtils.toHash(clazz.getSimpleName()), view);
-        mViewRoot.removeView(view);
+        mIndexMap.remove(key);
+        AbstractCardView cardView = mCardViewMap.get(key);
+        removeCardView(cardView);
+        mCardViewMap.remove(key);
+    }
+
+    private void removeCardView(List<AbstractCardView> cardViewList) {
+        for (AbstractCardView abstractCardView : cardViewList) {
+            removeCardView(abstractCardView);
+        }
+    }
+
+    private void removeCardView(AbstractCardView abstractCardView) {
+        mViewRoot.removeView(abstractCardView);
     }
 }
