@@ -18,7 +18,7 @@ public class MainActivity extends BaseActivity {
     private MainAdapter mMainAdapter;
 
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
-            , "ListView侧滑","自定义跑马灯"};
+            , "ListView侧滑", "自定义跑马灯", "卡片框架"};
 
     @Override
     public int getLayout() {
@@ -66,13 +66,17 @@ public class MainActivity extends BaseActivity {
                         person.age = 20;
                         person.money = 5000.00;
                         person.name = "Tom";
-                        intent.putExtra("type","person");
-                        intent.putExtra("person",person);
+                        intent.putExtra("type", "person");
+                        intent.putExtra("person", person);
                         break;
                     case 6:
-                    intent.setClass(MainActivity.this, MarqueeActivity.class);
-                    break;
+                        intent.setClass(MainActivity.this, MarqueeActivity.class);
+                        break;
+                    case 7:
+                        intent.setClass(MainActivity.this, CardViewActivity.class);
+                        break;
                 }
+
                 startActivity(intent);
             }
         });

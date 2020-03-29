@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.com.android.custview.ui.MarqueeActivity"></activity>
+        <activity android:name="com.com.android.custview.ui.CardViewActivity"></activity>
+        <activity android:name="com.com.android.custview.ui.MarqueeActivity" />
         <activity android:name="com.com.android.custview.ui.ListActivity" />
         <activity android:name="com.com.android.custview.ui.DraggerActivity" />
         <activity android:name="com.com.android.custview.ui.CustViewGroupActivity" />
