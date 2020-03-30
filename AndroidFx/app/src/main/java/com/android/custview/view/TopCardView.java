@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
 import com.android.custview.view.framework.AbstractCardView;
+import com.android.custview.view.framework.CardIntent;
 
 public class TopCardView extends AbstractCardView {
     public TopCardView(@NonNull Context context) {
@@ -21,10 +22,32 @@ public class TopCardView extends AbstractCardView {
     }
 
     public void startInfo() {
-        startCardView(InfoCardView.class);
+        CardIntent intent = new CardIntent();
+        intent.setCardViewClass(InfoCardView.class);
+        startCardView(intent);
     }
 
     public void finish() {
         super.finish();
+    }
+
+    @Override
+    protected void onCreate(CardIntent intent) {
+
+    }
+
+    @Override
+    protected void onNewIntent(CardIntent intent) {
+
+    }
+
+    @Override
+    protected void onPause() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+
     }
 }

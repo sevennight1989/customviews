@@ -6,9 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.android.custview.view.InfoCardView;
-
-public class AbstractCardView extends FrameLayout {
+public abstract class AbstractCardView extends FrameLayout {
 
 
     public AbstractCardView(@NonNull Context context) {
@@ -23,12 +21,22 @@ public class AbstractCardView extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public void startCardView(Class<? extends AbstractCardView> clazz){
-        CardViewController.getInstance().startCardView(clazz);
+    public void startCardView(CardIntent intent){
+        CardViewController.getInstance().startCardView(intent);
     }
 
 
     public void finish(){
         CardViewController.getInstance().removeCardView(getClass());
     }
+
+    protected abstract void onCreate(CardIntent intent);
+
+    protected abstract void onNewIntent(CardIntent intent);
+
+    protected abstract void onPause();
+
+    protected abstract void onDestroy();
+
+
 }

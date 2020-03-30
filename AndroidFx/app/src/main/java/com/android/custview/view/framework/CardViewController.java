@@ -1,5 +1,7 @@
 package com.android.custview.view.framework;
 
+import android.content.Context;
+import android.content.Intent;
 import android.widget.FrameLayout;
 
 import com.com.android.custview.KLog;
@@ -18,6 +20,8 @@ public class CardViewController {
     private Map<String, AbstractCardView> mCardViewMap = new HashMap<>();
 
     private int mCurIndex = -1;
+
+    private Context mContent;
     //用来存放卡片索引的
     private Map<String, Integer> mIndexMap = new HashMap<>();
 
@@ -35,18 +39,33 @@ public class CardViewController {
             return;
         }
         mViewRoot = view;
+        mContent = mViewRoot.getContext();
     }
 
-    public void startCardView(Class<? extends AbstractCardView> clazz) {
-
+    public void startCardView(CardIntent intent) {
+        Class<? extends AbstractCardView> clazz = intent.getCardViewClass();
         String key = clazz.getSimpleName();
         //当前卡片不存在需要添加,注意该框架不支持添加重复的卡片
         if (!isCardViewExist(key)) {
             try {
-                AbstractCardView obj = clazz.getDeclaredConstructor().newInstance();
+                AbstractCardView obj = clazz.getDeclaredConstructor().newInstance(mContent);
+                String lastKey = "";
+                if (mCurIndex > 0) {
+                    for (Map.Entry<String, Integer> entry : mIndexMap.entrySet()) {
+                        int index = entry.getValue();
+                        if (index == mCurIndex) {
+                            lastKey = entry.getKey();
+                            break;
+                        }
+                    }
+                    //添加一个新view会调用之前一个view的onPause函数
+                    AbstractCardView lastObj = mCardViewMap.get(lastKey);
+                    lastObj.onPause();
+                }
                 mCardViewMap.put(key, obj);
-                mIndexMap.put(key, mCurIndex);
+                mIndexMap.put(key, mCurIndex++);
                 mViewRoot.addView(obj);
+                obj.onCreate(intent);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -69,6 +88,10 @@ public class CardViewController {
                     mCardViewMap.remove(entry.getKey());
                 }
             }
+            AbstractCardView obj = mCardViewMap.get(key);
+            if (obj != null) {
+                obj.onNewIntent(intent);
+            }
             removeCardView(toRemoveCardList);
             mCurIndex = currentIndex;
         }
@@ -90,17 +113,20 @@ public class CardViewController {
         }
         mIndexMap.remove(key);
         AbstractCardView cardView = mCardViewMap.get(key);
-        removeCardView(cardView);
+        removeCardViewFinal(cardView);
         mCardViewMap.remove(key);
+
     }
 
     private void removeCardView(List<AbstractCardView> cardViewList) {
         for (AbstractCardView abstractCardView : cardViewList) {
-            removeCardView(abstractCardView);
+            removeCardViewFinal(abstractCardView);
         }
     }
 
-    private void removeCardView(AbstractCardView abstractCardView) {
+    private void removeCardViewFinal(AbstractCardView abstractCardView) {
+        abstractCardView.onDestroy();
+        mCurIndex--;
         mViewRoot.removeView(abstractCardView);
     }
 }
