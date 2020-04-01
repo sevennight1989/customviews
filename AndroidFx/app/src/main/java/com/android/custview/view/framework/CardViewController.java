@@ -1,8 +1,7 @@
 package com.android.custview.view.framework;
 
 import android.content.Context;
-import android.content.Intent;
-import android.widget.FrameLayout;
+import android.view.View;
 
 import com.com.android.custview.KLog;
 
@@ -15,11 +14,11 @@ public class CardViewController {
 
     private static CardViewController mInstance;
 
-    private FrameLayout mViewRoot;
+    private FrameView mViewRoot;
     //存放CardView的实体
     private Map<String, AbstractCardView> mCardViewMap = new HashMap<>();
 
-    private int mCurIndex = -1;
+    private int mCurIndex = 0;
 
     private Context mContent;
     //用来存放卡片索引的
@@ -33,7 +32,7 @@ public class CardViewController {
         return mInstance;
     }
 
-    public void init(FrameLayout view) {
+    public void init(FrameView view) {
         if (view == null) {
             KLog.logD("Root View can't be null!");
             return;
@@ -48,12 +47,12 @@ public class CardViewController {
         //当前卡片不存在需要添加,注意该框架不支持添加重复的卡片
         if (!isCardViewExist(key)) {
             try {
-                AbstractCardView obj = clazz.getDeclaredConstructor().newInstance(mContent);
+                AbstractCardView obj = clazz.getDeclaredConstructor(Context.class).newInstance(mContent);
                 String lastKey = "";
                 if (mCurIndex > 0) {
                     for (Map.Entry<String, Integer> entry : mIndexMap.entrySet()) {
                         int index = entry.getValue();
-                        if (index == mCurIndex) {
+                        if (index == mCurIndex - 1) {
                             lastKey = entry.getKey();
                             break;
                         }
@@ -61,10 +60,12 @@ public class CardViewController {
                     //添加一个新view会调用之前一个view的onPause函数
                     AbstractCardView lastObj = mCardViewMap.get(lastKey);
                     lastObj.onPause();
+                    lastObj.setVisibility(View.GONE);
                 }
                 mCardViewMap.put(key, obj);
-                mIndexMap.put(key, mCurIndex++);
+                mIndexMap.put(key, mCurIndex);
                 mViewRoot.addView(obj);
+                mCurIndex++;
                 obj.onCreate(intent);
             } catch (Exception e) {
                 e.printStackTrace();

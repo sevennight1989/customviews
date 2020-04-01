@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.custview.R;
-import com.android.custview.view.MarqueeTextView;
 import com.com.android.custview.KLog;
 import com.com.android.custview.adapter.MainAdapter;
 import com.com.android.custview.bean.Person;
