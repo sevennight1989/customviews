@@ -46,6 +46,10 @@ public class InfoCardView extends AbstractCardView {
     }
 
     @Override
+    protected void onRestart() {
+    }
+
+    @Override
     protected void onDestroy() {
 
     }

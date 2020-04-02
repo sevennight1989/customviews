@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.android.custview.R;
 import com.android.custview.view.framework.AbstractCardView;
 import com.android.custview.view.framework.CardIntent;
+import com.com.android.custview.KLog;
 
 public class TopCardView extends AbstractCardView {
     private Button mStartBt;
@@ -49,6 +50,10 @@ public class TopCardView extends AbstractCardView {
     @Override
     protected void onPause() {
 
+    }
+
+    @Override
+    protected void onRestart() {
     }
 
     @Override

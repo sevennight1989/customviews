@@ -50,4 +50,10 @@ public class CardViewActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CardViewController.getInstance().release();
+    }
 }

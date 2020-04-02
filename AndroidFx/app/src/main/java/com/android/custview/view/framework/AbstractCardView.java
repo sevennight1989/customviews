@@ -35,7 +35,19 @@ public abstract class AbstractCardView extends FrameLayout implements View.OnCli
 
     protected abstract void onNewIntent(CardIntent intent);
 
+    public void pause() {
+        setVisibility(View.GONE);
+        onPause();
+    }
+
     protected abstract void onPause();
+
+    public void restart() {
+        setVisibility(View.VISIBLE);
+        onRestart();
+    }
+
+    protected abstract void onRestart();
 
     protected abstract void onDestroy();
 

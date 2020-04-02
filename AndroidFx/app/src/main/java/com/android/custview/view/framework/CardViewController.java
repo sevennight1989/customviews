@@ -1,7 +1,6 @@
 package com.android.custview.view.framework;
 
 import android.content.Context;
-import android.view.View;
 
 import com.com.android.custview.KLog;
 
@@ -59,8 +58,7 @@ public class CardViewController {
                     }
                     //添加一个新view会调用之前一个view的onPause函数
                     AbstractCardView lastObj = mCardViewMap.get(lastKey);
-                    lastObj.onPause();
-                    lastObj.setVisibility(View.GONE);
+                    lastObj.pause();
                 }
                 mCardViewMap.put(key, obj);
                 mIndexMap.put(key, mCurIndex);
@@ -112,10 +110,22 @@ public class CardViewController {
             KLog.logD("To removeCard not exist!!!");
             return;
         }
+        int curIndex = mIndexMap.get(key);
+        String lastKey = "";
         mIndexMap.remove(key);
+        for (Map.Entry<String, Integer> entry : mIndexMap.entrySet()) {
+            int index = entry.getValue();
+            if (index == curIndex - 1) {
+                lastKey = entry.getKey();
+                break;
+            }
+        }
         AbstractCardView cardView = mCardViewMap.get(key);
         removeCardViewFinal(cardView);
         mCardViewMap.remove(key);
+        AbstractCardView lastCarView = mCardViewMap.get(lastKey);
+        lastCarView.restart();
+
 
     }
 
@@ -129,5 +139,12 @@ public class CardViewController {
         abstractCardView.onDestroy();
         mCurIndex--;
         mViewRoot.removeView(abstractCardView);
+    }
+
+    public synchronized void release() {
+        mCardViewMap.clear();
+        mCurIndex = 0;
+        mIndexMap.clear();
+        mViewRoot.removeAllViews();
     }
 }
