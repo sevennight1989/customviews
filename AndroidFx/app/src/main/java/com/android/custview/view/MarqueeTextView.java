@@ -5,7 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
-public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView implements Runnable {
+import androidx.appcompat.widget.AppCompatTextView;
+
+public class MarqueeTextView extends AppCompatTextView implements Runnable {
     public MarqueeTextView(Context context) {
         super(context);
     }

@@ -1,11 +1,12 @@
 package com.com.android.custview.ui;
 
 import android.animation.ValueAnimator;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.custview.R;
 import com.com.android.custview.KLog;

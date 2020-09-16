@@ -2,8 +2,9 @@ package com.com.android.custview.ui;
 
 
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.custview.R;
 import com.com.android.custview.KLog;
@@ -17,7 +18,7 @@ public class MainActivity extends BaseActivity {
     private MainAdapter mMainAdapter;
 
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
-            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑"};
+            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列"};
 
     @Override
     public int getLayout() {
@@ -76,6 +77,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 8:
                         intent.setClass(MainActivity.this, ScrollActivity.class);
+                        break;
+                    case 9:
+                        intent.setClass(MainActivity.this, JetPackActivity.class);
                         break;
                 }
 

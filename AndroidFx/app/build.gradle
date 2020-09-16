@@ -1,27 +1,96 @@
 apply plugin: 'com.android.application'
-
+def commonPackage = "com.android.custview"
+def pubPackage = "com.android.custview.pub"
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.android.custview"
-        minSdkVersion 25
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        multiDexEnabled true
     }
+
     buildTypes {
+
+        debug {
+            minifyEnabled false
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
+            buildConfigField "boolean", "LOG_DEBUG", "true"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+//        preDexLibraries = false
+        additionalParameters = ['--core-library']
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+//    configurations.all {
+////        resolutionStrategy {
+////            force "com.android.support:appcompat-v7:27.1.1"
+////            force "com.android.support:support-v4:27.1.1"
+////            force "com.android.support:recyclerview-v7:27.1.1"
+////            force "com.android.support:design:27.1.1"
+////        }
+////    }
+    flavorDimensions "vehicle"
+    productFlavors {
+        common {
+            applicationId commonPackage
+            versionCode rootProject.ext.versionCode
+            versionName rootProject.ext.versionName
+            dimension "vehicle"
+        }
+        pub {
+            applicationId pubPackage
+            versionCode rootProject.ext.versionCode
+            versionName rootProject.ext.versionName
+            dimension "vehicle"
         }
     }
 }
 
+configurations {
+    commonCompile
+    pubCompile
+}
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        outputFileName = "../custview-release-unsigned.apk"
+    }
+}
+
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:recyclerview-v7:27.1.0'
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.blankj:utilcode:1.26.0'
+//    implementation "com.android.support:recyclerview-v7:$support_version"
+//    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation rootProject.ext.dependencies.constraintlayout
+//    implementation "android.arch.work:work-runtime:2.3.0-alpha01"
+//    implementation "android.arch.work:work-firebase:1.0.0-alpha09"
+    implementation "androidx.work:work-rxjava2:$work_version"
+    implementation "androidx.work:work-gcm:$work_version"
+    implementation "com.blankj:utilcode:$utilcode_version"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+//    implementation 'com.android.support:design:27.1.1'
 }

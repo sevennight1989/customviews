@@ -5,6 +5,7 @@ buildscript {
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        google()
         jcenter()
         
     }
@@ -25,6 +26,16 @@ allprojects {
         jcenter()
         
     }
+}
+ext{
+    versionName = "1.0.1"
+    versionCode = 10
+    compileSdkVersion = 29
+    minSdkVersion = 25
+    targetSdkVersion = 29
+    dependencies = [
+            constraintlayout  : "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    ]
 }
 
 task clean(type: Delete) {
