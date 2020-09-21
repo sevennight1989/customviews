@@ -1,4 +1,4 @@
-package com.com.android.custview.jetpack;
+package com.android.custview.jetpack;
 
 import android.content.Context;
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.com.android.custview.ui.ListActivity">
+    tools:context=".ui.ListActivity">
 
     <com.android.custview.view.QQListView
         android:id="@+id/id_listview"

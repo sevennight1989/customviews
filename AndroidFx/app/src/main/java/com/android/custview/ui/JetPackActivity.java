@@ -1,4 +1,4 @@
-package com.com.android.custview.ui;
+package com.android.custview.ui;
 
 import android.view.View;
 
@@ -10,18 +10,16 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.android.custview.R;
 import com.com.android.custview.KLog;
-import com.com.android.custview.jetpack.WorkerToMe;
-import com.com.android.custview.jetpack.WorkerToYou;
+import com.android.custview.jetpack.WorkerToMe;
+import com.android.custview.jetpack.WorkerToYou;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class JetPackActivity extends BaseActivity {
     OneTimeWorkRequest oneTimeWorkRequest;

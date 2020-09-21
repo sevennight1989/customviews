@@ -1,4 +1,4 @@
-package com.com.android.custview.bean;
+package com.android.custview.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;

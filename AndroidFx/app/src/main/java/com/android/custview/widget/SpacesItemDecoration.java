@@ -1,4 +1,4 @@
-package com.com.android.custview.widget;
+package com.android.custview.widget;
 
 import android.graphics.Rect;
 import android.view.View;
