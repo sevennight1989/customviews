@@ -1,7 +1,6 @@
-package com.com.android.custview.ui;
+package com.android.custview.ui;
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.android.custview.R;
 import com.android.custview.view.InfoCardView;

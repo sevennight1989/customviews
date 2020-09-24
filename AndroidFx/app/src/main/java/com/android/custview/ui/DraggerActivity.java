@@ -1,13 +1,14 @@
-package com.com.android.custview.ui;
+package com.android.custview.ui;
 
 
 import com.android.custview.R;
 
-public class CustView01Activity extends BaseActivity {
+public class DraggerActivity extends BaseActivity {
+
 
     @Override
     public int getLayout() {
-        return R.layout.activity_cust_view01;
+        return R.layout.activity_dragger;
     }
 
     @Override

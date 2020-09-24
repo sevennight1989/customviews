@@ -1,4 +1,4 @@
-package com.com.android.custview.ui;
+package com.android.custview.ui;
 
 
 import android.content.Intent;
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.custview.R;
 import com.com.android.custview.KLog;
-import com.com.android.custview.adapter.MainAdapter;
-import com.com.android.custview.bean.Person;
-import com.com.android.custview.widget.SpacesItemDecoration;
+import com.android.custview.adapter.MainAdapter;
+import com.android.custview.bean.Person;
+import com.android.custview.widget.SpacesItemDecoration;
 
 public class MainActivity extends BaseActivity {
 

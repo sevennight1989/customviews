@@ -1,4 +1,4 @@
-package com.com.android.custview.ui;
+package com.android.custview.ui;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
