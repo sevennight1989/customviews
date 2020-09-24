@@ -17,17 +17,49 @@ android {
         debug {
             minifyEnabled false
             buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField("String",
+                    "MIN_HU_VERSION",
+                    System.getenv("MIN_HU_VERSION")
+                            ? ('"' + System.getenv("MIN_HU_VERSION") + '"')
+                            : '"0"'
+            )
+            buildConfigField("String",
+                    "MAX_HU_VERSION",
+                    System.getenv("MAX_HU_VERSION")
+                            ? ('"' + System.getenv("MAX_HU_VERSION") + '"')
+                            : '"9999"'
+            )
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled false
             buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField("String",
+                    "MIN_HU_VERSION",
+                    System.getenv("MIN_HU_VERSION")
+                            ? ('"' + System.getenv("MIN_HU_VERSION") + '"')
+                            : '"0"'
+            )
+            buildConfigField("String",
+                    "MAX_HU_VERSION",
+                    System.getenv("MAX_HU_VERSION")
+                            ? ('"' + System.getenv("MAX_HU_VERSION") + '"')
+                            : '"9999"'
+            )
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
     lintOptions {
         abortOnError false
+    }
+    dataBinding {
+        enabled = true
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
     dexOptions {
         javaMaxHeapSize "4g"
@@ -39,28 +71,81 @@ android {
             dirs 'libs'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/spring.handlers'
+        exclude 'META-INF/spring.schemas'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/proguard/coroutines.pro'
+        exclude 'META-INF/ASL2.0'
+
+        doNotStrip "*/*/libdjivideo.so"
+        doNotStrip "*/*/libSDKRelativeJNI.so"
+        doNotStrip "*/*/libFlyForbid.so"
+        doNotStrip "*/*/libduml_vision_bokeh.so"
+        doNotStrip "*/*/libyuv2.so"
+        doNotStrip "*/*/libGroudStation.so"
+        doNotStrip "*/*/libFRCorkscrew.so"
+        doNotStrip "*/*/libUpgradeVerify.so"
+        doNotStrip "*/*/libFR.so"
+        doNotStrip "*/*/libDJIFlySafeCore.so"
+        doNotStrip "*/*/libdjifs_jni.so"
+        doNotStrip "*/*/libsfjni.so"
+        doNotStrip "*/*/libDJICommonJNI.so"
+        doNotStrip "*/*/libDJICSDKCommon.so"
+        doNotStrip "*/*/libDJIUpgradeCore.so"
+        doNotStrip "*/*/libDJIUpgradeJNI.so"
+        exclude 'META-INF/rxjava.properties'
+
+        // pickFirsts:当出现重复文件，会使用第一个匹配的文件打包进入apk
+//        pickFirst "lib/*/libBDSpeechDecoder_V1.so"
+//        pickFirst "lib/*/libbd_etts.so"
+//        pickFirst "lib/*/libgnustl_shared.so"
+//        pickFirst "lib/*/libiconv.so"
+        pickFirst "lib/*/libindoor.so"
+        pickFirst "lib/*/liblocSDK7b.so"
+    }
+
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
 
-//    configurations.all {
-////        resolutionStrategy {
-////            force "com.android.support:appcompat-v7:27.1.1"
-////            force "com.android.support:support-v4:27.1.1"
-////            force "com.android.support:recyclerview-v7:27.1.1"
-////            force "com.android.support:design:27.1.1"
-////        }
-////    }
+/*    //保证support库使用26.1.0
+    configurations.all {
+        //循环一个个的依赖库
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            //获取当前循环到的依赖库
+            def requested = details.requested
+            //如果这个依赖库群组的名字是com.android.support
+            if (requested.group == 'com.android.support') {
+                //且其名字不是以multidex开头的
+                if (!requested.name.startsWith("multidex")) {
+                    //这里指定需要统一的依赖版本
+                    details.useVersion "26.1.0"
+                }
+            }
+        }
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }*/
+
+
     flavorDimensions "vehicle"
     productFlavors {
         common {
+            manifestPlaceholders = [channel: "common", appName: "CommonTest"]
+            buildConfigField "String", "appName", "\"CommonTest\""
             applicationId commonPackage
             versionCode rootProject.ext.versionCode
             versionName rootProject.ext.versionName
             dimension "vehicle"
         }
         pub {
+            manifestPlaceholders = [channel: "pub", appName: "PubTest"]
+            buildConfigField "String", "appName", "\"PubTest\""
+            applicationIdSuffix ".beta"
+            versionNameSuffix "-beta"
             applicationId pubPackage
             versionCode rootProject.ext.versionCode
             versionName rootProject.ext.versionName
@@ -69,14 +154,21 @@ android {
     }
 }
 
+
 configurations {
     commonCompile
     pubCompile
 }
 android.applicationVariants.all { variant ->
     variant.outputs.all {
-        outputFileName = "../custview-release-unsigned.apk"
+        outputFileName = "../custview_release_" + rootProject.ext.versionName + "_" +  getDate() + ".apk"
     }
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate
 }
 
 dependencies {
@@ -92,5 +184,18 @@ dependencies {
     implementation "androidx.work:work-gcm:$work_version"
     implementation "com.blankj:utilcode:$utilcode_version"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-//    implementation 'com.android.support:design:27.1.1'
+
+
+    implementation "org.reactivestreams:reactive-streams:$reactive_stream"
+
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit2_adapter_version"
+    implementation("com.squareup.retrofit2:converter-simplexml:$retrofit2_simplexml") {
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+        exclude group: 'xpp3', module: 'xpp3'
+    }
+
+    implementation "com.squareup.okio:okio:$squareup_okio_version"
+
+//    implementation ("com.android.support:design:27.1.1") { changing = true}
 }
