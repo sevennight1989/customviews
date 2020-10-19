@@ -17,8 +17,8 @@ public class MainActivity extends BaseActivity {
     private RecyclerView mRv;
     private MainAdapter mMainAdapter;
 
-    private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
-            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列"};
+//    private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
+//            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列"};
 
     @Override
     public int getLayout() {
@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initData() {
         mMainAdapter = new MainAdapter(this);
+        String []items = getResources().getStringArray(R.array.main_items);
         mMainAdapter.setData(items);
         mMainAdapter.setOnClickListener(new MainAdapter.OnClickListener() {
             @Override

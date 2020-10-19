@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="main_items">
+        <item>自定义控件</item>
+        <item>进度条变色</item>
+        <item>自定义音量条</item>
+        <item>自定义ViewGroup</item>
+        <item>自定义拖拽</item>
+        <item>ListView侧滑</item>
+        <item>自定义跑马灯</item>
+        <item>卡片框架</item>
+        <item>自定义上滑</item>
+        <item>JetPacket系列</item>
+    </string-array>
+</resources>
