@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initData() {
         mMainAdapter = new MainAdapter(this);
-        String []items = getResources().getStringArray(R.array.main_items);
+        String[] items = getResources().getStringArray(R.array.main_items);
         mMainAdapter.setData(items);
         mMainAdapter.setOnClickListener(new MainAdapter.OnClickListener() {
             @Override
@@ -90,5 +90,15 @@ public class MainActivity extends BaseActivity {
         mRv.addItemDecoration(new SpacesItemDecoration(20));
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mRv.setAdapter(mMainAdapter);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            int width = mRv.getMeasuredWidth();
+            int height = mRv.getMeasuredHeight();
+            KLog.logD("Width: " + width + "   Height: " + height);
+        }
     }
 }

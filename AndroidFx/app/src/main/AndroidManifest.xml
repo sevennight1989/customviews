@@ -21,7 +21,8 @@
         <activity android:name=".ui.CustomVolumActivity" />
         <activity android:name=".ui.ProgressBarActivity" />
         <activity android:name=".ui.CustView01Activity" />
-        <activity android:name=".ui.LanguageTestActivity">
+        <activity android:name=".ui.LanguageTestActivity"
+            android:configChanges="locale">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

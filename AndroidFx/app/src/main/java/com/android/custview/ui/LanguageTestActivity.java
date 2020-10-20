@@ -1,23 +1,39 @@
 package com.android.custview.ui;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.LocaleList;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.android.custview.R;
 import com.com.android.custview.KLog;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.Locale;
 
-public class LanguageTestActivity extends BaseActivity {
+public class LanguageTestActivity extends BaseActivity implements View.OnClickListener {
+
+    private TextView display_text;
+    private Handler mWorkHandler;
+    private Button switch_cn;
     @Override
     public int getLayout() {
         return R.layout.activity_lauguage;
@@ -25,27 +41,49 @@ public class LanguageTestActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        display_text = findViewById(R.id.display_text);
+        switch_cn = findViewById(R.id.switch_cn);
+        switch_cn.setOnClickListener(this);
+        hook(this,switch_cn);
     }
 
     @Override
     public void initData() {
+        HandlerThread handlerThread = new HandlerThread("HandleThread1");
+        handlerThread.start();
+        mWorkHandler = new Handler(handlerThread.getLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                KLog.logD("handleMessage : " + msg.what +"   " + msg.arg1 + " " + Thread.currentThread().getName());
+            }
+        };
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.switch_en:
                 switchEn();
+                updateLocationString();
+                Message msg = new Message();
+                msg.what = 1;
+                msg.arg1 = 10;
+                mWorkHandler.sendMessage(msg);
                 break;
 
             case R.id.switch_cn:
                 switchCn();
+                updateLocationString();
+                new LrTask().execute("Tom","Peter");
                 break;
 
             case R.id.toMain:
                 startActivity(new Intent(this, MainActivity.class));
                 break;
         }
+    }
+
+    private void updateLocationString(){
+        display_text.setText(getResources().getString(R.string.display_text));
     }
 
     private void switchEn() {
@@ -78,6 +116,21 @@ public class LanguageTestActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ViewTreeObserver observer = display_text.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                display_text.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                int width = display_text.getMeasuredWidth();
+                int height = display_text.getMeasuredHeight();
+                KLog.logD("Width: " + width + "   Height: " + height);
+            }
+        });
+    }
+
     @TargetApi(Build.VERSION_CODES.N)
     private Context updateResources(Context context, Locale locale) {
         if (null == locale) {
@@ -90,4 +143,89 @@ public class LanguageTestActivity extends BaseActivity {
         KLog.logD("updateResources ");
         return context.createConfigurationContext(configuration);
     }
+
+
+    private class LrTask extends AsyncTask<String,Integer,Boolean>{
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            int len = strings.length;
+            for(int i = 0; i < len;i ++){
+                KLog.logD("doInBackground param: " + strings[i] + "   " + Thread.currentThread().getName());
+                publishProgress(i);
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            KLog.logD("onPreExecute "+ "   " + Thread.currentThread().getName());
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            KLog.logD("onPostExecute: " + aBoolean+ "   " + Thread.currentThread().getName());
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            int len = values.length;
+            for(int i = 0 ; i < len;i ++){
+                KLog.logD("onProgressUpdate: " + values[i] + "   " + Thread.currentThread().getName());
+            }
+        }
+
+        @Override
+        protected void onCancelled(Boolean aBoolean) {
+            KLog.logD("onCancelled: " + aBoolean);
+        }
+
+        @Override
+        protected void onCancelled() {
+            KLog.logD("onCancelled");
+        }
+    }
+
+    @SuppressLint({"DiscouragedPrivateApi", "PrivateApi"})
+    public static void hook(Context context,final View view){
+        try {
+            Method method = View.class.getDeclaredMethod("getListenerInfo");
+            method.setAccessible(true);
+            Object mListenerInfo = method.invoke(view);
+            Class<?> listenerInfoClz = Class.forName("android.view.View$ListenerInfo");
+            Field field = listenerInfoClz.getDeclaredField("mOnClickListener");
+            final View.OnClickListener onClickListenerInstance = (View.OnClickListener) field.get(mListenerInfo);
+
+            Object proxyOnClickListener = Proxy.newProxyInstance(context.getClassLoader(), new Class[]{View.OnClickListener.class}, new InvocationHandler() {
+                @Override
+                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                    KLog.logD("动态代理 点击事件被hook 到了");
+                    return method.invoke(onClickListenerInstance,args);
+                }
+            });
+            field.set(mListenerInfo,proxyOnClickListener);
+
+//            field.set(mListenerInfo,new ProxyOnClickListener(onClickListenerInstance));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+   private static class ProxyOnClickListener implements View.OnClickListener {
+
+        View.OnClickListener oriLis;
+
+        public ProxyOnClickListener(View.OnClickListener oriLis) {
+            this.oriLis = oriLis;
+        }
+
+        @Override
+        public void onClick(View v) {
+            KLog.logD("静态代理 ProxyOnClickListener 点击事件被hook 到了);");
+            if (oriLis != null) {
+                oriLis.onClick(v);
+            }
+        }
+    }
+
 }
