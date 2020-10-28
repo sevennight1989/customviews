@@ -82,6 +82,9 @@ public class MainActivity extends BaseActivity {
                     case 9:
                         intent.setClass(MainActivity.this, JetPackActivity.class);
                         break;
+                    case 10:
+                        intent.setClass(MainActivity.this, NotificationActivity.class);
+                        break;
                 }
 
                 startActivity(intent);

@@ -11,5 +11,6 @@
         <item>卡片框架</item>
         <item>自定义上滑</item>
         <item>JetPacket系列</item>
+        <item>NotificationText</item>
     </string-array>
 </resources>

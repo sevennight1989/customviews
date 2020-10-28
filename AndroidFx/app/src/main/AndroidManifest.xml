@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.NotificationReceiveActivity"/>
+        <activity android:name=".ui.NotificationActivity" />
         <activity android:name=".ui.JetPackActivity" />
         <activity android:name=".ui.ScrollActivity" />
         <activity android:name=".ui.CardViewActivity" />
@@ -21,7 +23,8 @@
         <activity android:name=".ui.CustomVolumActivity" />
         <activity android:name=".ui.ProgressBarActivity" />
         <activity android:name=".ui.CustView01Activity" />
-        <activity android:name=".ui.LanguageTestActivity"
+        <activity
+            android:name=".ui.LanguageTestActivity"
             android:configChanges="locale">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,9 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity">
-
-        </activity>
+        <activity android:name=".ui.MainActivity" />
 
         <meta-data
             android:name="com.zp.lr.logdir"

@@ -13,5 +13,11 @@ public class KLog {
             Log.d(TAG,str);
         }
     }
+
+    public static void logE(String str){
+        if(ENABLE_LOG){
+            Log.e(TAG,str);
+        }
+    }
 }
 

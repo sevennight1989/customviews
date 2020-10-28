@@ -161,7 +161,7 @@ configurations {
 }
 android.applicationVariants.all { variant ->
     variant.outputs.all {
-        outputFileName = "../custview_release_" + rootProject.ext.versionName + "_" +  getDate() + ".apk"
+        outputFileName = "../custview_release_" + rootProject.ext.versionName + "_" + getDate() + ".apk"
     }
 }
 
@@ -211,4 +211,6 @@ dependencies {
     implementation "com.squareup.okio:okio:$squareup_okio_version"
 
 //    implementation ("com.android.support:design:27.1.1") { changing = true}
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
 }
