@@ -12,5 +12,6 @@
         <item>自定义上滑</item>
         <item>JetPacket系列</item>
         <item>通知测试</item>
+        <item>GLSurfaceView</item>
     </string-array>
 </resources>

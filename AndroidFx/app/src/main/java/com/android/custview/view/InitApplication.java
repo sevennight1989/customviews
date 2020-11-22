@@ -21,7 +21,7 @@ public class InitApplication extends Application {
         KLog.logD("MIN_HU_VERSION :" + BuildConfig.MIN_HU_VERSION);
         KLog.logD("MAX_HU_VERSION: " + BuildConfig.MAX_HU_VERSION);
         KLog.logD("Head: " + Head.HEAD_NAME);
-        KLog.logD("ProcessName: " + getProcessName());
+//        KLog.logD("ProcessName: " + getProcessName());
         KLog.logD("ProcessName: " + getProcessName(android.os.Process.myPid()));
     }
 

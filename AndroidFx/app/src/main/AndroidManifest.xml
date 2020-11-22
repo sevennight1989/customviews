@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.NotificationReceiveActivity"/>
+        <activity android:name=".ui.GLSurfaceViewActivity"></activity>
+        <activity android:name=".ui.NotificationReceiveActivity" />
         <activity android:name=".ui.NotificationActivity" />
         <activity android:name=".ui.JetPackActivity" />
         <activity android:name=".ui.ScrollActivity" />

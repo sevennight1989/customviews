@@ -85,6 +85,9 @@ public class MainActivity extends BaseActivity {
                     case 10:
                         intent.setClass(MainActivity.this, NotificationActivity.class);
                         break;
+                    case 11:
+                        intent.setClass(MainActivity.this, GLSurfaceViewActivity.class);
+                        break;
                 }
 
                 startActivity(intent);
