@@ -9,7 +9,7 @@ import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.egl.EGLSurface;
 
 
-public class MyEglHelper {
+public class EglHelper {
 
     private EGL10 mEgl;
     private EGLDisplay mEglDisplay;

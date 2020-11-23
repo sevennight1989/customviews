@@ -2,12 +2,13 @@ package com.android.custview.view.render;
 
 import android.opengl.GLES20;
 
-import com.android.custview.view.MyGLSurfaceView;
+public class MyRender implements BaseSurfaceView.EGLRender {
 
-public class MyRender implements MyGLSurfaceView.MyGLRender {
+    public MyRender() {
+    }
+
     @Override
     public void onSurfaceCreated() {
-
     }
 
     @Override
