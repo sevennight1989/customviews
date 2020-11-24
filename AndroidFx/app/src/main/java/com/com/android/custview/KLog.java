@@ -8,9 +8,9 @@ public class KLog {
 
     private static boolean ENABLE_LOG = true;
 
-    public static void logD(String str){
+    public static void logI(String str){
         if(ENABLE_LOG){
-            Log.d(TAG,str);
+            Log.i(TAG,str);
         }
     }
 

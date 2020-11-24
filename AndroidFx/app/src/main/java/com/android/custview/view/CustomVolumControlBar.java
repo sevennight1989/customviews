@@ -104,12 +104,12 @@ public class CustomVolumControlBar extends View {
 
     private void drawOval(Canvas canvas, int center, int radius) {
         float itemSize = (360 * 1.0f - mCount * mSplitSize) / mCount;
-        KLog.logD("itemSize: "  + itemSize);
+        KLog.logI("itemSize: "  + itemSize);
         RectF oval = new RectF(center - radius, center - radius, center + radius, center + radius);
         mPaint.setColor(mFirstColor);
         for (int i = 0; i < mCount; i++) {
             canvas.drawArc(oval, i * (itemSize + mSplitSize), itemSize, false, mPaint);
-            KLog.logD("=>: "+i * (itemSize + mSplitSize));
+            KLog.logI("=>: "+i * (itemSize + mSplitSize));
         }
         mPaint.setColor(mSecondColor);
         for (int i = 0; i < mCurrentCount; i++) {

@@ -18,7 +18,7 @@ public class WorkerToYou extends Worker {
     @Override
     public Result doWork() {
         String str = this.getInputData().getString("demo");
-        KLog.logD("doWork: " + str);
+        KLog.logI("doWork: " + str);
         Data outputData = new Data.Builder()
                 .putString("out", "WorkerToYou")
                 .build();

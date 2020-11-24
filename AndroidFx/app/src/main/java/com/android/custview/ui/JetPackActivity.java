@@ -74,18 +74,18 @@ public class JetPackActivity extends BaseActivity {
                         return new Lifecycle() {
                             @Override
                             public void addObserver(@NonNull LifecycleObserver observer) {
-                                KLog.logD("addObserver");
+                                KLog.logI("addObserver");
                             }
 
                             @Override
                             public void removeObserver(@NonNull LifecycleObserver observer) {
-                                KLog.logD("removeObserver");
+                                KLog.logI("removeObserver");
                             }
 
                             @NonNull
                             @Override
                             public State getCurrentState() {
-                                KLog.logD("getCurrentState");
+                                KLog.logI("getCurrentState");
                                 return State.CREATED;
                             }
                         };
@@ -96,7 +96,7 @@ public class JetPackActivity extends BaseActivity {
                     @Override
                     public void onChanged(WorkInfo workInfo) {
                         String out = workInfo.getOutputData().getString("out");
-                        KLog.logD("onchange " + workInfo.getState() + "  " + out);
+                        KLog.logI("onchange " + workInfo.getState() + "  " + out);
                     }
                 });
 
@@ -107,7 +107,7 @@ public class JetPackActivity extends BaseActivity {
                             Data progress = workInfo.getProgress();
                             int value = progress.getInt(PROGRESS, 0);
 //                        String out = workInfo.getOutputData().getString("out");
-                            KLog.logD("onchange  value: " + value + "  " + workInfo.getState());
+                            KLog.logI("onchange  value: " + value + "  " + workInfo.getState());
                         }
                     }
                 });

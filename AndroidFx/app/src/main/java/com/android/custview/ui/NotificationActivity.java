@@ -47,7 +47,7 @@ public class NotificationActivity extends BaseActivity {
         Intent intent = new Intent(this, NotificationReceiveActivity.class);
         intent.putExtra("url", url);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, (int) (Math.random() * 100), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         String channelId = createLinkNotificationChannel(NotificationManager.IMPORTANCE_HIGH);
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this, channelId)
                 .setContentTitle("解析成功")

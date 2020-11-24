@@ -57,7 +57,7 @@ public class ScrollActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         int ch = lp.height;
                         float curdiff = event.getRawY() - mLastuPY;
-                        KLog.logD("ch : " + ch);
+                        KLog.logI("ch : " + ch);
                         //下滑
                         if (curdiff > 0) {
                             if (ch < maxheight / 4 * 3) {
@@ -68,9 +68,9 @@ public class ScrollActivity extends AppCompatActivity {
                                     @Override
                                     public void onAnimationUpdate(ValueAnimator animation) {
                                         float currentValue = (float) animation.getAnimatedValue();
-                                        KLog.logD("currentValue: " + currentValue);
+                                        KLog.logI("currentValue: " + currentValue);
                                         lp.height = (int) currentValue;
-                                        KLog.logD("lp.height: " + lp.height);
+                                        KLog.logI("lp.height: " + lp.height);
                                         scroll.setLayoutParams(lp);
                                     }
                                 });

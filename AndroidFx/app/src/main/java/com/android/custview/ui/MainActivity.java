@@ -3,6 +3,11 @@ package com.android.custview.ui;
 
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleRegistry;
+import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +24,7 @@ public class MainActivity extends BaseActivity {
 
 //    private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
 //            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列"};
+
 
     @Override
     public int getLayout() {
@@ -37,6 +43,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        getLifecycle().addObserver(new MyObserver());
         mMainAdapter = new MainAdapter(this);
         String[] items = getResources().getStringArray(R.array.main_items);
         mMainAdapter.setData(items);
@@ -44,7 +51,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(int pos) {
                 Intent intent = new Intent();
-                KLog.logD("点击了 " + pos);
+                KLog.logI("点击了 " + pos);
                 switch (pos) {
                     case 0:
                         intent.setClass(MainActivity.this, CustView01Activity.class);
@@ -104,7 +111,24 @@ public class MainActivity extends BaseActivity {
         if (hasFocus) {
             int width = mRv.getMeasuredWidth();
             int height = mRv.getMeasuredHeight();
-            KLog.logD("Width: " + width + "   Height: " + height);
+            KLog.logI("Width: " + width + "   Height: " + height);
         }
+    }
+
+    public class MyObserver implements LifecycleObserver{
+        @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+        void onResume(){
+            KLog.logI("MyObserver onResume");
+        }
+        @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+        void onPause(){
+            KLog.logI("MyObserver onPause");
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        KLog.logI("MainActivity onResume");
     }
 }

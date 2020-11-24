@@ -85,7 +85,7 @@ public class CustomProgressBar extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        KLog.logD("onDraw");
+        KLog.logI("onDraw");
         int center = getWidth() / 2;
         int radius = center - mCircleWidth / 2;
         mPaint.setStrokeWidth(mCircleWidth);
@@ -97,13 +97,13 @@ public class CustomProgressBar extends View {
             canvas.drawCircle(center, center, radius, mPaint);
             mPaint.setColor(mSecondColor);
             canvas.drawArc(oval, -90, mProgress, false, mPaint);
-            KLog.logD("draw1");
+            KLog.logI("draw1");
         } else {
             mPaint.setColor(mSecondColor);
             canvas.drawCircle(center, center, radius, mPaint);
             mPaint.setColor(mFirstColor);
             canvas.drawArc(oval, -90, mProgress, false, mPaint);
-            KLog.logD("draw2");
+            KLog.logI("draw2");
         }
 
     }

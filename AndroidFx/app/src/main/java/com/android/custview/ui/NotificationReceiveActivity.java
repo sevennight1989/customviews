@@ -30,7 +30,7 @@ public class NotificationReceiveActivity extends BaseActivity {
                 KLog.logE("Url is null!!!");
                 return;
             }
-            KLog.logD("Url: " + url);
+            KLog.logI("Url: " + url);
             mUrlContentText.setText(url);
         }
     }

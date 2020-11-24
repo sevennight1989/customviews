@@ -16,13 +16,13 @@ public class InitApplication extends Application {
     public void onCreate() {
         super.onCreate();
         String logDir = AppManifestUtil.getAndroidManifestStringValueByName(this, AppManifestUtil.ManifestName.LogDir);
-        KLog.logD("LogDir: " + logDir);
-        KLog.logD("AppName : " + BuildConfig.appName);
-        KLog.logD("MIN_HU_VERSION :" + BuildConfig.MIN_HU_VERSION);
-        KLog.logD("MAX_HU_VERSION: " + BuildConfig.MAX_HU_VERSION);
-        KLog.logD("Head: " + Head.HEAD_NAME);
-//        KLog.logD("ProcessName: " + getProcessName());
-        KLog.logD("ProcessName: " + getProcessName(android.os.Process.myPid()));
+        KLog.logI("LogDir: " + logDir);
+        KLog.logI("AppName : " + BuildConfig.appName);
+        KLog.logI("MIN_HU_VERSION :" + BuildConfig.MIN_HU_VERSION);
+        KLog.logI("MAX_HU_VERSION: " + BuildConfig.MAX_HU_VERSION);
+        KLog.logI("Head: " + Head.HEAD_NAME);
+//        KLog.logI("ProcessName: " + getProcessName());
+        KLog.logI("ProcessName: " + getProcessName(android.os.Process.myPid()));
     }
 
     /**
@@ -39,7 +39,7 @@ public class InitApplication extends Application {
             return null;
         }
         for (ActivityManager.RunningAppProcessInfo processInfo : processInfoList) {
-            KLog.logD("RunningAppProcessInfo : " + processInfo.pid + "  " + processInfo.processName);
+            KLog.logI("RunningAppProcessInfo : " + processInfo.pid + "  " + processInfo.processName);
             if (processInfo.pid == pid) {
                 return processInfo.processName;
             }

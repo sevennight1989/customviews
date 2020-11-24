@@ -54,7 +54,7 @@ public class LanguageTestActivity extends BaseActivity implements View.OnClickLi
         mWorkHandler = new Handler(handlerThread.getLooper()){
             @Override
             public void handleMessage(@NonNull Message msg) {
-                KLog.logD("handleMessage : " + msg.what +"   " + msg.arg1 + " " + Thread.currentThread().getName());
+                KLog.logI("handleMessage : " + msg.what +"   " + msg.arg1 + " " + Thread.currentThread().getName());
             }
         };
     }
@@ -95,7 +95,7 @@ public class LanguageTestActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void switchLocate(Locale locale) {
-        KLog.logD("switchLocate:" + locale.getDisplayName());
+        KLog.logI("switchLocate:" + locale.getDisplayName());
         Resources resources = getResources();//获得res资源对象
         Configuration config = resources.getConfiguration();//获得设置对象
         DisplayMetrics dm = resources.getDisplayMetrics();//获得屏幕参数：主要是分辨率，像素等。
@@ -126,7 +126,7 @@ public class LanguageTestActivity extends BaseActivity implements View.OnClickLi
                 display_text.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 int width = display_text.getMeasuredWidth();
                 int height = display_text.getMeasuredHeight();
-                KLog.logD("Width: " + width + "   Height: " + height);
+                KLog.logI("Width: " + width + "   Height: " + height);
             }
         });
     }
@@ -140,7 +140,7 @@ public class LanguageTestActivity extends BaseActivity implements View.OnClickLi
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(locale);
         configuration.setLocales(new LocaleList(locale));
-        KLog.logD("updateResources ");
+        KLog.logI("updateResources ");
         return context.createConfigurationContext(configuration);
     }
 
@@ -151,7 +151,7 @@ public class LanguageTestActivity extends BaseActivity implements View.OnClickLi
         protected Boolean doInBackground(String... strings) {
             int len = strings.length;
             for(int i = 0; i < len;i ++){
-                KLog.logD("doInBackground param: " + strings[i] + "   " + Thread.currentThread().getName());
+                KLog.logI("doInBackground param: " + strings[i] + "   " + Thread.currentThread().getName());
                 publishProgress(i);
             }
             return true;
@@ -159,30 +159,30 @@ public class LanguageTestActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         protected void onPreExecute() {
-            KLog.logD("onPreExecute "+ "   " + Thread.currentThread().getName());
+            KLog.logI("onPreExecute "+ "   " + Thread.currentThread().getName());
         }
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
-            KLog.logD("onPostExecute: " + aBoolean+ "   " + Thread.currentThread().getName());
+            KLog.logI("onPostExecute: " + aBoolean+ "   " + Thread.currentThread().getName());
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
             int len = values.length;
             for(int i = 0 ; i < len;i ++){
-                KLog.logD("onProgressUpdate: " + values[i] + "   " + Thread.currentThread().getName());
+                KLog.logI("onProgressUpdate: " + values[i] + "   " + Thread.currentThread().getName());
             }
         }
 
         @Override
         protected void onCancelled(Boolean aBoolean) {
-            KLog.logD("onCancelled: " + aBoolean);
+            KLog.logI("onCancelled: " + aBoolean);
         }
 
         @Override
         protected void onCancelled() {
-            KLog.logD("onCancelled");
+            KLog.logI("onCancelled");
         }
     }
 
@@ -199,7 +199,7 @@ public class LanguageTestActivity extends BaseActivity implements View.OnClickLi
             Object proxyOnClickListener = Proxy.newProxyInstance(context.getClassLoader(), new Class[]{View.OnClickListener.class}, new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                    KLog.logD("动态代理 点击事件被hook 到了");
+                    KLog.logI("动态代理 点击事件被hook 到了");
                     return method.invoke(onClickListenerInstance,args);
                 }
             });
@@ -221,7 +221,7 @@ public class LanguageTestActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         public void onClick(View v) {
-            KLog.logD("静态代理 ProxyOnClickListener 点击事件被hook 到了);");
+            KLog.logI("静态代理 ProxyOnClickListener 点击事件被hook 到了);");
             if (oriLis != null) {
                 oriLis.onClick(v);
             }

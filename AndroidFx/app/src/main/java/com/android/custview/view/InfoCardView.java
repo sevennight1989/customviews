@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.android.custview.R;
 import com.android.custview.view.framework.AbstractCardView;
 import com.android.custview.view.framework.CardIntent;
+import com.com.android.custview.KLog;
 
 public class InfoCardView extends AbstractCardView {
     private Button mCloseBt;
@@ -29,6 +30,7 @@ public class InfoCardView extends AbstractCardView {
         LayoutInflater.from(context).inflate(R.layout.info_card_layout, this, true);
         mCloseBt = findViewById(R.id.close);
         mCloseBt.setOnClickListener(this);
+        KLog.logI("InfoCardView Call Construct Method");
     }
 
     @Override

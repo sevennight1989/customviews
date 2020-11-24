@@ -21,7 +21,7 @@ public class WorkerToMe extends Worker {
     @Override
     public Result doWork() {
         String str = this.getInputData().getString("demo");
-        KLog.logD("doWork: " + str);
+        KLog.logI("doWork: " + str);
         try {
             Thread.sleep(DELAY);
         } catch (InterruptedException exception) {

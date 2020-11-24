@@ -33,7 +33,7 @@ public class CardViewController {
 
     public void init(FrameView view) {
         if (view == null) {
-            KLog.logD("Root View can't be null!");
+            KLog.logI("Root View can't be null!");
             return;
         }
         mViewRoot = view;
@@ -107,7 +107,7 @@ public class CardViewController {
     public void removeCardView(Class<? extends AbstractCardView> clazz) {
         String key = clazz.getSimpleName();
         if (!isCardViewExist(key)) {
-            KLog.logD("To removeCard not exist!!!");
+            KLog.logI("To removeCard not exist!!!");
             return;
         }
         int curIndex = mIndexMap.get(key);

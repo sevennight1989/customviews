@@ -23,11 +23,11 @@ public class AppManifestUtil {
             ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = ai.metaData;
             String value = bundle.getString(name);
-            KLog.logD("name:" + name + " value:" + value);
+            KLog.logI("name:" + name + " value:" + value);
             return value;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            KLog.logD("Exception:" + e.getMessage());
+            KLog.logI("Exception:" + e.getMessage());
         }
         return null;
     }
@@ -38,11 +38,11 @@ public class AppManifestUtil {
             ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = ai.metaData;
             boolean value = bundle.getBoolean(name);
-            KLog.logD("name:" + name + " value:" + value);
+            KLog.logI("name:" + name + " value:" + value);
             return value;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            KLog.logD("Exception:" + e.getMessage());
+            KLog.logI("Exception:" + e.getMessage());
         }
         return false;
     }
@@ -53,11 +53,11 @@ public class AppManifestUtil {
             ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = ai.metaData;
             int value = bundle.getInt(name);
-            KLog.logD("name:" + name + " value:" + value);
+            KLog.logI("name:" + name + " value:" + value);
             return value;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            KLog.logD("Exception:" + e.getMessage());
+            KLog.logI("Exception:" + e.getMessage());
         }
         return -1;
     }

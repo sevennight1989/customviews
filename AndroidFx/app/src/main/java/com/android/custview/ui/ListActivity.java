@@ -57,7 +57,7 @@ public class ListActivity extends BaseActivity {
         if (TextUtils.equals(type, "person")) {
             Person p = getIntent().getParcelableExtra("person");
             if (p != null) {
-                KLog.logD(p.toString());
+                KLog.logI(p.toString());
             }
         }
     }
