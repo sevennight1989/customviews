@@ -2,11 +2,13 @@ package com.android.custview.view.render;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.android.custview.view.EglHelper;
+import com.com.android.custview.KLog;
 
 import java.lang.ref.WeakReference;
 
@@ -77,6 +79,7 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        KLog.logI("surfaceCreated");
         if (surface == null) {
             surface = holder.getSurface();
         }
@@ -87,7 +90,7 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
+        KLog.logI("surfaceChanged");
         eglThread.width = width;
         eglThread.height = height;
         eglThread.isChange = true;
@@ -96,6 +99,7 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        KLog.logI("surfaceDestroyed");
         eglThread.onDestroy();
         eglThread = null;
         surface = null;
@@ -164,6 +168,7 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
                     if (eglSurfaceViewWeakReference.get().mRenderMode == RENDERMODE_WHEN_DIRTY) {
                         synchronized (object) {
                             try {
+                                KLog.logI("2222");
                                 object.wait();
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
@@ -171,6 +176,7 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
                         }
                     } else if (eglSurfaceViewWeakReference.get().mRenderMode == RENDERMODE_CONTINUOUSLY) {
                         try {
+                            KLog.logI("3333");
                             Thread.sleep(1000 / 60);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -179,7 +185,7 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
                         throw new RuntimeException("mRenderMode is wrong value");
                     }
                 }
-
+                KLog.logI("1111");
                 onCreate();
                 onChange(width, height);
                 onDraw();

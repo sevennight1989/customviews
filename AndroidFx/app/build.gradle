@@ -172,68 +172,78 @@ def getDate() {
 }
 
 dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation "com.android.support:recyclerview-v7:$support_version"
-//    implementation "com.android.support:appcompat-v7:$support_version"
+    //    implementation "com.android.support:recyclerview-v7:$support_version"
+
+    //    implementation "com.android.support:appcompat-v7:$support_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation rootProject.ext.dependencies.constraintlayout
-//    implementation "android.arch.work:work-runtime:2.3.0-alpha01"
-//    implementation "android.arch.work:work-firebase:1.0.0-alpha09"
+
+    //    implementation "android.arch.work:work-runtime:2.3.0-alpha01"
+
+    //    implementation "android.arch.work:work-firebase:1.0.0-alpha09"
     implementation "androidx.work:work-rxjava2:$work_version"
     implementation "androidx.work:work-gcm:$work_version"
     implementation "com.blankj:utilcode:$utilcode_version"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-
-
     implementation "org.reactivestreams:reactive-streams:$reactive_stream"
-
-
     implementation("com.squareup.retrofit2:converter-simplexml:$retrofit2_simplexml") {
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
         exclude group: 'xpp3', module: 'xpp3'
     }
-
     implementation "com.google.code.gson:gson:${gson_version}"
     implementation "io.reactivex.rxjava2:rxjava:${rxjava_version}"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+
     //Gson converter
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
     //RxJava2 Adapter
     implementation 'com.squareup.retrofit2:converter-scalars:2.0.0'
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit2_adapter_version"
+
     //okhttp
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
-
     implementation "com.squareup.okio:okio:$squareup_okio_version"
 
-//    implementation ("com.android.support:design:27.1.1") { changing = true}
+    //    implementation ("com.android.support:design:27.1.1") { changing = true}
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
     implementation 'androidx.navigation:navigation-ui:2.3.0'
-
     def lifecycle_version = "2.0.0"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
     // alternatively - just ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version" // For Kotlin use lifecycle-viewmodel-ktx
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+
+    // For Kotlin use lifecycle-viewmodel-ktx
+
     // alternatively - just LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
     // alternatively - Lifecycles only (no ViewModel or LiveData). Some UI
+
     //     AndroidX libraries use this lightweight import for Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // For Kotlin use kapt instead of annotationProcessor
+    // For Kotlin use kapt instead of annotationProcessor
+
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     // optional - ReactiveStreams support for LiveData
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version" // For Kotlin use lifecycle-reactivestreams-ktx
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"
 
+    // For Kotlin use lifecycle-reactivestreams-ktx
+    implementation files('src/main/libs/poi-3.12-android-a.jar')
+    implementation files('src/main/libs/poi-ooxml-schemas-3.12-20150511-a.jar')
 }

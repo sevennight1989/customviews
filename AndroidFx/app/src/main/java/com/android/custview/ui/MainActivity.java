@@ -95,6 +95,9 @@ public class MainActivity extends BaseActivity {
                     case 11:
                         intent.setClass(MainActivity.this, GLSurfaceViewActivity.class);
                         break;
+                    case 12:
+                        intent.setClass(MainActivity.this, ExcelActivity.class);
+                        break;
                 }
 
                 startActivity(intent);
