@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.android.custview.R;
 import com.android.custview.view.QQListView;
-import com.com.android.custview.KLog;
+import com.android.custview.utils.KLog;
 import com.android.custview.bean.Person;
 
 import java.util.ArrayList;

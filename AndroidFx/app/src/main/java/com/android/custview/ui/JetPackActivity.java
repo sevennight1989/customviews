@@ -1,5 +1,6 @@
 package com.android.custview.ui;
 
+import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,8 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.android.custview.R;
-import com.com.android.custview.KLog;
+import com.android.custview.jetpack.activity.JetPackMainActivity;
+import com.android.custview.utils.KLog;
 import com.android.custview.jetpack.WorkerToMe;
 import com.android.custview.jetpack.WorkerToYou;
 
@@ -113,6 +115,10 @@ public class JetPackActivity extends BaseActivity {
                 });
                 WorkManager.getInstance(this).beginWith(oneTimeWorkRequest2).enqueue();
 //                WorkManager.getInstance(this).beginWith(oneTimeWorkRequest).then(oneTimeWorkRequest2).enqueue();
+                break;
+            case R.id.jetpack_ui:
+                Intent intent = new Intent(this, JetPackMainActivity.class);
+                startActivity(intent);
                 break;
         }
     }

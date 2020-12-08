@@ -2,13 +2,12 @@ package com.android.custview.view.render;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.android.custview.view.EglHelper;
-import com.com.android.custview.KLog;
+import com.android.custview.utils.KLog;
 
 import java.lang.ref.WeakReference;
 

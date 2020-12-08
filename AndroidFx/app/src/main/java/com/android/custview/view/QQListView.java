@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.android.custview.R;
-import com.com.android.custview.KLog;
 
 public class QQListView extends ListView {
 

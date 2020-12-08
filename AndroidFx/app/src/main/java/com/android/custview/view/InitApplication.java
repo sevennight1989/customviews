@@ -5,16 +5,17 @@ import android.app.Application;
 import android.content.Context;
 
 import com.android.custview.BuildConfig;
-import com.com.android.custview.KLog;
+import com.android.custview.utils.KLog;
 import com.debug.Head;
 
 import java.util.List;
 
 public class InitApplication extends Application {
-
+    private static Context mContext;
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = this;
         String logDir = AppManifestUtil.getAndroidManifestStringValueByName(this, AppManifestUtil.ManifestName.LogDir);
         KLog.logI("LogDir: " + logDir);
         KLog.logI("AppName : " + BuildConfig.appName);
@@ -45,5 +46,9 @@ public class InitApplication extends Application {
             }
         }
         return null;
+    }
+
+    public static Context getContext(){
+        return mContext;
     }
 }

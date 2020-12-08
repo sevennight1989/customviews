@@ -1,15 +1,12 @@
 package com.android.custview.ui;
 
 
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
 import com.android.custview.R;
 import com.android.custview.utils.ExcelUtils;
-import com.com.android.custview.KLog;
-
-import org.apache.poi.hssf.util.HSSFColor;
+import com.android.custview.utils.KLog;
 
 import java.io.BufferedReader;
 import java.io.File;

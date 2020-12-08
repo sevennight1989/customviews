@@ -3,16 +3,14 @@ package com.android.custview.ui;
 
 import android.content.Intent;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.custview.R;
-import com.com.android.custview.KLog;
+import com.android.custview.utils.KLog;
 import com.android.custview.adapter.MainAdapter;
 import com.android.custview.bean.Person;
 import com.android.custview.widget.SpacesItemDecoration;

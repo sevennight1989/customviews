@@ -2,7 +2,7 @@ package com.android.custview.view.framework;
 
 import android.content.Context;
 
-import com.com.android.custview.KLog;
+import com.android.custview.utils.KLog;
 
 import java.util.ArrayList;
 import java.util.HashMap;

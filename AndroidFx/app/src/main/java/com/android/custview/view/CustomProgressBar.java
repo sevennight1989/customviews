@@ -13,7 +13,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.android.custview.R;
-import com.com.android.custview.KLog;
+import com.android.custview.utils.KLog;
 
 public class CustomProgressBar extends View {
 

@@ -2,8 +2,6 @@ package com.android.custview.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.com.android.custview.KLog;
-
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;

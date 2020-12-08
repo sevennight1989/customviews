@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.android.custview">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:name=".view.InitApplication"
         android:allowBackup="true"
@@ -13,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ExcelActivity"></activity>
+        <activity android:name=".jetpack.activity.JetPackMainActivity"></activity>
+        <activity android:name=".ui.ExcelActivity" />
         <activity android:name=".ui.GLSurfaceViewActivity" />
         <activity android:name=".ui.NotificationReceiveActivity" />
         <activity android:name=".ui.NotificationActivity" />
@@ -43,5 +42,8 @@
             android:value="zp_log"
             tools:replace="android:value" />
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

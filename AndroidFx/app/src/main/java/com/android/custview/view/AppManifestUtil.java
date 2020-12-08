@@ -5,7 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import com.com.android.custview.KLog;
+import com.android.custview.utils.KLog;
 
 public class AppManifestUtil {
 

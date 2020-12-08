@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import com.android.custview.R;
 import com.android.custview.view.framework.AbstractCardView;
 import com.android.custview.view.framework.CardIntent;
-import com.com.android.custview.KLog;
 
 public class TopCardView extends AbstractCardView {
     private Button mStartBt;

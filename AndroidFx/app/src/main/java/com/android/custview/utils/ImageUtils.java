@@ -1,4 +1,4 @@
-package com.com.android.custview;
+package com.android.custview.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

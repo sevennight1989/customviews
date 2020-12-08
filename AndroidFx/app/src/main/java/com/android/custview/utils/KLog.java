@@ -1,4 +1,4 @@
-package com.com.android.custview;
+package com.android.custview.utils;
 
 import android.util.Log;
 

@@ -3,13 +3,10 @@ package com.android.custview.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -18,7 +15,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.android.custview.R;
-import com.com.android.custview.ImageUtils;
+import com.android.custview.utils.ImageUtils;
 
 
 public class CustomView01 extends View {

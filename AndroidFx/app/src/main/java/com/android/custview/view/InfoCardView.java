@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import com.android.custview.R;
 import com.android.custview.view.framework.AbstractCardView;
 import com.android.custview.view.framework.CardIntent;
-import com.com.android.custview.KLog;
+import com.android.custview.utils.KLog;
 
 public class InfoCardView extends AbstractCardView {
     private Button mCloseBt;
