@@ -10,4 +10,8 @@ public class Status {
     public int id;
     @ColumnInfo
     public boolean logged;
+
+    public Status(boolean logged) {
+        this.logged = logged;
+    }
 }

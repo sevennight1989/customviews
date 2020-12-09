@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.custview.R;
+import com.android.custview.jetpack.activity.JetPackMainActivity;
 import com.android.custview.utils.KLog;
 import com.android.custview.adapter.MainAdapter;
 import com.android.custview.bean.Person;
@@ -85,7 +86,7 @@ public class MainActivity extends BaseActivity {
                         intent.setClass(MainActivity.this, ScrollActivity.class);
                         break;
                     case 9:
-                        intent.setClass(MainActivity.this, JetPackActivity.class);
+                        intent.setClass(MainActivity.this, JetPackMainActivity.class);
                         break;
                     case 10:
                         intent.setClass(MainActivity.this, NotificationActivity.class);

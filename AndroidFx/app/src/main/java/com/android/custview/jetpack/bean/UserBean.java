@@ -19,4 +19,12 @@ public class UserBean {
     public int age;
     @ColumnInfo
     public String city;
+
+    public UserBean(int uid, String name, int sex, int age, String city) {
+        this.uid = uid;
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.city = city;
+    }
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="android.text.TextUtils"
+            alias="TextUtils"/>
         <variable
-            name="user"
+            name="vm"
             type="com.android.custview.jetpack.fragment.LoginViewModel" />
     </data>
 
@@ -28,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBaseline_toBaselineOf="@+id/login_username"
         android:hint="输入用户名"
-        android:text="@={user.userName}"
+        android:text="@={vm.userName}"
         android:gravity="center"/>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -48,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBaseline_toBaselineOf="@+id/login_password"
         android:hint="输入密码"
-        android:text="@={user.password}"
+        android:text="@={vm.password}"
         android:gravity="center"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -56,9 +58,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/login_bt"
         android:text="登录"
-        android:onClick="@{()->user.login()}"
+        android:onClick="@{()->vm.login(vm.userName,vm.password)}"
         android:layout_marginTop="30dp"
-        android:clickable="@{user.userName.length()>0&amp;&amp;user.password.length()>0}"
         app:layout_constraintTop_toBottomOf="@+id/login_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
