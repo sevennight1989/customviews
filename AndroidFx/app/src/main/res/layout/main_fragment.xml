@@ -2,7 +2,7 @@
 <layout>
     <data>
         <variable
-            name="wm"
+            name="vm"
             type="com.android.custview.jetpack.fragment.MainViewModel" />
     </data>
 
@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        app:adapter="@{vm.myAdapter}"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:scrollbars="vertical"
         tools:listitem="@layout/item_rv_main"

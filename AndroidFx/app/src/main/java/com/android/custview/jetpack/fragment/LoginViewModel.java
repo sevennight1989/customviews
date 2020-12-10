@@ -2,9 +2,7 @@ package com.android.custview.jetpack.fragment;
 
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.widget.Toast;
 
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -30,8 +28,7 @@ public class LoginViewModel extends ViewModel {
         }else {
             ToastUtils.showShort("登录成功");
         }
-
-       /* UserBean userBean = new UserBean(0,"Tom",1,23,"Shanghai");
+        UserBean userBean = new UserBean(0,"Tom",1,23,"Shanghai");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -41,7 +38,7 @@ public class LoginViewModel extends ViewModel {
             }
         }).start();
         SystemClock.sleep(500);
-        loginOk.setValue(true);*/
+        loginOk.setValue(true);
 
     }
 }

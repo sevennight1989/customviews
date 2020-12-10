@@ -1,20 +1,33 @@
 package com.android.custview.ui;
 
 
+import android.content.Context;
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 import com.android.custview.R;
+import com.android.custview.jetpack.UserDatabase;
 import com.android.custview.jetpack.activity.JetPackMainActivity;
+import com.android.custview.jetpack.bean.ItemBean;
+import com.android.custview.jetpack.bean.ItemDao;
 import com.android.custview.utils.KLog;
 import com.android.custview.adapter.MainAdapter;
 import com.android.custview.bean.Person;
+import com.android.custview.view.InitApplication;
 import com.android.custview.widget.SpacesItemDecoration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -105,6 +118,8 @@ public class MainActivity extends BaseActivity {
         mRv.addItemDecoration(new SpacesItemDecoration(20));
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mRv.setAdapter(mMainAdapter);
+        OneTimeWorkRequest worker = new OneTimeWorkRequest.Builder(ListWorker.class).build();
+        WorkManager.getInstance(this).beginWith(worker).enqueue();
     }
 
     @Override
@@ -133,4 +148,26 @@ public class MainActivity extends BaseActivity {
         super.onResume();
         KLog.logI("MainActivity onResume");
     }
+
+    public static class ListWorker extends Worker {
+
+        public ListWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+            super(context, workerParams);
+        }
+
+        @NonNull
+        @Override
+        public Result doWork() {
+            ItemDao itemDao = UserDatabase.getInstance(InitApplication.getContext()).getItemDao();
+            itemDao.deleteAll();
+            List<ItemBean> list = new ArrayList<>();
+            for (int i = 0; i < 500; i++) {
+                list.add(new ItemBean("哈哈哈" + i, i % 9));
+            }
+            itemDao.insert(list);
+
+            return Result.success();
+        }
+    }
+
 }
