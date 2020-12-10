@@ -9,12 +9,11 @@
         android:name="com.android.custview.jetpack.fragment.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/main_fragment">
-        <action
-            android:id="@+id/nav_to_login"
-            app:destination="@id/fg_login"
-            app:launchSingleTop="true" />
     </fragment>
-
+    <action
+        android:id="@+id/nav_to_login"
+        app:destination="@id/fg_login"
+        app:launchSingleTop="true" />
     <fragment
         android:id="@+id/fg_login"
         android:name="com.android.custview.jetpack.fragment.LoginFragment"

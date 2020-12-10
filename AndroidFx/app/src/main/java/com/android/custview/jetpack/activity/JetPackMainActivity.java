@@ -23,19 +23,12 @@ public class JetPackMainActivity extends AppCompatActivity {
                 actionBar.hide();
         }
         ActivityJetPackMainBinding bind = DataBindingUtil.setContentView(this,R.layout.activity_jet_pack_main);
-
-/*        UserDatabase.getInstance(this).getUserDao().query().observe(this, new Observer<UserBean>() {
-            @Override
-            public void onChanged(UserBean userBean) {
-
-            }
-        });*/
         UserDatabase.getInstance(this).getStatusDao().queryStatus().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean logged) {
                 KLog.logI("logged: " + logged);
                 if(logged == null || !logged){
-                    Navigation.findNavController(JetPackMainActivity.this,R.id.host_main).navigate(R.id.fg_login);
+                    Navigation.findNavController(JetPackMainActivity.this,R.id.host_main).navigate(R.id.nav_to_login);
                 }
             }
         });
