@@ -256,7 +256,17 @@ dependencies {
     // optional - ReactiveStreams support for LiveData
     implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle_version"
 
-    // For Kotlin use lifecycle-reactivestreams-ktx
-    implementation files('src/main/libs/poi-3.12-android-a.jar')
-    implementation files('src/main/libs/poi-ooxml-schemas-3.12-20150511-a.jar')
+
+    def camerax_version = "1.0.0-beta12"
+    // The following line is optional, as the core library is included indirectly by camera-camera2
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
+    // If you want to additionally use the CameraX Lifecycle library
+    implementation "androidx.camera:camera-lifecycle:${camerax_version}"
+    // If you want to additionally use the CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha19"
+    // If you want to additionally use the CameraX Extensions library
+    implementation "androidx.camera:camera-extensions:1.0.0-alpha19"
+
+    pubImplementation rootProject.ext.dependencies.PubLibs
 }

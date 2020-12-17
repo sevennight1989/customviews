@@ -3,6 +3,8 @@ package com.android.custview.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -26,8 +28,10 @@ import com.android.custview.bean.Person;
 import com.android.custview.view.InitApplication;
 import com.android.custview.widget.SpacesItemDecoration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends BaseActivity {
 
@@ -55,6 +59,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        String path =  getExternalFilesDir(null).getPath()+"/1607996925081.wav";
+        KLog.logI(path);
+        try {
+            getDuration(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         getLifecycle().addObserver(new MyObserver());
         mMainAdapter = new MainAdapter(this);
         String[] items = getResources().getStringArray(R.array.main_items);
@@ -120,6 +131,7 @@ public class MainActivity extends BaseActivity {
         mRv.setAdapter(mMainAdapter);
         OneTimeWorkRequest worker = new OneTimeWorkRequest.Builder(ListWorker.class).build();
         WorkManager.getInstance(this).beginWith(worker).enqueue();
+
     }
 
     @Override
@@ -132,13 +144,14 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public class MyObserver implements LifecycleObserver{
+    public class MyObserver implements LifecycleObserver {
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-        void onResume(){
+        void onResume() {
             KLog.logI("MyObserver onResume");
         }
+
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-        void onPause(){
+        void onPause() {
             KLog.logI("MyObserver onPause");
         }
     }
@@ -170,4 +183,13 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    public void getDuration(String audioPath) throws IOException {
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(audioPath);
+        mediaPlayer.prepare();
+        long duration = mediaPlayer.getDuration(); //时长
+        KLog.logI("duration: " + duration);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(minutes);
+    }
 }

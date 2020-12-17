@@ -40,7 +40,10 @@ ext{
     minSdkVersion = 25
     targetSdkVersion = 29
     dependencies = [
-            constraintlayout  : "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+            constraintlayout  : "androidx.constraintlayout:constraintlayout:$constraintlayout_version",
+            ExcelSdk01:  fileTree(include: 'poi-3.12-android-a.jar', dir: 'app/src/pub/libs'),
+            ExcelSdk02:  fileTree(include: 'poi-ooxml-schemas-3.12-20150511-a.jar', dir: 'app/src/pub/libs'),
+            PubLibs:  fileTree(include: ['*.jar'], dir: 'app/src/pub/libs')
     ]
 }
 

@@ -4,20 +4,11 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
 
 import com.android.custview.BuildConfig;
-import com.android.custview.jetpack.UserDatabase;
-import com.android.custview.jetpack.bean.ItemBean;
-import com.android.custview.jetpack.bean.ItemDao;
 import com.android.custview.utils.KLog;
 import com.debug.Head;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InitApplication extends Application {
