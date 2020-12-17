@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".jetpack.activity.JetPackMainActivity"></activity>
+        <activity android:name=".ui.CustLayoutManagerActivity"></activity>
+        <activity android:name=".ui.RecycleViewActivity" />
+        <activity android:name=".jetpack.activity.JetPackMainActivity" />
         <activity android:name=".ui.ExcelActivity" />
         <activity android:name=".ui.GLSurfaceViewActivity" />
         <activity android:name=".ui.NotificationReceiveActivity" />
@@ -28,9 +30,7 @@
         <activity android:name=".ui.CustView01Activity" />
         <activity
             android:name=".ui.LanguageTestActivity"
-            android:configChanges="locale">
-
-        </activity>
+            android:configChanges="locale" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

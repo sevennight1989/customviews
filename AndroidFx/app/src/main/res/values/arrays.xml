@@ -14,5 +14,6 @@
         <item>通知测试</item>
         <item>GLSurfaceView</item>
         <item>Excel</item>
+        <item>RecycleView</item>
     </string-array>
 </resources>

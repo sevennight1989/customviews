@@ -121,6 +121,9 @@ public class MainActivity extends BaseActivity {
                     case 12:
                         intent.setClass(MainActivity.this, ExcelActivity.class);
                         break;
+                    case 13:
+                        intent.setClass(MainActivity.this,RecycleViewActivity.class);
+                        break;
                 }
 
                 startActivity(intent);

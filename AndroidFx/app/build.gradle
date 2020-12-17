@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 def commonPackage = "com.android.custview"
 def pubPackage = "com.android.custview.pub"
 android {
@@ -269,4 +271,5 @@ dependencies {
     implementation "androidx.camera:camera-extensions:1.0.0-alpha19"
 
     pubImplementation rootProject.ext.dependencies.PubLibs
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
