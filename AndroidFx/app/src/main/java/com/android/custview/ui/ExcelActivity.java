@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class ExcelActivity extends BaseActivity {
 
-    private String excelName = "POI_catgory_list_edited.xlsx";
+    private String excelName = "Categories_filled_20201222.xlsx";
     private static Map<String, String> map = new HashMap<>();
     String path = "";
 

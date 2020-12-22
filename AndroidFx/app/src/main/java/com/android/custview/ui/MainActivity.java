@@ -1,10 +1,14 @@
 package com.android.custview.ui;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.SystemClock;
+import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -27,6 +31,9 @@ import com.android.custview.adapter.MainAdapter;
 import com.android.custview.bean.Person;
 import com.android.custview.view.InitApplication;
 import com.android.custview.widget.SpacesItemDecoration;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -134,6 +141,8 @@ public class MainActivity extends BaseActivity {
         mRv.setAdapter(mMainAdapter);
         OneTimeWorkRequest worker = new OneTimeWorkRequest.Builder(ListWorker.class).build();
         WorkManager.getInstance(this).beginWith(worker).enqueue();
+        KLog.logI(formatTbt(jsonStr));
+        KLog.logI("Has location permission : "  + hasLocationPermission(this));
 
     }
 
@@ -194,5 +203,48 @@ public class MainActivity extends BaseActivity {
         KLog.logI("duration: " + duration);
         long minutes = TimeUnit.MILLISECONDS.toMinutes(duration);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(minutes);
+    }
+
+    String jsonStr = "{\n" +
+            "\t\"nextTurnbyturn\": 1,\n" +
+            "\t\"nextroadName\": \"Jalan tanpa nama\",\n" +
+            "\t\"nextDistance\": \"1.8 kM\",\n" +
+            "\t\"naviFinish\": \"START\"\n" +
+            "}";
+
+    private String formatTbt(String source){
+        try {
+            JSONObject jo = new JSONObject(source);
+            String nextDistance = jo.optString("nextDistance");
+            String formatNextDistance = formatDistance(nextDistance);
+            KLog.logI("formatNextDistance: " + formatNextDistance);
+            jo.put("nextDistance",formatNextDistance);
+            return jo.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    private String formatDistance(String sourceDistance) {
+        if (TextUtils.isEmpty(sourceDistance)) {
+            return "-1";
+        }
+        String[] arr = sourceDistance.split(" ");
+        if (arr.length == 2) {
+            String value0 = arr[0];
+            String value1 = arr[1];
+            if ("m".equalsIgnoreCase(value1) || "米".equals(value1)) {
+                return value0;
+            } else if("km".equalsIgnoreCase(value1) || "公里".equals(value1)) {
+                return (int)(Float.parseFloat(value0) * 1000) + "";
+            }
+        }
+        return "-1";
+    }
+
+    public boolean hasLocationPermission(Context context){
+        int hasPermission = context.checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return (hasPermission == PackageManager.PERMISSION_GRANTED);
     }
 }
