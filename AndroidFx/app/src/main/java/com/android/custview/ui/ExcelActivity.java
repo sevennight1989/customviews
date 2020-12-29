@@ -5,8 +5,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.android.custview.R;
+import com.android.custview.annotation.QuitReset;
+import com.android.custview.jetpack.fragment.LoginFragment;
 import com.android.custview.utils.ExcelUtils;
 import com.android.custview.utils.KLog;
+import com.blankj.utilcode.util.SPUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +25,16 @@ import java.util.List;
 import java.util.Map;
 
 public class ExcelActivity extends BaseActivity {
+
+    @QuitReset(value = false)
+    public boolean isAlive = false;
+
+    @QuitReset(state = 2)
+    public int login_state = 0;
+
+
+    private String ALIVE_KEY = "isAlive";
+    private String LOGIN_KEY = "login_state";
 
     private String excelName = "Categories_filled_20201222.xlsx";
     private static Map<String, String> map = new HashMap<>();
@@ -40,6 +53,15 @@ public class ExcelActivity extends BaseActivity {
     @Override
     public void initData() {
         path = getExternalFilesDir(null).getPath();
+        boolean t_isAlive = SPUtils.getInstance().getBoolean(ALIVE_KEY, false);
+        KLog.logI("isAlive:" + t_isAlive);
+        int t_login_state = SPUtils.getInstance().getInt(LOGIN_KEY, 0);
+        KLog.logI("login_state:" + t_login_state);
+        //模拟修改状态值
+        isAlive = true;
+        login_state = 1;
+        SPUtils.getInstance().put(ALIVE_KEY, isAlive);
+        SPUtils.getInstance().put(LOGIN_KEY, login_state);
     }
 
     public void onClick(View view) {
@@ -117,4 +139,4 @@ public class ExcelActivity extends BaseActivity {
         return strFilePath;
     }
 
-    }
+}
