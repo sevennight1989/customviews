@@ -27,7 +27,10 @@ class RecycleViewActivity : BaseActivity() {
         when (view.id) {
             R.id.layoutManager -> {
                 startActivity(Intent(this,CustLayoutManagerActivity::class.java))
-                KLog.logI("Custom layout...")
+                KLog.logI( android.util.Log.getStackTraceString(Throwable("Test trace log below for debug, ignore exception")))
+            }
+            R.id.viewpager2->{
+                startActivity(Intent(this,ViewPager2Activity::class.java))
             }
 
         }

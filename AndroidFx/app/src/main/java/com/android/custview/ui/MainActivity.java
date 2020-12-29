@@ -143,6 +143,20 @@ public class MainActivity extends BaseActivity {
         WorkManager.getInstance(this).beginWith(worker).enqueue();
         KLog.logI(formatTbt(jsonStr));
         KLog.logI("Has location permission : "  + hasLocationPermission(this));
+        mRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    KLog.logI("onScrollStateChanged");
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
 
     }
 
