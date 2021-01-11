@@ -2,8 +2,10 @@ package com.android.custview.ui;
 
 import com.android.custview.R;
 import com.android.custview.view.CustomVolumControlBar;
+import com.android.custview.widget.CommuteDialog;
 
 public class CustomVolumActivity extends BaseActivity {
+
     private CustomVolumControlBar cvBar;
     @Override
     public int getLayout() {
@@ -15,8 +17,15 @@ public class CustomVolumActivity extends BaseActivity {
         cvBar = findViewById(R.id.cvCBar);
     }
 
+    private CommuteDialog mCommuteDialog;
     @Override
     public void initData() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCommuteDialog = new CommuteDialog(this,mCommuteDialog);
     }
 }
