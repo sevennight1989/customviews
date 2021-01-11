@@ -2,10 +2,13 @@ package com.android.custview.ui;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,18 +38,25 @@ import com.android.custview.widget.SpacesItemDecoration;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static android.content.Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT;
 
 public class MainActivity extends BaseActivity {
 
     private RecyclerView mRv;
     private MainAdapter mMainAdapter;
 
-//    private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
-//            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列"};
+    private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
+            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列","通知测试","GLSurfaceView","Excel","RecycleView","LargeImageView"};
 
 
     @Override
@@ -64,18 +74,21 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
+    @SuppressLint("SetWorldReadable")
     @Override
     public void initData() {
-        String path =  getExternalFilesDir(null).getPath()+"/1607996925081.wav";
+        String path = getExternalFilesDir(null).getPath() + "/1607996925081.wav";
         KLog.logI(path);
         try {
             getDuration(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        createFile();
+        readFile();
         getLifecycle().addObserver(new MyObserver());
         mMainAdapter = new MainAdapter(this);
-        String[] items = getResources().getStringArray(R.array.main_items);
+//        String[] items = getResources().getStringArray(R.array.main_items);
         mMainAdapter.setData(items);
         mMainAdapter.setOnClickListener(new MainAdapter.OnClickListener() {
             @Override
@@ -129,8 +142,11 @@ public class MainActivity extends BaseActivity {
                         intent.setClass(MainActivity.this, ExcelActivity.class);
                         break;
                     case 13:
-                        intent.setClass(MainActivity.this,RecycleViewActivity.class);
+                        intent.setClass(MainActivity.this, RecycleViewActivity.class);
+                        intent.addFlags(FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                         break;
+                    case 14:
+                        intent.setClass(MainActivity.this,LargeImageViewActivity.class);
                 }
 
                 startActivity(intent);
@@ -142,7 +158,7 @@ public class MainActivity extends BaseActivity {
         OneTimeWorkRequest worker = new OneTimeWorkRequest.Builder(ListWorker.class).build();
         WorkManager.getInstance(this).beginWith(worker).enqueue();
         KLog.logI(formatTbt(jsonStr));
-        KLog.logI("Has location permission : "  + hasLocationPermission(this));
+        KLog.logI("Has location permission : " + hasLocationPermission(this));
         mRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -157,7 +173,88 @@ public class MainActivity extends BaseActivity {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
+/*        mRv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ((LinearLayoutManager)(mRv.getLayoutManager())).smoothScrollToPosition(mRv,null,items.length-1);
+            }
+        },300);*/
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((LinearLayoutManager)(mRv.getLayoutManager())).smoothScrollToPosition(mRv,null,items.length-1);
+                            }
+                        },500);
+                }
+            }).start();
 
+    }
+
+    File dataFile = new File("/map/iGO/pateo_nav_license2.txt");
+
+    private void createFile() {
+
+        KLog.logI("dataFile exist " + dataFile.exists());
+        try {
+            if (!dataFile.exists()) {
+                boolean ret = dataFile.createNewFile();
+                if (ret) {
+                    dataFile.setReadable(true, false);
+          /*      dataFile.setWritable(true, false);
+                dataFile.setExecutable(true,false);*/
+                }
+            } else {
+                boolean ret = dataFile.delete();
+                if (!ret) {
+                    return;
+                }
+                ret = dataFile.createNewFile();
+                if (!ret) {
+                    return;
+                }
+                dataFile.setReadable(true, false);
+              /*  dataFile.setWritable(true, false);
+                dataFile.setExecutable(true,false);*/
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readFile() {
+        KLog.logI("dataFile exist " + dataFile.exists());
+        if (!dataFile.exists()) {
+            return;
+        }
+        BufferedReader buffReader = null;
+        InputStream is = null;
+        try {
+            is = new FileInputStream(dataFile);
+            buffReader = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = buffReader.readLine()) != null) {
+                if (!TextUtils.isEmpty(line)) {
+                    KLog.logI(line);
+                }
+            }
+        } catch (Exception e) {
+            KLog.logE(e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+                if (buffReader != null) {
+                    buffReader.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -226,13 +323,13 @@ public class MainActivity extends BaseActivity {
             "\t\"naviFinish\": \"START\"\n" +
             "}";
 
-    private String formatTbt(String source){
+    private String formatTbt(String source) {
         try {
             JSONObject jo = new JSONObject(source);
             String nextDistance = jo.optString("nextDistance");
             String formatNextDistance = formatDistance(nextDistance);
             KLog.logI("formatNextDistance: " + formatNextDistance);
-            jo.put("nextDistance",formatNextDistance);
+            jo.put("nextDistance", formatNextDistance);
             return jo.toString();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -250,14 +347,14 @@ public class MainActivity extends BaseActivity {
             String value1 = arr[1];
             if ("m".equalsIgnoreCase(value1) || "米".equals(value1)) {
                 return value0;
-            } else if("km".equalsIgnoreCase(value1) || "公里".equals(value1)) {
-                return (int)(Float.parseFloat(value0) * 1000) + "";
+            } else if ("km".equalsIgnoreCase(value1) || "公里".equals(value1)) {
+                return (int) (Float.parseFloat(value0) * 1000) + "";
             }
         }
         return "-1";
     }
 
-    public boolean hasLocationPermission(Context context){
+    public boolean hasLocationPermission(Context context) {
         int hasPermission = context.checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         return (hasPermission == PackageManager.PERMISSION_GRANTED);
     }

@@ -1,9 +1,15 @@
+import com.hearing.plugin.PluginImpl
+import com.hearing.plugin.Api
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: PluginImpl
 def commonPackage = "com.android.custview"
 def pubPackage = "com.android.custview.pub"
 android {
+    def api = new Api()
+    print('api name =' + api.name)
+    print('api url = ' + api.url)
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
@@ -174,6 +180,7 @@ def getDate() {
     def formattedDate = date.format('yyyyMMdd')
     return formattedDate
 }
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

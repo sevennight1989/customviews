@@ -5,7 +5,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.Image
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,8 +31,14 @@ class RecycleViewActivity : BaseActivity() {
         return R.layout.activity_recycle_view;
     }
 
-    override fun initView() {
+    var img: ImageView? = null
 
+    override fun initView() {
+        img = findViewById<ImageView>(R.id.image)
+        val animation:Animation = AnimationUtils.loadAnimation(this,R.anim.rotate_anim)
+        var lin:LinearInterpolator  = LinearInterpolator()
+        animation.interpolator = lin
+        img!!.startAnimation(animation)
     }
 
     fun onClick(view: View) {
@@ -54,7 +66,7 @@ class RecycleViewActivity : BaseActivity() {
                         Manifest.permission.CAMERA
                 ))
             }
-            R.id.my_activity ->{
+            R.id.my_activity -> {
                 startActivity(Intent(this, MyActivity::class.java))
             }
 
@@ -70,9 +82,9 @@ class RecycleViewActivity : BaseActivity() {
     }
 
     private val requestMultiplePermissions = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions: Map<String, Boolean> ->
-/*        permissions.forEach {
-            KLog.logI("${it.key} ==> ${it.value}")
-        }*/
+        /*        permissions.forEach {
+                    KLog.logI("${it.key} ==> ${it.value}")
+                }*/
         permissions.entries.forEach {
             KLog.logI("${it.key} ===> ${it.value}")
         }
