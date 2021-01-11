@@ -14,7 +14,7 @@
         android:text="itemText"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
-        android:background="@color/colorAccent"
+        android:background="#77000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 

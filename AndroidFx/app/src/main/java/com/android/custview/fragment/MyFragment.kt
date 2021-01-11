@@ -51,8 +51,8 @@ class MyFragment : Fragment() {
             observer.selectImage()
         }
         val list: ArrayList<String> = ArrayList()
-        for (i in 1..200 step 5) {
-            list.add("item ${i * 15}")
+        for (i in 1..1000 step 5) {
+            list.add("显 示item ${i * 15}")
         }
         val flAdapter = TestAdapter(list)
         val flexLy: FlexboxLayoutManager = MyFlexboxLayoutManager(requireContext(), FlexDirection.ROW, FlexWrap.WRAP)

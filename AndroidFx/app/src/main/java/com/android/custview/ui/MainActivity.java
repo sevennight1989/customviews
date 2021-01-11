@@ -7,11 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -24,6 +23,7 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.android.custview.BuildConfig;
 import com.android.custview.R;
 import com.android.custview.jetpack.UserDatabase;
 import com.android.custview.jetpack.activity.JetPackMainActivity;
@@ -34,6 +34,9 @@ import com.android.custview.adapter.MainAdapter;
 import com.android.custview.bean.Person;
 import com.android.custview.view.InitApplication;
 import com.android.custview.widget.SpacesItemDecoration;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,9 +59,9 @@ public class MainActivity extends BaseActivity {
     private MainAdapter mMainAdapter;
 
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
-            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列","通知测试","GLSurfaceView","Excel","RecycleView","LargeImageView"};
+            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列","通知测试","GLSurfaceView使用","Excel解析","RecycleView案例","LargeImageView展示"};
 
-
+    private boolean autoScroll = false;
     @Override
     public int getLayout() {
         return R.layout.activity_main;
@@ -71,7 +74,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean showActionBar() {
-        return true;
+        return !TextUtils.equals(BuildConfig.appName, "CommonTest");
     }
 
     @SuppressLint("SetWorldReadable")
@@ -148,12 +151,15 @@ public class MainActivity extends BaseActivity {
                     case 14:
                         intent.setClass(MainActivity.this,LargeImageViewActivity.class);
                 }
-
                 startActivity(intent);
             }
         });
-        mRv.addItemDecoration(new SpacesItemDecoration(20));
-        mRv.setLayoutManager(new LinearLayoutManager(this));
+        if (autoScroll) {
+            mRv.addItemDecoration(new SpacesItemDecoration(20));
+            mRv.setLayoutManager(new LinearLayoutManager(this));
+        } else {
+            mRv.setLayoutManager(new MyLayoutManager(this));
+        }
         mRv.setAdapter(mMainAdapter);
         OneTimeWorkRequest worker = new OneTimeWorkRequest.Builder(ListWorker.class).build();
         WorkManager.getInstance(this).beginWith(worker).enqueue();
@@ -173,24 +179,40 @@ public class MainActivity extends BaseActivity {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-/*        mRv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ((LinearLayoutManager)(mRv.getLayoutManager())).smoothScrollToPosition(mRv,null,items.length-1);
-            }
-        },300);*/
+        if (autoScroll) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                ((LinearLayoutManager)(mRv.getLayoutManager())).smoothScrollToPosition(mRv,null,items.length-1);
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(mRv.getLayoutManager() instanceof LinearLayoutManager) {
+                                ((LinearLayoutManager) (mRv.getLayoutManager())).smoothScrollToPosition(mRv, null, items.length - 1);
                             }
-                        },500);
+                        }
+                    }, 500);
                 }
             }).start();
+        }
+    }
 
+    private static class MyLayoutManager extends FlexboxLayoutManager {
+        @Override
+        public boolean canScrollVertically() {
+            return true;
+        }
+
+        MyLayoutManager(Context context) {
+            this(context, FlexDirection.ROW);
+        }
+
+        MyLayoutManager(Context context, int flexDirection) {
+            this(context, flexDirection, FlexWrap.WRAP);
+        }
+
+        MyLayoutManager(Context context, int flexDirection, int flexWrap) {
+            super(context, flexDirection, flexWrap);
+        }
     }
 
     File dataFile = new File("/map/iGO/pateo_nav_license2.txt");
