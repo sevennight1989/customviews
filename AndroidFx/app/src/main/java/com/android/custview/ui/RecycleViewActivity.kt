@@ -5,19 +5,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.Image
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
-import android.view.animation.RotateAnimation
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import com.android.custview.R
 import com.android.custview.extend.MyActivityResultContract
-import com.android.custview.utils.KLog
+import com.android.zp.base.KLog
+import com.android.zp.base.BaseActivity
 import com.blankj.utilcode.util.ToastUtils
 
 

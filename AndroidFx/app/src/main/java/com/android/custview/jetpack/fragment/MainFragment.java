@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import com.android.custview.R;
 import com.android.custview.databinding.MainFragmentBinding;
 import com.android.custview.jetpack.bean.ItemBean;
-import com.android.custview.utils.KLog;
+import com.android.zp.base.KLog;
 
 public class MainFragment extends Fragment {
 

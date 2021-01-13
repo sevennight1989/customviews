@@ -5,10 +5,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.android.custview.R;
-import com.android.custview.annotation.QuitReset;
-import com.android.custview.jetpack.fragment.LoginFragment;
+import com.android.zp.base.QuitReset;
 import com.android.custview.utils.ExcelUtils;
-import com.android.custview.utils.KLog;
+import com.android.zp.base.KLog;
+import com.android.zp.base.BaseActivity;
 import com.blankj.utilcode.util.SPUtils;
 
 import java.io.BufferedReader;

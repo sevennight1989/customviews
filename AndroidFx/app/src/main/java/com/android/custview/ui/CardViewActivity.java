@@ -8,6 +8,7 @@ import com.android.custview.view.TopCardView;
 import com.android.custview.view.framework.CardIntent;
 import com.android.custview.view.framework.CardViewController;
 import com.android.custview.view.framework.FrameView;
+import com.android.zp.base.BaseActivity;
 
 public class CardViewActivity extends BaseActivity {
 

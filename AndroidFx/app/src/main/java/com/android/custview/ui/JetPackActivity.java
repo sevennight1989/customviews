@@ -16,9 +16,10 @@ import androidx.work.WorkManager;
 
 import com.android.custview.R;
 import com.android.custview.jetpack.activity.JetPackMainActivity;
-import com.android.custview.utils.KLog;
+import com.android.zp.base.KLog;
 import com.android.custview.jetpack.WorkerToMe;
 import com.android.custview.jetpack.WorkerToYou;
+import com.android.zp.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;

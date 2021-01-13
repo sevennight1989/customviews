@@ -1,17 +1,14 @@
-package com.android.custview.ui;
+package com.android.zp.base;
 
 import android.os.Bundle;
 
 import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleRegistry;
 
-import com.android.custview.annotation.QuitReset;
-import com.android.custview.utils.KLog;
 import com.blankj.utilcode.util.SPUtils;
 
 import java.lang.reflect.Field;

@@ -6,6 +6,7 @@ import android.graphics.BitmapRegionDecoder
 import android.graphics.Rect
 import android.widget.ImageView
 import com.android.custview.R
+import com.android.zp.base.BaseActivity
 import java.io.InputStream
 
 class LargeImageViewActivity : BaseActivity() {

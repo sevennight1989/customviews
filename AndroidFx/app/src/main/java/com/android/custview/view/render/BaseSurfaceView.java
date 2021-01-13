@@ -7,7 +7,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.android.custview.view.EglHelper;
-import com.android.custview.utils.KLog;
+import com.android.zp.base.KLog;
 
 import java.lang.ref.WeakReference;
 

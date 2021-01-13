@@ -5,7 +5,8 @@ import android.content.Intent
 import androidx.viewpager2.widget.ViewPager2
 import com.android.custview.R
 import com.android.custview.adapter.ViewPagerAdapter
-import com.android.custview.utils.KLog
+import com.android.zp.base.KLog
+import com.android.zp.base.BaseActivity
 
 class ViewPager2Activity : BaseActivity() {
     private var viewPager2:ViewPager2 ?= null

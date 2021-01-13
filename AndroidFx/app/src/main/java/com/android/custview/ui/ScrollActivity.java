@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.custview.R;
-import com.android.custview.utils.KLog;
+import com.android.zp.base.KLog;
 
 public class ScrollActivity extends AppCompatActivity {
 

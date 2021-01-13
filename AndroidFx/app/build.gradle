@@ -1,15 +1,17 @@
-import com.hearing.plugin.PluginImpl
+//import com.hearing.plugin.PluginImpl
+
 import com.hearing.plugin.Api
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: PluginImpl
+//apply plugin: PluginImpl
+apply plugin: 'com.hearing.plugin'
 def commonPackage = "com.android.custview"
 def pubPackage = "com.android.custview.pub"
 android {
     def api = new Api()
-    print('api name =' + api.name)
-    print('api url = ' + api.url)
+//    print('api name =' + api.name)
+//    print('api url = ' + api.url)
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
@@ -189,7 +191,7 @@ dependencies {
 
     //    implementation "com.android.support:appcompat-v7:$support_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation rootProject.ext.dependencies.constraintlayout
+    rootProject.ext.dependencies.constraintlayout
 
     //    implementation "android.arch.work:work-runtime:2.3.0-alpha01"
 
@@ -285,4 +287,6 @@ dependencies {
     implementation 'androidx.activity:activity:1.2.0-beta01'
     implementation 'androidx.fragment:fragment:1.3.0-beta01'
     implementation  'com.google.android:flexbox:1.0.0'
+    implementation project(path: ':base')
+
 }

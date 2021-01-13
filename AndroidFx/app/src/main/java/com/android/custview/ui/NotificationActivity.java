@@ -10,6 +10,7 @@ import android.view.View;
 import androidx.core.app.NotificationCompat;
 
 import com.android.custview.R;
+import com.android.zp.base.BaseActivity;
 
 public class NotificationActivity extends BaseActivity {
 

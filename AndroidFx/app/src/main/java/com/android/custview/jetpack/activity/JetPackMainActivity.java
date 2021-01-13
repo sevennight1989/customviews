@@ -11,7 +11,7 @@ import android.os.Bundle;
 import com.android.custview.R;
 import com.android.custview.databinding.ActivityJetPackMainBinding;
 import com.android.custview.jetpack.UserDatabase;
-import com.android.custview.utils.KLog;
+import com.android.zp.base.KLog;
 
 public class JetPackMainActivity extends AppCompatActivity {
 

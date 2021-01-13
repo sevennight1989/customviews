@@ -3,6 +3,7 @@ package com.android.custview.ui;
 
 import com.android.custview.R;
 import com.android.custview.view.MarqueeTextView;
+import com.android.zp.base.BaseActivity;
 
 public class MarqueeActivity extends BaseActivity {
 

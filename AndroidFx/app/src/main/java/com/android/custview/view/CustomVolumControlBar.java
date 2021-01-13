@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 
 import com.android.custview.R;
 import com.android.custview.utils.ImageUtils;
-import com.android.custview.utils.KLog;
+import com.android.zp.base.KLog;
 
 public class CustomVolumControlBar extends View {
 

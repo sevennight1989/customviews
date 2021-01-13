@@ -1,0 +1,18 @@
+apply plugin: 'maven'
+
+def sdk_artifactId = 'basesdk'
+uploadArchives {
+    repositories {
+
+        mavenDeployer {
+            repository(url: uri('../repo')) // 插件的输出路径
+            pom.project {
+                version '1.0.2'
+                artifactId sdk_artifactId
+                groupId 'com.android.zp'
+                packaging 'aar'
+                description sdk_artifactId + ' lib'
+            }
+        }
+    }
+}

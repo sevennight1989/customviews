@@ -21,7 +21,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.android.custview.R;
-import com.android.custview.utils.KLog;
+import com.android.zp.base.KLog;
+import com.android.zp.base.BaseActivity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;

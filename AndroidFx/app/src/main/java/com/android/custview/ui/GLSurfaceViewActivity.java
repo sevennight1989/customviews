@@ -9,6 +9,7 @@ import com.android.custview.R;
 import com.android.custview.view.EglHelper;
 import com.android.custview.view.render.BaseSurfaceView;
 import com.android.custview.view.render.EGlSurfaceView;
+import com.android.zp.base.BaseActivity;
 
 public class GLSurfaceViewActivity extends BaseActivity {
 

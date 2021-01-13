@@ -16,7 +16,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.android.custview.R
 import com.android.custview.adapter.TestAdapter
-import com.android.custview.utils.KLog
+import com.android.zp.base.KLog
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager

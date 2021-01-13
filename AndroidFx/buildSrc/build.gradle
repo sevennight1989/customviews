@@ -8,6 +8,29 @@ dependencies {
     implementation localGroovy()
 }
 
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/main/groovy'
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo')) // 插件的输出路径
+            pom.groupId = 'com.hearing.plugin'
+            pom.artifactId = 'custome'
+            pom.version = '1.1.1'
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }

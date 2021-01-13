@@ -5,7 +5,8 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.android.custview.R;
-import com.android.custview.utils.KLog;
+import com.android.zp.base.KLog;
+import com.android.zp.base.BaseActivity;
 
 public class NotificationReceiveActivity extends BaseActivity {
 

@@ -2,6 +2,7 @@ package com.android.custview.ui;
 
 
 import com.android.custview.R;
+import com.android.zp.base.BaseActivity;
 
 public class CustViewGroupActivity extends BaseActivity {
 

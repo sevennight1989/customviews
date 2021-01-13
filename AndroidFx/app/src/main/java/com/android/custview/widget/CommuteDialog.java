@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.android.custview.R;
-import com.android.custview.utils.KLog;
+import com.android.zp.base.KLog;
 
 import java.util.Random;
 

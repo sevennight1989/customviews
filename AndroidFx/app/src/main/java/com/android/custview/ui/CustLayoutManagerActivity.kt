@@ -1,10 +1,10 @@
 package com.android.custview.ui
 
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.custview.R
 import com.android.custview.adapter.TestAdapter
 import com.android.custview.layout.MyLayoutManager
+import com.android.zp.base.BaseActivity
 
 class CustLayoutManagerActivity : BaseActivity() {
     private var rv01: RecyclerView? = null

@@ -2,6 +2,7 @@ package com.android.custview.ui
 
 import com.android.custview.R
 import com.android.custview.fragment.MyFragment
+import com.android.zp.base.BaseActivity
 
 class MyActivity : BaseActivity() {
 
