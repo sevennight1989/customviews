@@ -1,4 +1,4 @@
-include ':app',':buildSrc' ,':base'
+include ':app',':buildSrc' ,':base',":TaskTest"
 gradle.addBuildListener(new BuildListener() {
     void buildStarted(Gradle var1) {
         println '开始构建'
@@ -19,4 +19,4 @@ gradle.addBuildListener(new BuildListener() {
         println '构建结束 '
     }
 })
-
+include ':TaskTest'

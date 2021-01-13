@@ -21,6 +21,9 @@ class PluginImpl implements Plugin<Project> {
 
 
     void apply(Project project) {
+
+        project.extensions.create('releaseInfo',ReleaseInfoExtension.class)
+        project.tasks.create("releaseInfoTask", ReleaseInfoTask.class)
 //        nestClouser.call()
         def name = 'Android'
 //        println(name)
@@ -29,12 +32,8 @@ class PluginImpl implements Plugin<Project> {
         def sum = "The sum of 2 and 3 equals ${ 2 + 3}"
 //        println(sum)
 
-        println "hello gradle plugin!";
-        project.task('CustomPluginTask') {
-            doLast {
-                println "大家好,我是一个自定义插件，在这里写下你的具体功能"
-            }
-        }
+//        println "hello gradle plugin!";
+
 
         def stu = new Student()
         def tea = new Teacher()

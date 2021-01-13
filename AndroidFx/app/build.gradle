@@ -5,9 +5,17 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //apply plugin: PluginImpl
-apply plugin: 'com.hearing.plugin'
+
 def commonPackage = "com.android.custview"
 def pubPackage = "com.android.custview.pub"
+apply plugin: 'com.hearing.plugin'
+releaseInfo {
+    versionCode = "1"
+    versionName = "1.0.0"
+    versionInfo = "第一个版本~"
+    fileName = "releases.xml"
+}
+
 android {
     def api = new Api()
 //    print('api name =' + api.name)
