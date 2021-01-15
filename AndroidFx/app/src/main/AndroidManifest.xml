@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ViewPager2Activity"/>
-        <activity android:name=".ui.MyActivity"/>
+        <activity android:name=".ui.PluginMainActivity"></activity>
+        <activity android:name=".ui.ViewPager2Activity" />
+        <activity android:name=".ui.MyActivity" />
         <activity android:name=".ui.CustLayoutManagerActivity" />
         <activity android:name=".ui.RecycleViewActivity" />
         <activity android:name=".jetpack.activity.JetPackMainActivity" />
@@ -41,17 +42,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ui.ProxyActivity"
+            android:theme="@android:style/Theme.NoTitleBar"/>
         <meta-data
             android:name="com.zp.lr.logdir"
             android:value="zp_log"
             tools:replace="android:value" />
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

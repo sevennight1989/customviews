@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
     private MainAdapter mMainAdapter;
 
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
-            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列","通知测试","GLSurfaceView使用","Excel解析","RecycleView案例","LargeImageView展示"};
+            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列","通知测试","GLSurfaceView使用","Excel解析","RecycleView案例","LargeImageView展示","插件主界面"};
 
     private boolean autoScroll = false;
     @Override
@@ -150,6 +150,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 14:
                         intent.setClass(MainActivity.this,LargeImageViewActivity.class);
+                        break;
+                    case 15:
+                        intent.setClass(MainActivity.this,PluginMainActivity.class);
                 }
                 startActivity(intent);
             }

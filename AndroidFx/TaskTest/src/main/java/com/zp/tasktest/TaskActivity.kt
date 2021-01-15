@@ -1,9 +1,8 @@
 package com.zp.tasktest
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class TaskActivity : AppCompatActivity() {
+class TaskActivity : BaseActivity2() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
