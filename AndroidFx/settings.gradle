@@ -1,22 +1,22 @@
 include ':app',':buildSrc' ,':base',":TaskTest"
-gradle.addBuildListener(new BuildListener() {
-    void buildStarted(Gradle var1) {
-        println '开始构建'
-    }
-    void settingsEvaluated(Settings var1) {
-        // var1.gradle.rootProject 这里访问 Project 对象时会报错，
-        // 因为还未完成 Project 的初始化。
-        println 'settings 评估完成（settings.gradle 中代码执行完毕）'
-    }
-    void projectsLoaded(Gradle var1) {
-        println '项目结构加载完成（初始化阶段结束）'
-        println '初始化结束，可访问根项目：' + var1.gradle.rootProject
-    }
-    void projectsEvaluated(Gradle var1) {
-        println '所有项目评估完成（配置阶段结束）'
-    }
-    void buildFinished(BuildResult var1) {
-        println '构建结束 '
-    }
-})
+gradle.addBuildListener([
+        buildStarted     : { Gradle var1 ->
+            println '开始构建'
+        },
+        settingsEvaluated: { Settings var1 ->
+            // var1.gradle.rootProject 这里访问 Project 对象时会报错，
+            // 因为还未完成 Project 的初始化。
+            println 'settings 评估完成（settings.gradle 中代码执行完毕）'
+        },
+        projectsLoaded   : { Gradle var1 ->
+            println '项目结构加载完成（初始化阶段结束）'
+            println '初始化结束，可访问根项目：' + var1.gradle.rootProject
+        },
+        projectsEvaluated: { Gradle var1 ->
+            println '所有项目评估完成（配置阶段结束）'
+        },
+        buildFinished    : { BuildResult var1 ->
+            println '构建结束 '
+        },
+] as BuildListener)
 include ':TaskTest'
