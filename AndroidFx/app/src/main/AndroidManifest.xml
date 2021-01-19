@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.PluginMainActivity"></activity>
+        <activity android:name=".ui.PluginMainActivity"/>
         <activity android:name=".ui.ViewPager2Activity" />
         <activity android:name=".ui.MyActivity" />
         <activity android:name=".ui.CustLayoutManagerActivity" />
@@ -32,6 +32,7 @@
         <activity android:name=".ui.ProgressBarActivity" />
         <activity android:name=".ui.CustView01Activity" />
         <activity android:name=".ui.LargeImageViewActivity" />
+        <activity android:name=".ui.ChangeSkinActivity"/>
         <activity
             android:name=".ui.LanguageTestActivity"
             android:configChanges="locale" />
