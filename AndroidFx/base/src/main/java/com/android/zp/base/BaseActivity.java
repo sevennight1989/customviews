@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleRegistry;
 
@@ -13,7 +12,7 @@ import com.blankj.utilcode.util.SPUtils;
 
 import java.lang.reflect.Field;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SkinActivity {
     private LifecycleRegistry lifecycleRegistry;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

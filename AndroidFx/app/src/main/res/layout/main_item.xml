@@ -12,9 +12,9 @@
         android:padding="5dp"
         android:textAllCaps="false"
         android:text="itemText"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/commonTextColor1"
         android:textSize="22sp"
-        android:background="#77000000"
+        android:background="@color/commonTextColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
