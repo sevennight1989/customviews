@@ -10,6 +10,7 @@ import com.android.custview.utils.ExcelUtils;
 import com.android.zp.base.KLog;
 import com.android.zp.base.BaseActivity;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,7 +37,7 @@ public class ExcelActivity extends BaseActivity {
     private String ALIVE_KEY = "isAlive";
     private String LOGIN_KEY = "login_state";
 
-    private String excelName = "Categories_filled_20201222.xlsx";
+    private String excelName = "Allcategory_v3.xlsx";
     private static Map<String, String> map = new HashMap<>();
     String path = "";
 
@@ -68,48 +69,58 @@ public class ExcelActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.parse_excel:
                 map.clear();
-
-                KLog.logE("path: " + path);
-                File file = new File(path + "/" + excelName);
-                KLog.logE("Exist" + file.exists());
-                if (file.exists()) {
-                    if (ExcelUtils.checkIfExcelFile(file)) {
-                        try {
-                            ExcelUtils.readExcel(file, map);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        KLog.logE("path: " + path);
+                        File file = new File(path + "/" + excelName);
+                        KLog.logE("Exist" + file.exists());
+                        if (file.exists()) {
+                            if (ExcelUtils.checkIfExcelFile(file)) {
+                                try {
+                                    ExcelUtils.readExcel(file, map);
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            KLog.logE("Excel 文件不存在!!!");
+                            return;
                         }
-                    }
-                }
-                FileOutputStream fos = null;
-                String dataFilePath = path + "/data.txt";
-                File dataFile = new File(dataFilePath);
-                try {
-                    if (dataFile.exists()) {
-                        dataFile.delete();
-                    } else {
-                        dataFile.createNewFile();
-                    }
-                    // Context.MODE_PRIVATE私有权限，Context.MODE_APPEND追加写入到已有内容的后面
-                    fos = new FileOutputStream(dataFile);
-                    for (String key : map.keySet()) {
-                        String str = key + "===" + map.get(key);
-                        KLog.logE(str);
-                        fos.write(str.getBytes());
-                        fos.write("\r\n".getBytes());//写入换行
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (fos != null) {
+                        FileOutputStream fos = null;
+                        String dataFilePath = path + "/data.txt";
+                        File dataFile = new File(dataFilePath);
                         try {
-                            fos.close();
+                            if (dataFile.exists()) {
+                                dataFile.delete();
+                            } else {
+                                dataFile.createNewFile();
+                            }
+                            // Context.MODE_PRIVATE私有权限，Context.MODE_APPEND追加写入到已有内容的后面
+                            fos = new FileOutputStream(dataFile);
+                            for (String key : map.keySet()) {
+                                String str = key + "===" + map.get(key);
+                                KLog.logE(str);
+                                fos.write(str.getBytes());
+                                fos.write("\r\n".getBytes());//写入换行
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
+                        } finally {
+                            if (fos != null) {
+                                try {
+                                    fos.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
+                        KLog.logI("转换完成");
+                        ToastUtils.showShort("转换完成");
+                        readTxtFile(dataFilePath);
                     }
-                }
-                readTxtFile(dataFilePath);
+                }).start();
+
                 break;
         }
     }

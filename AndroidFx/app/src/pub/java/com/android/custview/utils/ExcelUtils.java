@@ -3,6 +3,8 @@ package com.android.custview.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.zp.base.KLog;
+
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
@@ -35,14 +37,22 @@ public class ExcelUtils {
                 Row row = sheet.getRow(r);
                 int cellsCount = row.getPhysicalNumberOfCells();
                 KLog.logE("cellsCount: " + cellsCount);
-                //target value is cell 4
-                String target = getCellAsString(row, cellsCount - 1, formulaEvaluator);
-                for (int c = 0; c < cellsCount - 1; c++) {
-                    String value = getCellAsString(row, c, formulaEvaluator);
-                    if (!TextUtils.isEmpty(value)) {
-                        map.put(value, target);
+                //获取第一列
+                String cell_01 = getCellAsString(row, 0, formulaEvaluator);
+                if(!TextUtils.isEmpty(cell_01)){
+                    //获取最后一列
+                    String cell_last = getCellAsString(row, cellsCount - 1, formulaEvaluator);
+                    if (!TextUtils.isEmpty(cell_last)) {
+                        map.put(cell_01, cell_last);
                     }
                 }
+
+               /* for (int c = 0; c < cellsCount - 1; c++) {
+                    String value = getCellAsString(row, c, formulaEvaluator);
+                    if (!TextUtils.isEmpty(value) && !TextUtils.isEmpty(target)) {
+                        map.put(value, target);
+                    }
+                }*/
             }
         } catch (Exception e) {
         }
