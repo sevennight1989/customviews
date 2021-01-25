@@ -10,21 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.custview.R;
-import com.android.custview.fgstack.FgConstant;
 import com.android.zp.base.BaseFragment;
+import com.android.zp.base.KLog;
 
 public class Fg02 extends BaseFragment implements View.OnClickListener {
 
     private Button start03;
     private Button pop;
 
-    public Fg02(FragmentPack fragmentPack) {
-        super(fragmentPack);
-    }
 
     @Override
     protected void onDataReceive(Bundle bundle) {
-
+        if (bundle != null) {
+            String value = bundle.getString("key", "");
+            KLog.logE("Fg02 onDataReceive: " + value);
+        }
     }
 
     @Nullable

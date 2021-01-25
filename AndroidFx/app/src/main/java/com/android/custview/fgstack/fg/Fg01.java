@@ -19,9 +19,6 @@ public class Fg01 extends BaseFragment implements View.OnClickListener {
     private Button start02;
     private Button pop;
 
-    public Fg01(FragmentPack fragmentPack) {
-        super(fragmentPack);
-    }
 
     @Override
     protected void onDataReceive(Bundle bundle) {

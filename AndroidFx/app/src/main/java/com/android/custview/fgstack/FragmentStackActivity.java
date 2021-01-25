@@ -3,12 +3,11 @@ package com.android.custview.fgstack;
 
 import android.view.View;
 
-import androidx.fragment.app.FragmentTransaction;
 
 import com.android.custview.R;
 import com.android.custview.fgstack.fg.Fg01;
 import com.android.zp.base.BaseActivity;
-import com.android.zp.base.BaseFragment;
+import com.android.zp.base.FragmentStackManager;
 
 public class FragmentStackActivity extends BaseActivity {
 
@@ -19,26 +18,20 @@ public class FragmentStackActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        BaseFragment.FragmentPack fragmentPack = new BaseFragment.FragmentPack(getSupportFragmentManager(),R.id.fg_holder,FgConstant.NAV_STACK);
-        Fg01 fg01 = new Fg01(fragmentPack);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fg_holder, fg01);
-        BaseFragment.fragmentMap.put(FgConstant.FG_01, fg01);
-        BaseFragment.mIndexMap.put(FgConstant.FG_01, BaseFragment.mCurrentIndex++);
-        transaction.commitAllowingStateLoss();
-
+        FragmentStackManager.FragmentConfig fragmentConfig = new FragmentStackManager.FragmentConfig(getSupportFragmentManager(), R.id.fg_holder, FgConstant.NAV_STACK);
+        FragmentStackManager.getInstance().setGlobalConfig(fragmentConfig);
+        FragmentStackManager.getInstance().add(Fg01.class);
     }
 
     //模拟外部事件切换Fragment
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.add01:
+            case R.id.poi_list_bt:
+
                 break;
-            case R.id.add02:
-                break;
-            case R.id.add03:
-                break;
-            case R.id.pop:
+
+            case R.id.poi_detail_bt:
+
                 break;
         }
     }
@@ -47,5 +40,5 @@ public class FragmentStackActivity extends BaseActivity {
     public void initData() {
 
     }
-    
+
 }

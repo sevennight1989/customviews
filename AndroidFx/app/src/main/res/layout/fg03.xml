@@ -6,12 +6,12 @@
     android:background="@android:color/white">
 
     <Button
-        android:id="@+id/start01"
+        android:id="@+id/start04"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:onClick="onClick"
-        android:text="跳转到第一个01"
+        android:text="start04"
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         android:onClick="onClick"
         android:text="pop"
         android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@+id/start01"
+        app:layout_constraintStart_toEndOf="@+id/start04"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
