@@ -1,6 +1,8 @@
 package com.android.zp.base;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.IdRes;
 import androidx.fragment.app.FragmentManager;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FragmentStackManager {
-
+    private Handler mHandler = new Handler(Looper.getMainLooper());
     public static class FragmentConfig {
         private FragmentManager mFragmentManager;
         private @IdRes
@@ -103,28 +105,31 @@ public class FragmentStackManager {
         }
     }
 
-
-    public void add(BaseFragment targetFragment, Bundle bundle) {
+    public void add(final BaseFragment targetFragment, final Bundle bundle) {
         if (!targetFragment.isAdded()) {
             mTransaction = mFragmentManager.beginTransaction();
+            if (getCurrentFragment() != null) {
+                KLog.logE("hide : " + getCurrentFragmentName());
+                mTransaction.hide(getCurrentFragment());
+            }
             mTransaction.add(mId, targetFragment);
             mTransaction.addToBackStack(mBackStackName);
             mTransaction.commitAllowingStateLoss();
             mIndexMap.put(targetFragment.getClass().getSimpleName(), mCurrentIndex++);
         } else {
             //这里要直接跳转到targetFragment，并且移除targetFragment上面所有的fragment
-            int index = findFragmentIndexByName(targetFragment.getClass().getSimpleName());
-            if (index < 0) {
+            int targetIndex = findFragmentIndexByName(targetFragment.getClass().getSimpleName());
+            if (targetIndex < 0) {
                 KLog.logE("invalid index!!!");
                 return;
             }
             int stashSize = mIndexMap.size();
-            KLog.logE("index: " + index + "  stashSize: " + stashSize);
+            KLog.logE("target index: " + targetIndex + "  stashSize: " + stashSize);
             List<String> toRemoveList = new ArrayList<>();
             for (Map.Entry<String, Integer> entry : mIndexMap.entrySet()) {
                 String key = entry.getKey();
                 int value = entry.getValue();
-                if (value > index) {
+                if (value > targetIndex) {
                     toRemoveList.add(key);
                 }
             }
@@ -132,7 +137,13 @@ public class FragmentStackManager {
             toRemoveList.clear();
         }
         printStashList();
-        targetFragment.onDataReceive(bundle);
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                targetFragment.onDataReceive(bundle);
+            }
+        });
+
     }
 
     public void finish(BaseFragment baseFragment) {
@@ -141,7 +152,6 @@ public class FragmentStackManager {
             printStashList();
         }
     }
-
 
     private void removeList(List<String> nameList) {
         for (String name : nameList) {
@@ -171,5 +181,20 @@ public class FragmentStackManager {
             return mIndexMap.get(fragmentName);
         }
         return -1;
+    }
+
+    public BaseFragment getCurrentFragment() {
+        return fragmentMap.get(getCurrentFragmentName());
+    }
+
+    public String getCurrentFragmentName() {
+        for (Map.Entry<String, Integer> entry : mIndexMap.entrySet()) {
+            String key = entry.getKey();
+            int value = entry.getValue();
+            if (value == mCurrentIndex - 1) {
+                return key;
+            }
+        }
+        return "default";
     }
 }

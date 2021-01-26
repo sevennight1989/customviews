@@ -100,4 +100,12 @@ public abstract class BaseFragment extends Fragment {
         mFragmentStackManager.finish(this);
     }
 
+    private BaseFragment getCurrentFragment() {
+        return mFragmentStackManager.getCurrentFragment();
+    }
+
+    private String getCurrentFragmentName() {
+       return mFragmentStackManager.getCurrentFragmentName();
+    }
+
 }

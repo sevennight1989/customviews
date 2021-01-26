@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.custview.R;
+import com.android.custview.fgstack.RequestManager;
 import com.android.zp.base.BaseFragment;
 import com.android.zp.base.KLog;
 import com.blankj.utilcode.util.ToastUtils;
@@ -47,10 +48,12 @@ public class Fg01 extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.start02:
-                add(Fg02.class);
+                RequestManager.getInstance().requestPoiList("人民广场");
                 break;
 
             default:
+                finish();
+                getActivity().finish();
                 ToastUtils.showShort("无效的操作");
                 break;
         }

@@ -8,6 +8,7 @@ import com.android.custview.R;
 import com.android.custview.fgstack.fg.Fg01;
 import com.android.zp.base.BaseActivity;
 import com.android.zp.base.FragmentStackManager;
+import com.android.zp.base.KLog;
 
 public class FragmentStackActivity extends BaseActivity {
 
@@ -27,11 +28,11 @@ public class FragmentStackActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.poi_list_bt:
-
+                KLog.logE(FragmentStackManager.getInstance().getCurrentFragmentName());
                 break;
 
             case R.id.poi_detail_bt:
-
+                KLog.logE(FragmentStackManager.getInstance().getCurrentFragment().getClass().getSimpleName());
                 break;
         }
     }
