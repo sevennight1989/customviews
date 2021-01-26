@@ -12,8 +12,10 @@ import androidx.annotation.Nullable;
 import com.android.custview.R;
 import com.android.custview.fgstack.RequestManager;
 import com.android.zp.base.BaseFragment;
+import com.android.zp.base.FragmentStackManager;
 import com.android.zp.base.KLog;
 import com.blankj.utilcode.util.ToastUtils;
+
 
 public class Fg01 extends BaseFragment implements View.OnClickListener {
 
@@ -48,7 +50,13 @@ public class Fg01 extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.start02:
-                RequestManager.getInstance().requestPoiList("人民广场");
+                String key = "人民广场";
+                RequestManager.getInstance().requestPoiList(key, new RequestManager.RequestCallBack() {
+                    @Override
+                    public void onRequestEnd(Bundle bundle) {
+                        FragmentStackManager.getInstance().add(FgLoadingOrError.class,bundle);
+                    }
+                });
                 break;
 
             default:

@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.android.custview.fgstack.fg.FgLoadingOrError;
-import com.android.zp.base.FragmentStackManager;
 import com.android.zp.base.KLog;
 
 import java.util.Random;
@@ -19,11 +17,12 @@ public class RequestManager {
     public static final String ACTION_FAILED = "failed";
 
     private Handler mHandler;
+
     private static class SingletonHolder {
         static RequestManager instance = new RequestManager();
     }
 
-    private RequestManager(){
+    private RequestManager() {
         mHandler = new Handler(Looper.getMainLooper());
     }
 
@@ -31,12 +30,17 @@ public class RequestManager {
         return SingletonHolder.instance;
     }
 
-    public void requestPoiList(String key){
+    public interface RequestCallBack {
+        void onRequestEnd(Bundle bundle);
+    }
+
+    public void requestPoiList(String key, RequestCallBack requestCallBack) {
         KLog.logI("requestPoiList: " + key);
         Bundle b = new Bundle();
-        b.putString("search_key",key);
-        b.putString(ACTION_KEY,ACTION_LOADING);
-        FragmentStackManager.getInstance().add(FgLoadingOrError.class,b);
+        RequestParam requestParam = new RequestParam(RequestParam.REQUEST_TYPE_POI_LIST, new String[]{key});
+        b.putParcelable("data", requestParam);
+        b.putString(ACTION_KEY, ACTION_LOADING);
+        requestCallBack.onRequestEnd(b);
         //模拟搜索poi
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -45,13 +49,13 @@ public class RequestManager {
                 Bundle b = new Bundle();
                 KLog.logE("ret = " + ret);
                 if (ret % 2 == 0) {
-                    b.putString(ACTION_KEY,ACTION_SUCCESS);
+                    b.putString(ACTION_KEY, ACTION_SUCCESS);
                 } else {
-                    b.putString(ACTION_KEY,ACTION_FAILED);
+                    b.putString(ACTION_KEY, ACTION_FAILED);
                 }
-                FragmentStackManager.getInstance().add(FgLoadingOrError.class,b);
+                requestCallBack.onRequestEnd(b);
             }
-        },2000);
+        }, 2000);
     }
 
 }

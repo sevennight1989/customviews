@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.custview.R;
 import com.android.custview.fgstack.RequestManager;
+import com.android.custview.fgstack.RequestParam;
 import com.android.custview.view.CustomProgressBar;
 import com.android.zp.base.BaseFragment;
 import com.android.zp.base.KLog;
@@ -24,32 +25,34 @@ public class FgLoadingOrError extends BaseFragment implements View.OnClickListen
     private ConstraintLayout mFailContainer;
     private Button mRetry;
     private Button mBack;
-    private String search_key;
+    private RequestParam requestParam;
 
     @Override
     protected void onDataReceive(Bundle bundle) {
         if (bundle != null) {
-            String value = bundle.getString(RequestManager.ACTION_KEY, "");
-            KLog.logE("Fg04 onDataReceive: " + value);
-            switch (value) {
-                case RequestManager.ACTION_LOADING:
-                    showLoading();
-                    break;
-                case RequestManager.ACTION_SUCCESS:
-                    showSuccess();
-                    break;
-                case RequestManager.ACTION_FAILED:
-                    showFailed();
-                    break;
+            parseBundle(bundle);
+        }
+    }
 
-            }
-            String tempSearchKey = bundle.getString("search_key", "");
-            KLog.logI("tempSearchKey: " + tempSearchKey);
-            if (!TextUtils.isEmpty(tempSearchKey)) {
-                search_key = tempSearchKey;
-            }
+    private void parseBundle(Bundle bundle) {
+        String value = bundle.getString(RequestManager.ACTION_KEY, "");
+        KLog.logE("Fg04 onDataReceive: " + value);
+        switch (value) {
+            case RequestManager.ACTION_LOADING:
+                showLoading();
+                break;
+            case RequestManager.ACTION_SUCCESS:
+                showSuccess();
+                break;
+            case RequestManager.ACTION_FAILED:
+                showFailed();
+                break;
 
         }
+        if (bundle.containsKey("data")) {
+            requestParam = bundle.getParcelable("data");
+        }
+
     }
 
     @Nullable
@@ -69,7 +72,6 @@ public class FgLoadingOrError extends BaseFragment implements View.OnClickListen
         mBack = view.findViewById(R.id.back);
         mRetry.setOnClickListener(this);
         mBack.setOnClickListener(this);
-        showLoading();
 
     }
 
@@ -77,7 +79,16 @@ public class FgLoadingOrError extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.retry:
-                RequestManager.getInstance().requestPoiList(search_key);
+                //重试回根据不同业务场景
+                if (TextUtils.equals(RequestParam.REQUEST_TYPE_POI_LIST, requestParam.getRequestType())) {
+                    String search_key = requestParam.getParams()[0];
+                    RequestManager.getInstance().requestPoiList(search_key, new RequestManager.RequestCallBack() {
+                        @Override
+                        public void onRequestEnd(Bundle bundle) {
+                            parseBundle(bundle);
+                        }
+                    });
+                }
                 break;
             case R.id.back:
                 finish();
