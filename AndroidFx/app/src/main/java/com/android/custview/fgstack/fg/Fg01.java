@@ -61,14 +61,13 @@ public class Fg01 extends BaseFragment implements View.OnClickListener {
 
             default:
                 finish();
-                getActivity().finish();
                 ToastUtils.showShort("无效的操作");
                 break;
         }
     }
     @Override
     public void onDestroy() {
-        reset();
+
         KLog.logE(getClass().getName() + " onDestroy");
         super.onDestroy();
     }

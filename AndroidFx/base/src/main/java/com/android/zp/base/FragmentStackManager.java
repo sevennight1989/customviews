@@ -18,6 +18,19 @@ import java.util.Map;
 
 public class FragmentStackManager {
     private Handler mHandler = new Handler(Looper.getMainLooper());
+
+    public interface Callback {
+        //当关闭最后一个Fragment时需要通知Activity
+        void onFragmentStackNull();
+    }
+
+    private Callback mCallBack;
+
+    public void setCallBack(Callback callBack) {
+        mCallBack = callBack;
+    }
+
+
     public static class FragmentConfig {
         private FragmentManager mFragmentManager;
         private @IdRes
@@ -146,10 +159,20 @@ public class FragmentStackManager {
 
     }
 
+    public void finish() {
+        finish(getCurrentFragment());
+    }
+
     public void finish(BaseFragment baseFragment) {
         if (mFragmentManager != null) {
             remove(baseFragment.getClass().getSimpleName());
             printStashList();
+        }
+        if (getFragmentCount() == 0) {
+            reset();
+            if (mCallBack != null) {
+                mCallBack.onFragmentStackNull();
+            }
         }
     }
 
@@ -171,6 +194,7 @@ public class FragmentStackManager {
     }
 
     public void reset() {
+        KLog.logI("reset");
         mCurrentIndex = 0;
         mIndexMap.clear();
         fragmentMap.clear();
@@ -181,6 +205,10 @@ public class FragmentStackManager {
             return mIndexMap.get(fragmentName);
         }
         return -1;
+    }
+
+    public int getFragmentCount(){
+        return mIndexMap.size();
     }
 
     public BaseFragment getCurrentFragment() {

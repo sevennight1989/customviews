@@ -114,4 +114,10 @@ public class FgLoadingOrError extends BaseFragment implements View.OnClickListen
         finish();
         add(Fg02.class, bundle);
     }
+
+    @Override
+    public void onDestroy() {
+        RequestManager.getInstance().cancelRequest();
+        super.onDestroy();
+    }
 }
