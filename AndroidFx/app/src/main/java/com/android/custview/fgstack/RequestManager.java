@@ -66,7 +66,7 @@ public class RequestManager implements Handler.Callback {
             case REQ_POI_LIST:
                 //这里模拟耗时操作
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
