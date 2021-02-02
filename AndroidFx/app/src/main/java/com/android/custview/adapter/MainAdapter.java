@@ -23,6 +23,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     private Context mContext;
 
+    public MainAdapter(){
+    }
+
+    /**
+     * Default construct method no need Content later.
+     * @param context Context.
+     */
+    @Deprecated
     public MainAdapter(Context context) {
         this.mContext = context;
     }
@@ -67,5 +75,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             super(itemView);
             itemText = itemView.findViewById(R.id.item_text);
         }
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mContext = recyclerView.getContext();
     }
 }

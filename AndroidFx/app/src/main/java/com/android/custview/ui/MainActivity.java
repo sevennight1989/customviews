@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity {
         createFile();
         readFile();
         getLifecycle().addObserver(new MyObserver());
-        mMainAdapter = new MainAdapter(this);
+        mMainAdapter = new MainAdapter();
 //        String[] items = getResources().getStringArray(R.array.main_items);
         mMainAdapter.setData(items);
         mMainAdapter.setOnClickListener(new MainAdapter.OnClickListener() {

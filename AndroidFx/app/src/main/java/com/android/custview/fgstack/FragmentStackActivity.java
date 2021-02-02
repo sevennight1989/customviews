@@ -10,6 +10,9 @@ import com.android.zp.base.BaseActivity;
 import com.android.zp.base.FragmentStackManager;
 import com.android.zp.base.KLog;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class FragmentStackActivity extends BaseActivity {
 
 
@@ -37,11 +40,41 @@ public class FragmentStackActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.poi_list_bt:
                 KLog.logE(FragmentStackManager.getInstance().getCurrentFragmentName());
-
+                ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+                for (int i = 1; i <= 10; i++) {
+                    final int ii = i;
+                    cachedThreadPool.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(ii * 10);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            KLog.logI("线程名称：" + Thread.currentThread().getName() + "，执行" + ii);
+                        }
+                    });
+                }
                 break;
 
             case R.id.poi_detail_bt:
                 KLog.logE(FragmentStackManager.getInstance().getCurrentFragment().getClass().getSimpleName());
+                ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
+                for (int i = 0; i < 10; i++) {
+                    final int ii = i;
+                    fixedThreadPool.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            KLog.logI("线程名称：" + Thread.currentThread().getName() + "，执行" + ii);
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    });
+                }
                 break;
         }
     }

@@ -68,18 +68,18 @@ public class FragmentStackManager {
         }
     }
 
-    public static Map<String, BaseFragment> fragmentMap = new HashMap<>();
+    private static Map<String, BaseFragment> fragmentMap = new HashMap<>();
 
     //用来存放Fragment索引的
-    public static Map<String, Integer> mIndexMap = new HashMap<>();
-    public static int mCurrentIndex = 0;
+    private static Map<String, Integer> mIndexMap = new HashMap<>();
+    private static int mCurrentIndex = 0;
 
     private FragmentManager mFragmentManager;
     private FragmentTransaction mTransaction;
 
     private @IdRes
     int mId;
-    String mBackStackName;
+    private String mBackStackName;
 
     private static class SingletonHolder {
         static FragmentStackManager instance = new FragmentStackManager();
@@ -207,7 +207,7 @@ public class FragmentStackManager {
         return -1;
     }
 
-    public int getFragmentCount(){
+    public int getFragmentCount() {
         return mIndexMap.size();
     }
 

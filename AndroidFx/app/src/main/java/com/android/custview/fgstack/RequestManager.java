@@ -25,10 +25,11 @@ public class RequestManager implements Handler.Callback {
     public static final String ACTION_FAILED = "failed";
 
     private static final int REQ_POI_LIST = 0;
+    private static final int REQ_POI_DETAIL = 1;
 
     private Queue<String> mReqQueue = new LinkedList<>();
 
-    public boolean isCancel = true;
+    private boolean isCancel = true;
 
     private Handler workHandler;
     private Handler mainHandler = new Handler(Looper.getMainLooper(), this);
@@ -90,6 +91,10 @@ public class RequestManager implements Handler.Callback {
                     });
                 }
                 break;
+            case REQ_POI_DETAIL:
+
+                break;
+
         }
         return false;
     }
@@ -118,9 +123,8 @@ public class RequestManager implements Handler.Callback {
         b.putParcelable("data", requestParam);
         b.putString(ACTION_KEY, ACTION_LOADING);
         requestCallBack.onRequestEnd(b);
-        sendMessage(getMessage(REQ_POI_LIST, sessionId));
 
-        //模拟搜索poi
+        sendMessage(getMessage(REQ_POI_LIST, sessionId));
 
     }
 
