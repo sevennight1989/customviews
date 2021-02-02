@@ -23,8 +23,8 @@ public class FragmentStackActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        FragmentStackManager.FragmentConfig fragmentConfig = new FragmentStackManager.FragmentConfig(getSupportFragmentManager(), R.id.fg_holder, FgConstant.NAV_STACK);
-        FragmentStackManager.getInstance().setGlobalConfig(fragmentConfig);
+        FragmentStackManager.FragmentConfig fragmentConfig = new FragmentStackManager.FragmentConfig(getSupportFragmentManager(), R.id.fg_holder);
+        FragmentStackManager.getInstance().setGlobalConfig(this,fragmentConfig);
         FragmentStackManager.getInstance().setCallBack(new FragmentStackManager.Callback() {
             @Override
             public void onFragmentStackNull() {

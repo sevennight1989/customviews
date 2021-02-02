@@ -1,5 +1,6 @@
 package com.android.zp.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -35,12 +36,10 @@ public class FragmentStackManager {
         private FragmentManager mFragmentManager;
         private @IdRes
         int id;
-        String backStackName;
 
-        public FragmentConfig(FragmentManager mFragmentManager, int id, String backStackName) {
+        public FragmentConfig(FragmentManager mFragmentManager, int id) {
             this.mFragmentManager = mFragmentManager;
             this.id = id;
-            this.backStackName = backStackName;
         }
 
         FragmentManager getFragmentManager() {
@@ -59,27 +58,67 @@ public class FragmentStackManager {
             this.id = id;
         }
 
-        void setBackStackName(String backStackName) {
-            this.backStackName = backStackName;
-        }
-
-        String getBackStackName() {
-            return this.backStackName = backStackName;
-        }
     }
 
-    private static Map<String, BaseFragment> fragmentMap = new HashMap<>();
+    Map<String, DataWrapper> mDataWrapperMap = new HashMap<>();
+    private Context mContext;
 
-    //用来存放Fragment索引的
-    private static Map<String, Integer> mIndexMap = new HashMap<>();
-    private static int mCurrentIndex = 0;
+    public static class DataWrapper {
+        FragmentManager mFragmentManager;
+        Map<String, BaseFragment> fragmentMap = new HashMap<>();
+        Map<String, Integer> mIndexMap = new HashMap<>();
+        int mCurrentIndex = 0;
+        int mId;
 
-    private FragmentManager mFragmentManager;
-    private FragmentTransaction mTransaction;
+        public FragmentManager getFragmentManager() {
+            return mFragmentManager;
+        }
 
-    private @IdRes
-    int mId;
-    private String mBackStackName;
+        public DataWrapper setFragmentManager(FragmentManager mFragmentManager) {
+            this.mFragmentManager = mFragmentManager;
+            return this;
+        }
+
+        public FragmentTransaction getTransaction() {
+            return mFragmentManager.beginTransaction();
+        }
+
+        public Map<String, BaseFragment> getFragmentMap() {
+            return fragmentMap;
+        }
+
+        public DataWrapper setFragmentMap(Map<String, BaseFragment> fragmentMap) {
+            this.fragmentMap = fragmentMap;
+            return this;
+        }
+
+        public Map<String, Integer> getIndexMap() {
+            return mIndexMap;
+        }
+
+        public DataWrapper setIndexMap(Map<String, Integer> mIndexMap) {
+            this.mIndexMap = mIndexMap;
+            return this;
+        }
+
+        public int getCurrentIndex() {
+            return mCurrentIndex;
+        }
+
+        public DataWrapper setCurrentIndex(int mCurrentIndex) {
+            this.mCurrentIndex = mCurrentIndex;
+            return this;
+        }
+
+        public int getId() {
+            return mId;
+        }
+
+        public DataWrapper setId(int mId) {
+            this.mId = mId;
+            return this;
+        }
+    }
 
     private static class SingletonHolder {
         static FragmentStackManager instance = new FragmentStackManager();
@@ -89,11 +128,24 @@ public class FragmentStackManager {
         return SingletonHolder.instance;
     }
 
-    public void setGlobalConfig(FragmentConfig fragmentPack) {
+    private String getContextName() {
+        return mContext.getClass().getSimpleName();
+    }
+
+    public void setGlobalConfig(Context context, FragmentConfig fragmentPack) {
+        prepareContext(context);
         if (fragmentPack != null) {
-            mFragmentManager = fragmentPack.getFragmentManager();
-            mId = fragmentPack.getId();
-            mBackStackName = fragmentPack.getBackStackName();
+            DataWrapper dataWrapper = new DataWrapper().setFragmentManager(fragmentPack.getFragmentManager())
+                    .setId(fragmentPack.getId())
+                    .setCurrentIndex(0);
+            mDataWrapperMap.put(getContextName(), dataWrapper);
+        }
+    }
+
+    private void prepareContext(Context context) {
+        if (context != null) {
+            mContext = context;
+            KLog.logI("prepareContext: " + context.getClass().getSimpleName());
         }
     }
 
@@ -103,12 +155,12 @@ public class FragmentStackManager {
 
     public void add(Class<? extends BaseFragment> clazz, Bundle bundle) {
         String name = clazz.getSimpleName();
-        BaseFragment baseFragment = fragmentMap.get(name);
+        BaseFragment baseFragment = getDataWrapper().fragmentMap.get(name);
         if (baseFragment == null) {
             try {
                 Constructor con = clazz.getConstructor();
                 baseFragment = (BaseFragment) con.newInstance();
-                fragmentMap.put(name, baseFragment);
+                getDataWrapper().fragmentMap.put(name, baseFragment);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -118,17 +170,23 @@ public class FragmentStackManager {
         }
     }
 
+    private DataWrapper getDataWrapper() {
+        return mDataWrapperMap.get(getContextName());
+    }
+
     public void add(final BaseFragment targetFragment, final Bundle bundle) {
         if (!targetFragment.isAdded()) {
-            mTransaction = mFragmentManager.beginTransaction();
+            FragmentTransaction mTransaction = getDataWrapper().getTransaction();
             if (getCurrentFragment() != null) {
                 KLog.logE("hide : " + getCurrentFragmentName());
                 mTransaction.hide(getCurrentFragment());
             }
-            mTransaction.add(mId, targetFragment);
-            mTransaction.addToBackStack(mBackStackName);
+            mTransaction.add(getDataWrapper().mId, targetFragment);
+            mTransaction.addToBackStack(getContextName());
             mTransaction.commitAllowingStateLoss();
-            mIndexMap.put(targetFragment.getClass().getSimpleName(), mCurrentIndex++);
+            int mCurrentIndex = getDataWrapper().mCurrentIndex;
+            getDataWrapper().setCurrentIndex(++mCurrentIndex);
+            getDataWrapper().mIndexMap.put(targetFragment.getClass().getSimpleName(), mCurrentIndex);
         } else {
             //这里要直接跳转到targetFragment，并且移除targetFragment上面所有的fragment
             int targetIndex = findFragmentIndexByName(targetFragment.getClass().getSimpleName());
@@ -136,10 +194,10 @@ public class FragmentStackManager {
                 KLog.logE("invalid index!!!");
                 return;
             }
-            int stashSize = mIndexMap.size();
-            KLog.logE("target index: " + targetIndex + "  stashSize: " + stashSize);
+            int stashSize = getDataWrapper().mIndexMap.size();
+            KLog.logE(getContextName() + "  target index: " + targetIndex + "  stashSize: " + stashSize);
             List<String> toRemoveList = new ArrayList<>();
-            for (Map.Entry<String, Integer> entry : mIndexMap.entrySet()) {
+            for (Map.Entry<String, Integer> entry : getDataWrapper().mIndexMap.entrySet()) {
                 String key = entry.getKey();
                 int value = entry.getValue();
                 if (value > targetIndex) {
@@ -164,7 +222,7 @@ public class FragmentStackManager {
     }
 
     public void finish(BaseFragment baseFragment) {
-        if (mFragmentManager != null) {
+        if (getDataWrapper().mFragmentManager != null) {
             remove(baseFragment.getClass().getSimpleName());
             printStashList();
         }
@@ -184,42 +242,45 @@ public class FragmentStackManager {
 
     private void remove(String name) {
         KLog.logE("toRemoveKey: " + name);
-        mIndexMap.remove(name);
+        getDataWrapper().mIndexMap.remove(name);
+        int mCurrentIndex = getDataWrapper().mCurrentIndex;
         mCurrentIndex--;
-        mFragmentManager.popBackStack();
+        getDataWrapper().setCurrentIndex(mCurrentIndex);
+        getDataWrapper().mFragmentManager.popBackStack();
     }
 
     private void printStashList() {
-        KLog.logE("mCurrentIndex:" + mCurrentIndex + "   stack : " + GsonUtils.toJson(mIndexMap));
+        KLog.logE(getContextName() + "  mCurrentIndex:" + getDataWrapper().mCurrentIndex + "   stack : " + GsonUtils.toJson(getDataWrapper().mIndexMap));
     }
 
     public void reset() {
         KLog.logI("reset");
-        mCurrentIndex = 0;
-        mIndexMap.clear();
-        fragmentMap.clear();
+        getDataWrapper().setCurrentIndex(0);
+        getDataWrapper().mIndexMap.clear();
+        getDataWrapper().fragmentMap.clear();
     }
 
     private int findFragmentIndexByName(String fragmentName) {
-        if (mIndexMap.get(fragmentName) != null) {
-            return mIndexMap.get(fragmentName);
+        if (getDataWrapper().mIndexMap.get(fragmentName) != null) {
+            return getDataWrapper().mIndexMap.get(fragmentName);
         }
         return -1;
     }
 
     public int getFragmentCount() {
-        return mIndexMap.size();
+        return getDataWrapper().mIndexMap.size();
     }
 
     public BaseFragment getCurrentFragment() {
-        return fragmentMap.get(getCurrentFragmentName());
+        return getDataWrapper().fragmentMap.get(getCurrentFragmentName());
     }
 
     public String getCurrentFragmentName() {
-        for (Map.Entry<String, Integer> entry : mIndexMap.entrySet()) {
+        KLog.logI("getCurrentFragmentName: " + GsonUtils.toJson(getDataWrapper().mIndexMap));
+        for (Map.Entry<String, Integer> entry : getDataWrapper().mIndexMap.entrySet()) {
             String key = entry.getKey();
             int value = entry.getValue();
-            if (value == mCurrentIndex - 1) {
+            if (value == getDataWrapper().mCurrentIndex) {
                 return key;
             }
         }

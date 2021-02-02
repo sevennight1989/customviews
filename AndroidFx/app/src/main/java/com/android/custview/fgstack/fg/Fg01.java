@@ -54,7 +54,7 @@ public class Fg01 extends BaseFragment implements View.OnClickListener {
                 RequestManager.getInstance().requestPoiList(key, new RequestManager.RequestCallBack() {
                     @Override
                     public void onRequestEnd(Bundle bundle) {
-                        FragmentStackManager.getInstance().add(FgLoadingOrError.class,bundle);
+                        add(FgLoadingOrError.class,bundle);
                     }
                 });
                 break;
