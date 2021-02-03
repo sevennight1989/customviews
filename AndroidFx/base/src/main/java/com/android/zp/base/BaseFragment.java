@@ -17,10 +17,13 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void onDataReceive(Bundle bundle);
 
+    public Context mContext;
+
     @Override
     public void onAttach(@NonNull Context context) {
 //        KLog.logE(getClass().getName() + " onAttach");
         super.onAttach(context);
+        mContext = context;
     }
 
     @Override
@@ -84,28 +87,28 @@ public abstract class BaseFragment extends Fragment {
         super.onDetach();
     }
 
-    protected void add(Class<? extends BaseFragment> clazz){
+    protected void add(Class<? extends BaseFragment> clazz) {
         add(clazz, null);
     }
 
-    protected void add(Class<? extends BaseFragment> clazz, Bundle bundle){
-        mFragmentStackManager.add(clazz,bundle);
+    protected void add(Class<? extends BaseFragment> clazz, Bundle bundle) {
+        mFragmentStackManager.add(mContext, clazz, bundle);
     }
 
-    protected void reset(){
-        mFragmentStackManager.reset();
+    protected void reset() {
+        mFragmentStackManager.reset(mContext);
     }
 
     protected void finish() {
-        mFragmentStackManager.finish(this);
+        mFragmentStackManager.finish(mContext);
     }
 
     private BaseFragment getCurrentFragment() {
-        return mFragmentStackManager.getCurrentFragment();
+        return mFragmentStackManager.getCurrentFragment(mContext);
     }
 
     private String getCurrentFragmentName() {
-       return mFragmentStackManager.getCurrentFragmentName();
+        return mFragmentStackManager.getCurrentFragmentName(mContext);
     }
 
 }

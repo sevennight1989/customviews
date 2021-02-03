@@ -32,14 +32,14 @@ public class FragmentStackActivity extends BaseActivity {
                 finish();
             }
         });
-        FragmentStackManager.getInstance().add(Fg01.class);
+        FragmentStackManager.getInstance().add(this,Fg01.class);
     }
 
     //模拟外部事件切换Fragment
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.poi_list_bt:
-                KLog.logE(FragmentStackManager.getInstance().getCurrentFragmentName());
+                KLog.logE(FragmentStackManager.getInstance().getCurrentFragmentName(this));
                 ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
                 for (int i = 1; i <= 10; i++) {
                     final int ii = i;
@@ -58,7 +58,7 @@ public class FragmentStackActivity extends BaseActivity {
                 break;
 
             case R.id.poi_detail_bt:
-                KLog.logE(FragmentStackManager.getInstance().getCurrentFragment().getClass().getSimpleName());
+                KLog.logE(FragmentStackManager.getInstance().getCurrentFragment(this).getClass().getSimpleName());
                 ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
                 for (int i = 0; i < 10; i++) {
                     final int ii = i;
@@ -86,6 +86,6 @@ public class FragmentStackActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         KLog.logI("onBackPressed");
-        FragmentStackManager.getInstance().finish();
+        FragmentStackManager.getInstance().finish(this);
     }
 }

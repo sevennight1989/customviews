@@ -17,8 +17,57 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FragmentStackManager {
+public class FragmentStackManager implements IStackManager {
     private Handler mHandler = new Handler(Looper.getMainLooper());
+
+    @Override
+    public void add(Context context, Class<? extends BaseFragment> clazz) {
+        prepareContext(context);
+        add(clazz);
+    }
+
+    @Override
+    public void add(Context context, Class<? extends BaseFragment> clazz, Bundle bundle) {
+        prepareContext(context);
+        add(clazz, bundle);
+    }
+
+    @Override
+    public void finish(Context context) {
+        prepareContext(context);
+        finish();
+    }
+
+    @Override
+    public void finish(Context context, BaseFragment baseFragment) {
+        prepareContext(context);
+        finish(baseFragment);
+    }
+
+    @Override
+    public void reset(Context context) {
+        prepareContext(context);
+        reset();
+    }
+
+    @Override
+    public int getFragmentCount(Context context) {
+        prepareContext(context);
+        getFragmentCount();
+        return 0;
+    }
+
+    @Override
+    public BaseFragment getCurrentFragment(Context context) {
+        prepareContext(context);
+        return getCurrentFragment();
+    }
+
+    @Override
+    public String getCurrentFragmentName(Context context) {
+        prepareContext(context);
+        return getCurrentFragmentName();
+    }
 
     public interface Callback {
         //当关闭最后一个Fragment时需要通知Activity
