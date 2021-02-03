@@ -74,10 +74,9 @@ public class FragmentStackManager implements IStackManager {
         void onFragmentStackNull();
     }
 
-    private Callback mCallBack;
 
     public void setCallBack(Callback callBack) {
-        mCallBack = callBack;
+        getDataWrapper().callback = callBack;
     }
 
 
@@ -113,6 +112,7 @@ public class FragmentStackManager implements IStackManager {
     private Context mContext;
 
     public static class DataWrapper {
+        Callback callback;
         FragmentManager mFragmentManager;
         Map<String, BaseFragment> fragmentMap = new HashMap<>();
         Map<String, Integer> mIndexMap = new HashMap<>();
@@ -277,8 +277,9 @@ public class FragmentStackManager implements IStackManager {
         }
         if (getFragmentCount() == 0) {
             reset();
-            if (mCallBack != null) {
-                mCallBack.onFragmentStackNull();
+            Callback callback = getDataWrapper().callback;
+            if (callback != null) {
+                callback.onFragmentStackNull();
             }
         }
     }
