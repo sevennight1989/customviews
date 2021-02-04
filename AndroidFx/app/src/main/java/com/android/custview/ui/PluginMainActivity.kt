@@ -44,8 +44,8 @@ class PluginMainActivity : BaseActivity() {
         val path = file.absolutePath
         KLog.logI(path)
         val packageManager: PackageManager = packageManager
-        val packageInfo: PackageInfo = packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES)
-        val activityInfo: ActivityInfo = packageInfo.activities[0]
+        val packageInfo: PackageInfo? = packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES)
+        val activityInfo: ActivityInfo = packageInfo!!.activities[0]
         KLog.logE("activityInfo: " + activityInfo.name)
         startActivity(Intent(this, ProxyActivity::class.java).apply {
             putExtra("className", activityInfo.name)

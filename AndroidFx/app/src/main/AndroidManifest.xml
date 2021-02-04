@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".fgstack.FragmentStackActivity"></activity>
+        <activity android:name=".live.LiveMainActivity"
+            />
+        <activity android:name=".fgstack.FragmentStackActivity" />
         <activity android:name=".ui.PluginMainActivity" />
         <activity android:name=".ui.ViewPager2Activity" />
         <activity android:name=".ui.MyActivity" />
@@ -53,12 +55,12 @@
             android:value="zp_log"
             tools:replace="android:value" />
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

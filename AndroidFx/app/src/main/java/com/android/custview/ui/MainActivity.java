@@ -29,6 +29,8 @@ import com.android.custview.jetpack.UserDatabase;
 import com.android.custview.jetpack.activity.JetPackMainActivity;
 import com.android.custview.jetpack.bean.ItemBean;
 import com.android.custview.jetpack.bean.ItemDao;
+import com.android.custview.live.LiveFragment01;
+import com.android.custview.live.LiveMainActivity;
 import com.android.zp.base.KLog;
 import com.android.custview.adapter.MainAdapter;
 import com.android.custview.bean.Person;
@@ -61,7 +63,8 @@ public class MainActivity extends BaseActivity {
 
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
             , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列","通知测试","GLSurfaceView使用"
-            ,"Excel解析","RecycleView案例","LargeImageView展示","插件主界面","换肤","Fragment任务栈"};
+            ,"Excel解析","RecycleView案例","LargeImageView展示","插件主界面","换肤","Fragment任务栈"
+    ,"直播主页"};
 
     private boolean autoScroll = false;
     @Override
@@ -161,6 +164,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 17:
                         intent.setClass(MainActivity.this, FragmentStackActivity.class);
+                        break;
+                    case 18:
+                        intent.setClass(MainActivity.this, LiveMainActivity.class);
                         break;
                 }
                 startActivity(intent);
