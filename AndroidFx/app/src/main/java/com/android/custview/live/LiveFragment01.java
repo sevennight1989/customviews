@@ -1,6 +1,8 @@
 package com.android.custview.live;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -14,7 +16,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
 import com.android.custview.R;
+import com.android.custview.live.gift.VideoGiftView;
 import com.android.zp.base.BaseFragment;
+import com.android.zp.base.KLog;
+import com.blankj.utilcode.util.ToastUtils;
+import com.ss.ugc.android.alpha_player.IMonitor;
+import com.ss.ugc.android.alpha_player.IPlayerAction;
+import com.ss.ugc.android.alpha_player.model.ScaleType;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 public class LiveFragment01 extends BaseFragment implements View.OnClickListener {
 
@@ -24,6 +36,26 @@ public class LiveFragment01 extends BaseFragment implements View.OnClickListener
     private LiveCardView viewCard;
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private FragmentManager mManager;
+    private VideoGiftView video_gift_view;
+    private String basePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        video_gift_view.detachView();
+        video_gift_view.releasePlayerController();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 
     @Override
     protected void onDataReceive(Bundle bundle) {
@@ -55,9 +87,50 @@ public class LiveFragment01 extends BaseFragment implements View.OnClickListener
                     viewBullet.liveCardChange(0);
                 }
             }
+
+            @Override
+            public void onGiftSend() {
+                String testPath = getResourcePath();
+                KLog.logE("onGiftSend: " + testPath);
+                if ("".equals(testPath)) {
+                    ToastUtils.showShort("please run 'gift_install.sh gift/demoRes' for load alphaVideo resource.");
+                }
+                video_gift_view.startVideoGift(testPath);
+            }
         });
+        video_gift_view = view.findViewById(R.id.video_gift_view);
         mManager = getParentFragmentManager();
+        initVideoGiftView();
+        video_gift_view.attachView();
     }
+
+    private void initVideoGiftView() {
+        video_gift_view.initPlayerController(mContext, this, playerAction, monitor);
+    }
+
+    private IPlayerAction playerAction = new IPlayerAction() {
+        @Override
+        public void onVideoSizeChanged(int videoWidth, int videoHeight, @NotNull ScaleType scaleType) {
+            KLog.logI("call onVideoSizeChanged(), videoWidth = " + videoWidth + " ,videoHeight = " + videoHeight + " , scaleType = " + scaleType);
+        }
+
+        @Override
+        public void startAction() {
+            KLog.logI("startAction");
+        }
+
+        @Override
+        public void endAction() {
+            KLog.logI("endAction");
+        }
+    };
+
+    private IMonitor monitor = new IMonitor() {
+        @Override
+        public void monitor(boolean state, @NotNull String playType, int what, int extra, @NotNull String errorInfo) {
+            KLog.logE("call monitor(), state: " + state + ", playType = " + playType + " what = " + what + " extra = " + extra + " errorInfo = " + errorInfo);
+        }
+    };
 
     @Override
     public void onClick(View v) {
@@ -107,5 +180,15 @@ public class LiveFragment01 extends BaseFragment implements View.OnClickListener
             }
         });
         inputDialog.show(mManager, "InputDialog");
+    }
+
+    private String getResourcePath() {
+        String dirPath = basePath + File.separator + "gift" + File.separator;
+        KLog.logI("dirPath : " + dirPath);
+        File dirFile = new File(dirPath);
+        if (dirFile.exists() && dirFile.listFiles() != null) {
+            return dirFile.listFiles()[0].getAbsolutePath();
+        }
+        return "";
     }
 }

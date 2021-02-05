@@ -11,27 +11,6 @@
         android:scaleType="centerCrop"
         android:src="@drawable/bg" />
 
-    <com.android.custview.live.BulletView
-        android:id="@+id/view_bullet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="68dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.android.custview.live.LiveCardView
-        android:id="@+id/view_card"
-        android:layout_width="258dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="68dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -73,6 +52,32 @@
             app:layout_goneMarginEnd="8dp"
             app:layout_goneMarginStart="16dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.android.custview.live.BulletView
+        android:id="@+id/view_bullet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="68dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <com.android.custview.live.LiveCardView
+        android:id="@+id/view_card"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="68dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.android.custview.live.gift.VideoGiftView
+        android:id="@+id/video_gift_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

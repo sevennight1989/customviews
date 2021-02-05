@@ -2,7 +2,6 @@ package com.android.custview.live;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -17,6 +16,7 @@ public class LiveCardView extends FrameLayout {
 
     public interface Listener {
         void onCall(int visible);
+        void onGiftSend();
     }
 
     private Listener listener;
@@ -83,6 +83,9 @@ public class LiveCardView extends FrameLayout {
             @Override
             public void onClick(View v) {
                 KLog.logI("送礼物");
+                if(listener != null){
+                    listener.onGiftSend();
+                }
             }
         });
         measureCardSize(view);

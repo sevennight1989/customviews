@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 
 import com.android.custview.R;
+import com.android.custview.utils.AssetsFileUtils;
 import com.android.zp.base.BaseActivity;
 import com.android.zp.base.FragmentStackManager;
 import com.android.zp.base.KLog;
@@ -47,7 +48,18 @@ public class LiveMainActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        AssetsFileUtils.getInstance(this).setFileOperateCallback(new AssetsFileUtils.FileOperateCallback() {
+            @Override
+            public void onSuccess() {
+                KLog.logI("Copy success");
+            }
 
+            @Override
+            public void onFailed(String error) {
+                KLog.logE("Copy error " + error);
+            }
+        });
+        AssetsFileUtils.getInstance(this).copyAssetsToSD("demoRes","gift/demoRes");
     }
 
     @Override
