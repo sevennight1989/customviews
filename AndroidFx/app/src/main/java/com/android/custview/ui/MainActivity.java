@@ -37,6 +37,7 @@ import com.android.custview.bean.Person;
 import com.android.custview.view.InitApplication;
 import com.android.custview.widget.SpacesItemDecoration;
 import com.android.zp.base.BaseActivity;
+import com.android.zp.base.LR;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -69,7 +70,7 @@ public class MainActivity extends BaseActivity {
     private boolean autoScroll = false;
     @Override
     public int getLayout() {
-        return R.layout.activity_main;
+        return LR.layout.activity_main;
     }
 
     @Override
