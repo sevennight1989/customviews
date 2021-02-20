@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.android.custview.view.ExpandLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/expand"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -15,7 +16,7 @@
         app:titleText="hello andorid ! "
         app:titleTextColor="#ff0000"
         app:titleTextSize="30sp" />
-    
+
     <com.android.custview.view.CustomView01
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -26,7 +27,7 @@
         app:titleText="helloworldwelcome"
         app:titleTextColor="#00ff00"
         app:titleTextSize="20sp" />
-    
+
     <com.android.custview.view.CustomView01
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,4 +39,32 @@
         app:titleTextColor="#ff0000"
         app:titleTextSize="12sp" />
 
-</LinearLayout>
+    <com.android.custview.view.TagTextView
+        android:id="@+id/tv_tag1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/app_name"
+        android:textSize="18sp" />
+
+    <com.android.custview.view.TagTextView
+        android:id="@+id/tv_tag2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/app_name"
+        android:textSize="18sp" />
+
+    <com.android.custview.view.TagTextView
+        android:id="@+id/tv_tag3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/app_name"
+        android:textSize="18sp" />
+
+</com.android.custview.view.ExpandLinearLayout>
