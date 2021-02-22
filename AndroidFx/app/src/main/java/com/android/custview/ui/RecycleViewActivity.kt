@@ -1,6 +1,7 @@
 package com.android.custview.ui
 
 import android.Manifest
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -20,8 +21,22 @@ import com.blankj.utilcode.util.ToastUtils
 
 class RecycleViewActivity : BaseActivity() {
 
+    private var animPercent: Float = 0f
+        set(value) {
+            field = value
+            KLog.logI("animPercent: $animPercent")
+        }
+
+    private fun startAnim() {
+        val animator = ObjectAnimator.ofFloat(this, "animPercent", 0f, 1f)
+        animator.duration = 500
+        animator.start()
+    }
+
+
     override fun initData() {
         KLog.logI("get location permission ${hasLocationPermission(this)}")
+        startAnim()
     }
 
     override fun getLayout(): Int {
@@ -32,8 +47,8 @@ class RecycleViewActivity : BaseActivity() {
 
     override fun initView() {
         img = findViewById<ImageView>(R.id.image)
-        val animation:Animation = AnimationUtils.loadAnimation(this,R.anim.rotate_anim)
-        var lin:LinearInterpolator  = LinearInterpolator()
+        val animation: Animation = AnimationUtils.loadAnimation(this, R.anim.rotate_anim)
+        var lin: LinearInterpolator = LinearInterpolator()
         animation.interpolator = lin
         img!!.startAnimation(animation)
     }

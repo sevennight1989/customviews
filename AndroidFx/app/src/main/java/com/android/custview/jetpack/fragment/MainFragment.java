@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import com.android.custview.R;
 import com.android.custview.databinding.MainFragmentBinding;
 import com.android.custview.jetpack.bean.ItemBean;
+import com.android.custview.utils.ConfigUtils;
 import com.android.zp.base.KLog;
 
 public class MainFragment extends Fragment {
@@ -36,6 +37,7 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         KLog.logE("onCreate");
+        demo_max_life_cycle = ConfigUtils.Companion.getInstance(getActivity()).isEnableDemoMaxLifeCycle();
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mViewModel.init();
         mViewModel.liveList.observe(this, new Observer<PagedList<ItemBean>>() {
@@ -50,7 +52,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         KLog.logE("onCreateView");
-        MainFragmentBinding binding = DataBindingUtil.inflate(inflater,R.layout.main_fragment,container, false);
+        MainFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false);
         binding.setVm(mViewModel);
         return binding.getRoot();
     }
@@ -61,11 +63,16 @@ public class MainFragment extends Fragment {
         super.onStart();
     }
 
+    private boolean demo_max_life_cycle = false;
+
     @Override
     public void onResume() {
         KLog.logE("onResume");
         super.onResume();
-        getParentFragmentManager().beginTransaction().setMaxLifecycle(this, Lifecycle.State.CREATED).commit();
+        //set max lifecycle
+        if (demo_max_life_cycle) {
+            getParentFragmentManager().beginTransaction().setMaxLifecycle(this, Lifecycle.State.CREATED).commit();
+        }
     }
 
     @Override

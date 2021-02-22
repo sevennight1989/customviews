@@ -6,6 +6,7 @@ import android.content.Context;
 
 
 import com.android.custview.BuildConfig;
+import com.android.custview.utils.ConfigUtils;
 import com.android.zp.base.BaseApplicaion;
 import com.android.zp.base.KLog;
 import com.debug.Head;
@@ -20,6 +21,7 @@ public class InitApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+        ConfigUtils.Companion.getInstance(mContext).initDemoConfigs();
         BaseApplicaion.getInstance().onCreate(mContext);
         String logDir = AppManifestUtil.getAndroidManifestStringValueByName(this, AppManifestUtil.ManifestName.LogDir);
         KLog.logI("LogDir: " + logDir);
