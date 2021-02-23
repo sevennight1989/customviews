@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -25,6 +26,7 @@ import androidx.work.WorkerParameters;
 import com.android.custview.BuildConfig;
 import com.android.custview.R;
 import com.android.custview.fgstack.FragmentStackActivity;
+import com.android.custview.inf.AnyCallback;
 import com.android.custview.jetpack.UserDatabase;
 import com.android.custview.jetpack.activity.JetPackMainActivity;
 import com.android.custview.jetpack.bean.ItemBean;
@@ -63,11 +65,12 @@ public class MainActivity extends BaseActivity {
     private MainAdapter mMainAdapter;
 
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
-            , "ListView侧滑", "自定义跑马灯", "卡片框架","自定义上滑","JetPacket系列","通知测试","GLSurfaceView使用"
-            ,"Excel解析","RecycleView案例","LargeImageView展示","插件主界面","换肤","Fragment任务栈"
-    ,"直播主页"};
+            , "ListView侧滑", "自定义跑马灯", "卡片框架", "自定义上滑", "JetPacket系列", "通知测试", "GLSurfaceView使用"
+            , "Excel解析", "RecycleView案例", "LargeImageView展示", "插件主界面", "换肤", "Fragment任务栈"
+            , "直播主页"};
 
     private boolean autoScroll = false;
+
     @Override
     public int getLayout() {
         return LR.layout.activity_main;
@@ -86,6 +89,23 @@ public class MainActivity extends BaseActivity {
     @SuppressLint("SetWorldReadable")
     @Override
     public void initData() {
+        setAnyCallBack(new AnyCallback() {
+            @Override
+            public void onCallObject(Object obj) {
+
+            }
+
+            @Override
+            public void onCallBundle(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onCallString(String str) {
+                super.onCallString(str);
+                KLog.logI("onCallString: " + str);
+            }
+        });
         String path = getExternalFilesDir(null).getPath() + "/1607996925081.wav";
         KLog.logI(path);
         try {
@@ -155,13 +175,13 @@ public class MainActivity extends BaseActivity {
                         intent.addFlags(FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                         break;
                     case 14:
-                        intent.setClass(MainActivity.this,LargeImageViewActivity.class);
+                        intent.setClass(MainActivity.this, LargeImageViewActivity.class);
                         break;
                     case 15:
-                        intent.setClass(MainActivity.this,PluginMainActivity.class);
+                        intent.setClass(MainActivity.this, PluginMainActivity.class);
                         break;
                     case 16:
-                        intent.setClass(MainActivity.this,ChangeSkinActivity.class);
+                        intent.setClass(MainActivity.this, ChangeSkinActivity.class);
                         break;
                     case 17:
                         intent.setClass(MainActivity.this, FragmentStackActivity.class);
@@ -205,7 +225,7 @@ public class MainActivity extends BaseActivity {
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if(mRv.getLayoutManager() instanceof LinearLayoutManager) {
+                            if (mRv.getLayoutManager() instanceof LinearLayoutManager) {
                                 ((LinearLayoutManager) (mRv.getLayoutManager())).smoothScrollToPosition(mRv, null, items.length - 1);
                             }
                         }
@@ -234,7 +254,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    File dataFile = new File("/map/iGO/pateo_nav_license2.txt");
+    File dataFile = new File("/sdcard/pateo_nav_license2.txt");
 
     private void createFile() {
 
@@ -266,6 +286,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void readFile() {
+        mAnyCallback.onCallString(dataFile.getAbsolutePath());
         KLog.logI("dataFile exist " + dataFile.exists());
         if (!dataFile.exists()) {
             return;
@@ -296,6 +317,7 @@ public class MainActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
+
     }
 
     @Override
@@ -398,5 +420,11 @@ public class MainActivity extends BaseActivity {
     public boolean hasLocationPermission(Context context) {
         int hasPermission = context.checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         return (hasPermission == PackageManager.PERMISSION_GRANTED);
+    }
+
+    private AnyCallback mAnyCallback;
+
+    public void setAnyCallBack(AnyCallback anyCallBack) {
+        mAnyCallback = anyCallBack;
     }
 }
