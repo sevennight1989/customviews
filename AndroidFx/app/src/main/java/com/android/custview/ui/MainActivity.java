@@ -25,6 +25,7 @@ import androidx.work.WorkerParameters;
 
 import com.android.custview.BuildConfig;
 import com.android.custview.R;
+import com.android.custview.constant.PJConstant;
 import com.android.custview.fgstack.FragmentStackActivity;
 import com.android.custview.inf.AnyCallback;
 import com.android.custview.jetpack.UserDatabase;
@@ -43,6 +44,7 @@ import com.android.zp.base.LR;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.tencent.mmkv.MMKV;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,13 +88,22 @@ public class MainActivity extends BaseActivity {
         return !TextUtils.equals(BuildConfig.appName, "CommonTest");
     }
 
+    private MMKV kv;
+
     @SuppressLint("SetWorldReadable")
     @Override
     public void initData() {
+        kv = MMKV.mmkvWithID("cmpj");
+        kv.encode(PJConstant.ID, 1001);
+        kv.encode(PJConstant.IS_RUNNING, true);
+        kv.encode(PJConstant.NAME, "Thread-01");
         setAnyCallBack(new AnyCallback() {
             @Override
             public void onCallObject(Object obj) {
-
+                KLog.logE("onCallObject: " + obj.toString());
+                KLog.logI("name:    " + kv.decodeString(PJConstant.NAME));
+                KLog.logI("id:      " + kv.decodeInt(PJConstant.ID));
+                KLog.logI("Running: " + kv.decodeBool(PJConstant.IS_RUNNING));
             }
 
             @Override
@@ -130,6 +141,7 @@ public class MainActivity extends BaseActivity {
                         intent.setClass(MainActivity.this, CustView01Activity.class);
                         break;
                     case 1:
+                        mAnyCallback.onCallObject(2.12f);
                         intent.setClass(MainActivity.this, ProgressBarActivity.class);
                         break;
                     case 2:
