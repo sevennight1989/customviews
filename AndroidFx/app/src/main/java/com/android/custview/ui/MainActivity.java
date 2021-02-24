@@ -31,8 +31,8 @@ import com.android.custview.jetpack.UserDatabase;
 import com.android.custview.jetpack.activity.JetPackMainActivity;
 import com.android.custview.jetpack.bean.ItemBean;
 import com.android.custview.jetpack.bean.ItemDao;
-import com.android.custview.live.LiveFragment01;
 import com.android.custview.live.LiveMainActivity;
+import com.android.custview.project.TestCase;
 import com.android.zp.base.KLog;
 import com.android.custview.adapter.MainAdapter;
 import com.android.custview.bean.Person;
@@ -126,6 +126,7 @@ public class MainActivity extends BaseActivity {
                 KLog.logI("点击了 " + pos);
                 switch (pos) {
                     case 0:
+                        TestCase.getInstance().sendAccStatus(true);
                         intent.setClass(MainActivity.this, CustView01Activity.class);
                         break;
                     case 1:
