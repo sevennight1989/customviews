@@ -240,6 +240,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.1.0'
     implementation 'androidx.navigation:navigation-ui:2.1.0'
     implementation 'androidx.navigation:navigation-runtime:2.1.0'
+    implementation files('src/main/libs/pinyin4j-2.5.0.jar')
     def lifecycle_version = "2.1.0"
 
     // ViewModel and LiveData

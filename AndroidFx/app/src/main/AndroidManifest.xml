@@ -2,20 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.android.custview">
-    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
-    <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
-    <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
+
     <application
         android:name=".view.InitApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${appName}"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".live.LiveMainActivity"
-            />
+        <activity android:name=".ui.ContactListActivity"></activity>
+        <activity android:name=".live.LiveMainActivity" />
         <activity android:name=".fgstack.FragmentStackActivity" />
         <activity android:name=".ui.PluginMainActivity" />
         <activity android:name=".ui.ViewPager2Activity" />
@@ -39,6 +37,9 @@
         <activity android:name=".ui.CustView01Activity" />
         <activity android:name=".ui.LargeImageViewActivity" />
         <activity android:name=".ui.ChangeSkinActivity" />
+        <service android:name=".service.IntercomTimeWindowService"
+            android:exported="true"
+            android:enabled="true"/>
         <activity
             android:name=".ui.LanguageTestActivity"
             android:configChanges="locale" />
@@ -58,12 +59,19 @@
             android:value="zp_log"
             tools:replace="android:value" />
     </application>
+
+    <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
+    <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

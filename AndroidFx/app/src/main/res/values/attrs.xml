@@ -3,4 +3,17 @@
     <declare-styleable name="BulletRecyclerView">
         <attr name="maxHeight" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="LetterView">
+        <!--字母颜色-->
+        <attr name="letterTextColor" format="color" />
+        <!--字母字体大小-->
+        <attr name="letterTextSize" format="dimension" />
+        <!--整体背景-->
+        <attr name="letterTextBackgroundColor" format="color" />
+        <!--是否启用指示器-->
+        <attr name="letterEnableIndicator" format="boolean" />
+        <!--指示器颜色-->
+        <attr name="letterIndicatorColor" format="color" />
+    </declare-styleable>
 </resources>

@@ -7,10 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.text.TextUtils;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -34,6 +39,7 @@ import com.android.custview.jetpack.bean.ItemBean;
 import com.android.custview.jetpack.bean.ItemDao;
 import com.android.custview.live.LiveMainActivity;
 import com.android.custview.project.TestCase;
+import com.android.custview.service.IntercomTimeWindowService;
 import com.android.zp.base.KLog;
 import com.android.custview.adapter.MainAdapter;
 import com.android.custview.bean.Person;
@@ -69,7 +75,7 @@ public class MainActivity extends BaseActivity {
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
             , "ListView侧滑", "自定义跑马灯", "卡片框架", "自定义上滑", "JetPacket系列", "通知测试", "GLSurfaceView使用"
             , "Excel解析", "RecycleView案例", "LargeImageView展示", "插件主界面", "换肤", "Fragment任务栈"
-            , "直播主页"};
+            , "直播主页","联系人列表"};
 
     private boolean autoScroll = false;
 
@@ -93,6 +99,7 @@ public class MainActivity extends BaseActivity {
     @SuppressLint("SetWorldReadable")
     @Override
     public void initData() {
+        KLog.logE("00011112255");
         kv = MMKV.mmkvWithID("cmpj");
         kv.encode(PJConstant.ID, 1001);
         kv.encode(PJConstant.IS_RUNNING, true);
@@ -138,6 +145,7 @@ public class MainActivity extends BaseActivity {
                 switch (pos) {
                     case 0:
                         TestCase.getInstance().sendAccStatus(true);
+                        startService(new Intent(MainActivity.this, IntercomTimeWindowService.class));
                         intent.setClass(MainActivity.this, CustView01Activity.class);
                         break;
                     case 1:
@@ -202,6 +210,9 @@ public class MainActivity extends BaseActivity {
                     case 18:
                         intent.setClass(MainActivity.this, LiveMainActivity.class);
                         break;
+                    case 19:
+                        intent.setClass(MainActivity.this,ContactListActivity.class);
+                        break;
                 }
                 startActivity(intent);
             }
@@ -245,6 +256,29 @@ public class MainActivity extends BaseActivity {
                     }, 500);
                 }
             }).start();
+        }
+        checkPermission();
+    }
+
+    public void checkPermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (!Settings.canDrawOverlays(MainActivity.this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, 10);
+            }
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        if (requestCode == 10) {
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (!Settings.canDrawOverlays(this)) {
+                    // SYSTEM_ALERT_WINDOW permission not granted...
+                    Toast.makeText(MainActivity.this, "not granted", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
