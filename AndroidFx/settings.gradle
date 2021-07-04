@@ -1,4 +1,4 @@
-include ':app',':buildSrc' ,':base',":TaskTest"
+include ':app',':buildModuleSrc' ,':base',":TaskTest"
 gradle.addBuildListener([
         buildStarted     : { Gradle var1 ->
             println '开始构建'
