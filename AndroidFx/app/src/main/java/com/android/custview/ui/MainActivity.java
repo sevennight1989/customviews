@@ -78,6 +78,8 @@ public class MainActivity extends BaseActivity {
             , "直播主页","联系人列表"};
 
     private boolean autoScroll = false;
+    //是否启动悬浮窗
+    private boolean startFlowWindow = false;
 
     @Override
     public int getLayout() {
@@ -145,7 +147,9 @@ public class MainActivity extends BaseActivity {
                 switch (pos) {
                     case 0:
                         TestCase.getInstance().sendAccStatus(true);
-                        startService(new Intent(MainActivity.this, IntercomTimeWindowService.class));
+                        if (startFlowWindow) {
+                            startService(new Intent(MainActivity.this, IntercomTimeWindowService.class));
+                        }
                         intent.setClass(MainActivity.this, CustView01Activity.class);
                         break;
                     case 1:
@@ -261,6 +265,9 @@ public class MainActivity extends BaseActivity {
     }
 
     public void checkPermission() {
+        if(!startFlowWindow){
+            return;
+        }
         if (Build.VERSION.SDK_INT >= 23) {
             if (!Settings.canDrawOverlays(MainActivity.this)) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
