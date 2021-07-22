@@ -14,12 +14,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +54,7 @@ import com.android.zp.base.LR;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.gson.Gson;
 import com.tencent.mmkv.MMKV;
 
 import org.json.JSONException;
@@ -62,7 +67,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT;
@@ -136,6 +143,7 @@ public class MainActivity extends BaseActivity {
         createFile();
         readFile();
         getLifecycle().addObserver(new MyObserver());
+
         mMainAdapter = new MainAdapter();
 //        String[] items = getResources().getStringArray(R.array.main_items);
         mMainAdapter.setData(items);
@@ -146,6 +154,7 @@ public class MainActivity extends BaseActivity {
                 KLog.logI("点击了 " + pos);
                 switch (pos) {
                     case 0:
+                        onPress.setValue(true);
                         TestCase.getInstance().sendAccStatus(true);
                         if (startFlowWindow) {
                             startService(new Intent(MainActivity.this, IntercomTimeWindowService.class));
@@ -153,6 +162,7 @@ public class MainActivity extends BaseActivity {
                         intent.setClass(MainActivity.this, CustView01Activity.class);
                         break;
                     case 1:
+                        onPress.postValue(false);
                         mAnyCallback.onCallObject(2.12f);
                         intent.setClass(MainActivity.this, ProgressBarActivity.class);
                         break;
@@ -261,7 +271,22 @@ public class MainActivity extends BaseActivity {
                 }
             }).start();
         }
+        Map<String,Object> map = new HashMap<>();
+        map.put("bookId","id12345");
+        map.put("bookName","上海一日游");
+        Map<String,Object> sendData = makeTipsContent(1,map);
+        String sendJsonData = mGson.toJson(sendData);
+        KLog.logI("sendJsonData: " + sendJsonData);
         checkPermission();
+    }
+
+    private Gson mGson = new Gson();
+
+    public Map<String, Object> makeTipsContent(int type, Map<String, Object> content) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("type", type);
+        map.put("content", content);
+        return map;
     }
 
     public void checkPermission() {
@@ -384,7 +409,19 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    public MutableLiveData<Boolean> onPress = new MutableLiveData<>();
+
     public class MyObserver implements LifecycleObserver {
+        @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        void onCreate(LifecycleOwner owner){
+            onPress.observe(owner, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    KLog.logI("onPress onChanged: " + aBoolean);
+                }
+            });
+        }
+
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
         void onResume() {
             KLog.logI("MyObserver onResume");
@@ -393,6 +430,11 @@ public class MainActivity extends BaseActivity {
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
         void onPause() {
             KLog.logI("MyObserver onPause");
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        void onDestroy(LifecycleOwner owner){
+            onPress.removeObservers(owner);
         }
     }
 
