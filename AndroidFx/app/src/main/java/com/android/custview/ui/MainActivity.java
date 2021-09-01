@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity {
 
     private boolean autoScroll = false;
     //是否启动悬浮窗
-    private boolean startFlowWindow = false;
+    private boolean startFlowWindow = true;
 
     @Override
     public int getLayout() {

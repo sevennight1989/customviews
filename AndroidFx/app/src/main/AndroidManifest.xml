@@ -53,7 +53,13 @@
         <activity
             android:name=".ui.ProxyActivity"
             android:theme="@android:style/Theme.NoTitleBar" />
-
+        <receiver android:name=".TestReceiver"
+            android:enabled="true"
+            android:exported="true">>
+            <intent-filter>
+                <action android:name="com.zp.test.action"/>
+            </intent-filter>
+        </receiver>
         <meta-data
             android:name="com.zp.lr.logdir"
             android:value="zp_log"

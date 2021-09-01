@@ -11,7 +11,12 @@ import com.android.custview.R
 import com.android.custview.utils.ColorUtil
 import com.android.zp.base.*
 import com.blankj.utilcode.util.ToastUtils
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import java.io.InputStream
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 class LargeImageViewActivity : BaseActivity() {
     var imageView: ImageView? = null
@@ -50,6 +55,47 @@ class LargeImageViewActivity : BaseActivity() {
             ToastUtils.showShort("You click me , ha ha!")
         })
         mContainer!!.setBackgroundColor(ColorUtil.getMaterialColor(resources,1))
+
+        KLog.logI("主线程id:${mainLooper.thread.id}")
+
+//        test()
+        val job = GlobalScope.launch {
+            delay(3000)
+            KLog.logI("协程执行结束 -- 线程id: ${Thread.currentThread().id}")
+        }
+        KLog.logI("协程执行结束")
+
+    }
+
+    fun test()= runBlocking {
+        repeat(8){
+            KLog.logI("协程执行$it 线程id: ${Thread.currentThread().id}")
+            delay(1000)
+        }
+    }
+
+    fun counter(
+        dispatcher: CoroutineContext = EmptyCoroutineContext,
+        start: Int,
+        end: Int,
+        delay: Long,
+        onProgress: ((value: Int) -> Unit),
+        onFinish: (() -> Unit)? = null
+    ) {
+        val out = flow<Int> {
+            for (i in start..end) {
+                emit(i)
+                delay(delay)
+            }
+        }
+        GlobalScope.launch {
+            withContext(dispatcher) {
+                out.collect {
+                    onProgress.invoke(it)
+                }
+                onFinish?.invoke()
+            }
+        }
     }
 
 }
