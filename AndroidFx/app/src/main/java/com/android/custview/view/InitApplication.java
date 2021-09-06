@@ -6,9 +6,14 @@ import android.content.Context;
 
 
 import com.android.custview.BuildConfig;
+import com.android.custview.extend.ChatApplicationLifecycle;
+import com.android.custview.impl.ChatServiceImpl;
+import com.android.custview.inf.ChatService;
 import com.android.custview.utils.ConfigUtils;
 import com.android.zp.base.BaseApplicaion;
 import com.android.zp.base.KLog;
+import com.android.zp.base.module.ApplicationLifecycleMgr;
+import com.android.zp.base.module.ModuleServiceMgr;
 import com.debug.Head;
 import com.tencent.mmkv.MMKV;
 
@@ -34,6 +39,13 @@ public class InitApplication extends Application {
         KLog.logI("Head: " + Head.HEAD_NAME);
 //        KLog.logI("ProcessName: " + getProcessName());
         KLog.logI("ProcessName: " + getProcessName(android.os.Process.myPid()));
+
+        ApplicationLifecycleMgr.getInstance()
+                .registerLifecycle(new ChatApplicationLifecycle())
+                .notifyOnCreate(this);
+
+        ModuleServiceMgr.getInstance()
+                .registerService(ChatService.class,getApplicationContext(),new ChatServiceImpl());
     }
 
     /**

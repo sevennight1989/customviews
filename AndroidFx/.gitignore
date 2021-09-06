@@ -17,3 +17,13 @@
 /build
 /captures
 .externalNativeBuild
+/.idea
+/.gradle
+/*.iml
+/app/build
+/base/build
+/gradlew
+/gradlew.bat
+/gradle
+/repo
+/buildModuleSrc/.gradle
