@@ -27,3 +27,6 @@
 /gradle
 /repo
 /buildModuleSrc/.gradle
+/buildSrc/build
+/app/releases.xml
+/TaskTest/releases01.xml

@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="bottomDialogStyle">
+
+    </style>
+
     <attr name="titleText" formatted="string" />
     <attr name="titleTextSize" format="dimension" />
     <attr name="titleTextColor" format="color" />
