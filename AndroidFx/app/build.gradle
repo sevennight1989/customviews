@@ -10,12 +10,12 @@ apply plugin: 'kotlin-android-extensions'
 def commonPackage = "com.android.custview"
 def pubPackage = "com.android.custview.pub"
 apply plugin: 'com.hearing.plugin'
-releaseInfo {
+/*releaseInfo {
     versionCode = "1"
     versionName = "1.0.0"
     versionInfo = "第一个版本~"
     fileName = "releases.xml"
-}
+}*/
 
 android {
     def api = new Api()
@@ -299,6 +299,7 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.3.0-rc02'
     implementation 'com.google.android:flexbox:1.0.0'
     implementation project(path: ':base')
+    implementation project(path: ':sunflower')
     implementation 'com.github.bytedance:AlphaPlayer:1.0.6'
     implementation 'com.google.android.exoplayer:exoplayer-core:2.9.3'
 

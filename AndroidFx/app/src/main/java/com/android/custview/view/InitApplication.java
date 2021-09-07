@@ -3,7 +3,11 @@ package com.android.custview.view;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
+
+import androidx.annotation.NonNull;
+import androidx.work.Configuration;
 
 import com.android.custview.BuildConfig;
 import com.android.custview.extend.ChatApplicationLifecycle;
@@ -19,7 +23,7 @@ import com.tencent.mmkv.MMKV;
 
 import java.util.List;
 
-public class InitApplication extends Application {
+public class InitApplication extends Application implements Configuration.Provider {
     private static Context  mContext;
 
 
@@ -74,4 +78,15 @@ public class InitApplication extends Application {
         return mContext;
     }
 
+    @NonNull
+    @Override
+    public Configuration getWorkManagerConfiguration() {
+        int logLevel = Log.DEBUG;
+        if (BuildConfig.DEBUG) {
+            logLevel = Log.DEBUG;
+        } else {
+            logLevel = Log.ERROR;
+        }
+        return new Configuration.Builder().setMinimumLoggingLevel(logLevel).build();
+    }
 }

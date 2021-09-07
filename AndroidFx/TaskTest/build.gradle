@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.hearing.plugin'
-releaseInfo {
-    versionCode = "3"
-    versionName = "3.0.0"
-    versionInfo = "第二个版本~"
-    fileName = "releases01.xml"
-}
+//releaseInfo {
+//    versionCode = "3"
+//    versionName = "3.0.0"
+//    versionInfo = "第二个版本~"
+//    fileName = "releases01.xml"
+//}
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -45,3 +45,5 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation project(path: ':base')
 }
+
+
