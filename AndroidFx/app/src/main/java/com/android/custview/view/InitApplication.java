@@ -22,7 +22,8 @@ import com.debug.Head;
 import com.tencent.mmkv.MMKV;
 
 import java.util.List;
-
+import dagger.hilt.android.HiltAndroidApp;
+@HiltAndroidApp
 public class InitApplication extends Application implements Configuration.Provider {
     private static Context  mContext;
 
@@ -81,7 +82,7 @@ public class InitApplication extends Application implements Configuration.Provid
     @NonNull
     @Override
     public Configuration getWorkManagerConfiguration() {
-        int logLevel = Log.DEBUG;
+        int logLevel = Log.VERBOSE;
         if (BuildConfig.DEBUG) {
             logLevel = Log.DEBUG;
         } else {

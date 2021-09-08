@@ -11,7 +11,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.Sunflower">
         <activity android:name=".ui.ContactListActivity"></activity>
         <activity android:name=".live.LiveMainActivity" />
         <activity android:name=".fgstack.FragmentStackActivity" />
@@ -64,6 +64,16 @@
             android:name="com.zp.lr.logdir"
             android:value="zp_log"
             tools:replace="android:value" />
+
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            tools:node="remove" />
+        <activity
+            android:name="com.zp.sunflower.GardenActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Sunflower.NoActionBar"/>
     </application>
 
     <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
