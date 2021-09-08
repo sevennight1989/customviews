@@ -3,6 +3,7 @@ package com.android.custview.view;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.os.Process;
 import android.util.Log;
 
 
@@ -32,6 +33,9 @@ public class InitApplication extends Application implements Configuration.Provid
     public void onCreate() {
         super.onCreate();
         mContext = this;
+        if (!isMainProcess(this)) {
+            return;
+        }
         String rootDir = MMKV.initialize(this);
         KLog.logI("rootDir: " + rootDir);
         ConfigUtils.Companion.getInstance(mContext).initDemoConfigs();
@@ -89,5 +93,21 @@ public class InitApplication extends Application implements Configuration.Provid
             logLevel = Log.ERROR;
         }
         return new Configuration.Builder().setMinimumLoggingLevel(logLevel).build();
+    }
+
+    private boolean isMainProcess(Context context) {
+        String pkgName = context.getPackageName();
+        int pid = Process.myPid();
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processesList = am.getRunningAppProcesses();
+        if (null != processesList) {
+            for (ActivityManager.RunningAppProcessInfo info : processesList) {
+                if (null != info && info.pid == pid) {
+                    return pkgName.equals(info.processName);
+                }
+            }
+        }
+
+        return false;
     }
 }

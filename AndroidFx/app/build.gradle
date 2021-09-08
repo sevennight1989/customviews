@@ -4,6 +4,8 @@ import com.hearing.plugin.Api
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-android-extensions'
 //apply plugin: PluginImpl
@@ -303,6 +305,9 @@ dependencies {
     implementation project(path: ':sunflower')
     implementation 'com.github.bytedance:AlphaPlayer:1.0.6'
     implementation 'com.google.android.exoplayer:exoplayer-core:2.9.3'
-    implementation "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
+
+// Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 
 }
