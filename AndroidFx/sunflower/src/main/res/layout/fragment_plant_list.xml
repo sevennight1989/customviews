@@ -17,7 +17,8 @@
             android:paddingEnd="12dp"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
-            tools:context=".GardenActivity" />
+            tools:context=".GardenActivity"
+            tools:listitem="@layout/list_item_plant"/>
     </FrameLayout>
 
 
