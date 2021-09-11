@@ -1,27 +1,57 @@
 package com.zp.sunflower.adapters
 
-import android.widget.ListAdapter
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.zp.sunflower.R
 import com.zp.sunflower.data.PlantAndGardenPlantings
 import com.zp.sunflower.databinding.ListItemGardenPlantingBinding
+import com.zp.sunflower.viewmodels.PlantAndGardenPlantingsViewModel
 
 class GardenPlantingAdapter :
-    ListAdapter<PlantAndGardenPlantings,>(){
+    ListAdapter<PlantAndGardenPlantings, GardenPlantingAdapter.ViewHolder>(
+        GardenPlantDiffCallback()
+    ) {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.list_item_garden_planting,
+                parent,
+                false
+            )
+        )
+    }
 
-        class ViewHolder(
-            private val binding : ListItemGardenPlantingBinding
-        ):RecyclerView.ViewHolder(binding.root){
-            init {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+    class ViewHolder(
+        private val binding: ListItemGardenPlantingBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.setClickListener { view ->
+                binding.viewMode?.plantId?.let {
+
+                }
 
             }
         }
 
-
+        fun bind(plantings: PlantAndGardenPlantings) {
+            with(binding) {
+                viewMode = PlantAndGardenPlantingsViewModel(plantings)
+                executePendingBindings()
+            }
+        }
+    }
 
 }
-
 
 
 private class GardenPlantDiffCallback : DiffUtil.ItemCallback<PlantAndGardenPlantings>() {
