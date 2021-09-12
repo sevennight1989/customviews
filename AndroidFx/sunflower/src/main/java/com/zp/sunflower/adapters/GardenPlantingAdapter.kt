@@ -36,7 +36,7 @@ class GardenPlantingAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener { view ->
-                binding.viewMode?.plantId?.let {
+                binding.viewModel?.plantId?.let {
 
                 }
 
@@ -45,7 +45,7 @@ class GardenPlantingAdapter :
 
         fun bind(plantings: PlantAndGardenPlantings) {
             with(binding) {
-                viewMode = PlantAndGardenPlantingsViewModel(plantings)
+                viewModel = PlantAndGardenPlantingsViewModel(plantings)
                 executePendingBindings()
             }
         }

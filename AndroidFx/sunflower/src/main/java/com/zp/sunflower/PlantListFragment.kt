@@ -8,7 +8,9 @@ import com.android.zp.base.KLog
 import com.zp.sunflower.adapters.PlantAdapter
 import com.zp.sunflower.databinding.FragmentPlantListBinding
 import com.zp.sunflower.viewmodels.PlantListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlantListFragment : Fragment() {
     private val viewModel: PlantListViewModel by viewModels()
     override fun onCreateView(

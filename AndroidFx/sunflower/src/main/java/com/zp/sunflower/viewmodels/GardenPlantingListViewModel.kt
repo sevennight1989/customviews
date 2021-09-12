@@ -12,7 +12,6 @@ import javax.inject.Inject
 class GardenPlantingListViewModel @Inject internal constructor(
     gardenPlantingRepository: GardenPlantingRepository
 ) : ViewModel() {
-
-    var plantAndGardenPlantings: LiveData<List<PlantAndGardenPlantings>> =
+    val plantAndGardenPlantings: LiveData<List<PlantAndGardenPlantings>> =
         gardenPlantingRepository.getPlantedGardens().asLiveData()
 }
