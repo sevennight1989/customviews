@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.android.zp.base.KLog
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
@@ -17,6 +18,7 @@ class SeedDatabaseWorker(
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             val filename = inputData.getString(KEY_FILENAME)
+            KLog.logI("filename:$filename")
             if (filename != null) {
                 applicationContext.assets.open(filename).use { inputStream ->
                     JsonReader(inputStream.reader()).use { jsonReader ->
@@ -25,16 +27,16 @@ class SeedDatabaseWorker(
 
                         val database = AppDatabase.getInstance(applicationContext)
                         database.plantDao().insertAll(plantList)
-
+                        KLog.logE("success...")
                         Result.success()
                     }
                 }
             } else {
-                Log.e(TAG, "Error seeding database - no valid filename")
+                KLog.logE("Error seeding database - no valid filename")
                 Result.failure()
             }
         } catch (ex: Exception) {
-            Log.e(TAG, "Error seeding database", ex)
+            KLog.logE("Error seeding database$ex")
             Result.failure()
         }
     }
