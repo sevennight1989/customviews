@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="toolbar_elevation">5dp</dimen>
+    <dimen name="plant_description_min_height">555dp</dimen>
 </resources>

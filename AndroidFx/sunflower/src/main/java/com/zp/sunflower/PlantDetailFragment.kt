@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.zp.sunflower.data.Plant
 import com.zp.sunflower.databinding.FragmentPlantDetailBinding
 import com.zp.sunflower.viewmodels.PlantDetailViewModel
@@ -36,10 +39,37 @@ class PlantDetailFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             callback = Callback { plant ->
                 plant?.let {
+                    hideAppBarFab(fab)
+                    plantDetailViewModel.addPlantToGarden()
+                    Snackbar.make(root, R.string.added_plant_to_garden, Snackbar.LENGTH_LONG).show()
+                }
+            }
+
+            var isToolbarShow = false
+            plantDetailScrollview.setOnScrollChangeListener(
+                NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+                    val shouldShowToolBar = scrollY > toolbar.height
+                    if (isToolbarShow != shouldShowToolBar) {
+                        isToolbarShow = shouldShowToolBar
+                    }
+                    appbar.isActivated = shouldShowToolBar
+                    toolbarLayout.isTitleEnabled = shouldShowToolBar
 
                 }
-
+            )
+            toolbar.setNavigationOnClickListener { view ->
+                view.findNavController().navigateUp()
             }
+            toolbar.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.action_share -> {
+                        createShareIntent()
+                        true
+                    }
+                    else -> false
+                }
+            }
+
         }
 
         return binding.root
