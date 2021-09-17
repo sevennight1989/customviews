@@ -46,8 +46,7 @@ class PlantDetailFragment : Fragment() {
             }
 
             var isToolbarShow = false
-            plantDetailScrollview.setOnScrollChangeListener(
-                NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+            plantDetailScrollview.setOnScrollChangeListener { _, _, scrollY, _, _ ->
                     val shouldShowToolBar = scrollY > toolbar.height
                     if (isToolbarShow != shouldShowToolBar) {
                         isToolbarShow = shouldShowToolBar
@@ -56,7 +55,7 @@ class PlantDetailFragment : Fragment() {
                     toolbarLayout.isTitleEnabled = shouldShowToolBar
 
                 }
-            )
+
             toolbar.setNavigationOnClickListener { view ->
                 view.findNavController().navigateUp()
             }

@@ -1,12 +1,16 @@
 package com.zp.sunflower.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.zp.sunflower.HomeViewPagerFragmentDirections
 import com.zp.sunflower.R
+import com.zp.sunflower.data.Plant
 import com.zp.sunflower.data.PlantAndGardenPlantings
 import com.zp.sunflower.databinding.ListItemGardenPlantingBinding
 import com.zp.sunflower.viewmodels.PlantAndGardenPlantingsViewModel
@@ -36,11 +40,18 @@ class GardenPlantingAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener { view ->
-                binding.viewModel?.plantId?.let {
-
+                binding.viewModel?.plantId?.let { plantId ->
+                    navigateToPlant(plantId, view)
                 }
 
             }
+        }
+
+        private fun navigateToPlant(plantId: String, view: View) {
+            val direction =
+                HomeViewPagerFragmentDirections.actionViewPagerFragmentToPlantDetailFragment(plantId)
+            view.findNavController().navigate(direction)
+
         }
 
         fun bind(plantings: PlantAndGardenPlantings) {

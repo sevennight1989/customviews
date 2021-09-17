@@ -42,9 +42,20 @@ class PlantListFragment : Fragment() {
         return when (item.itemId) {
             R.id.filter_zone -> {
                 KLog.logI("Click filter_zone")
+                updateData()
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun updateData() {
+        with(viewModel) {
+            if (isFiltered()) {
+                clearGrowZoneNumber()
+            } else {
+                setGrowZoneNumber(9)
+            }
         }
     }
 }

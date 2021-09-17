@@ -1,10 +1,13 @@
 package com.zp.sunflower.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.zp.sunflower.HomeViewPagerFragmentDirections
 import com.zp.sunflower.data.Plant
 import com.zp.sunflower.databinding.ListItemPlantBinding
 
@@ -27,8 +30,21 @@ class PlantAdapter : ListAdapter<Plant, RecyclerView.ViewHolder>(PlantDiffCallba
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
-
+                binding.plant?.let { plant ->
+                    navigateToPlant(plant, it)
+                }
             }
+        }
+
+        private fun navigateToPlant(
+            plant: Plant, view: View
+        ) {
+            val direction =
+                HomeViewPagerFragmentDirections.actionViewPagerFragmentToPlantDetailFragment(
+                    plant.plantId
+                )
+            view.findNavController().navigate(direction)
+
         }
 
         fun bind(item: Plant) {
@@ -37,6 +53,7 @@ class PlantAdapter : ListAdapter<Plant, RecyclerView.ViewHolder>(PlantDiffCallba
                 executePendingBindings()
             }
         }
+
     }
 
 
