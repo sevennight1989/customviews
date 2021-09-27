@@ -305,6 +305,7 @@ dependencies {
     implementation project(path: ':sunflower')
     implementation 'com.github.bytedance:AlphaPlayer:1.0.6'
     implementation 'com.google.android.exoplayer:exoplayer-core:2.9.3'
+//    implementation 'com.netease.yunxin:nertc:4.4.3-SNAPSHOT'
 
 // Dagger - Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
