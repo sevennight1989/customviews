@@ -51,6 +51,7 @@ import com.android.custview.view.InitApplication;
 import com.android.custview.widget.SpacesItemDecoration;
 import com.android.zp.base.BaseActivity;
 import com.android.zp.base.LR;
+import com.blankj.utilcode.util.GsonUtils;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -83,7 +84,7 @@ public class MainActivity extends BaseActivity {
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
             , "ListView侧滑", "自定义跑马灯", "卡片框架", "自定义上滑", "JetPacket系列", "通知测试", "GLSurfaceView使用"
             , "Excel解析", "RecycleView案例", "LargeImageView展示", "插件主界面", "换肤", "Fragment任务栈"
-            , "直播主页","联系人列表","Sunflower"};
+            , "直播主页","联系人列表","Sunflower","MiuiDialog"};
 
     private boolean autoScroll = false;
     //是否启动悬浮窗
@@ -231,6 +232,9 @@ public class MainActivity extends BaseActivity {
                     case 20:
                         intent.setClass(MainActivity.this, GardenActivity.class);
                         break;
+                    case 21:
+                        intent.setClass(MainActivity.this, MiuiDialogActivity.class);
+                        break;
                 }
                 startActivity(intent);
             }
@@ -282,9 +286,27 @@ public class MainActivity extends BaseActivity {
         String sendJsonData = mGson.toJson(sendData);
         KLog.logI("sendJsonData: " + sendJsonData);
         checkPermission();
+
+        List<People> aList = new ArrayList<>();
+        aList.add(0, new People().setName("A"));
+        aList.add(1, new People().setName("B"));
+        List<People> totalList = new ArrayList<>();
+        totalList.addAll(aList);
+        KLog.logI("totalList 1---> " + GsonUtils.toJson(totalList));
+        aList.get(0).setName("C");
+        KLog.logI("totalList 2---> " + GsonUtils.toJson(totalList));
     }
 
     private Gson mGson = new Gson();
+
+    class People {
+        public String name;
+
+        public People setName(String name) {
+            this.name = name;
+            return this;
+        }
+    }
 
     public Map<String, Object> makeTipsContent(int type, Map<String, Object> content) {
         Map<String, Object> map = new HashMap<>();

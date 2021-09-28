@@ -8,7 +8,6 @@ import com.android.zp.base.KLog
 import com.zp.sunflower.databinding.ActivityGardenBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.Main
 
 @AndroidEntryPoint
 class GardenActivity : AppCompatActivity() {
@@ -21,7 +20,7 @@ class GardenActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             KLog.logI("3333 ${Thread.currentThread()}")
-            withContext(Main) {
+            withContext(Dispatchers.Main) {
                 KLog.logI("4444 ${Thread.currentThread()}")
               launch(Dispatchers.IO) {
                   delay(1000)
@@ -31,7 +30,7 @@ class GardenActivity : AppCompatActivity() {
             delay(1500)
             KLog.logI("end....")
         }
-        lifecycleScope.launch(Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             KLog.logI("2222 ${Thread.currentThread()}")
             val rt = lifecycleScope.async { doSomethingsOne() }
             KLog.logI("rt ${rt.await()}")
