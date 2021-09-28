@@ -19,7 +19,7 @@ class MiuiLoadingView @Inject constructor(
     var rx: Float = 0f
     var ry: Float = 0f
 
-    var MARGIN_LEFT: Int = 100
+    var MARGIN_LEFT: Int = 150
 
     var centerRadiusSize: Float = 7f
 
@@ -90,7 +90,7 @@ class MiuiLoadingView @Inject constructor(
         canvas.drawText(
             TEXT,
             (MARGIN_LEFT + 80).toFloat(),
-            ((measuredHeight / 2) + (textHeight / 2) + 10).toFloat(),
+            ((measuredHeight / 2) + (textHeight / 2) + 12).toFloat(),
             textPaint
         )
     }
