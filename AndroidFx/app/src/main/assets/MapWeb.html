@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>CanvasLayer</title>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=oK68Mx4mwGPcotXaTdDH1HCqLMiGPwoW"></script>
+    <style type="text/css">
+        body, html,#container {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    </style>
+</head>
+<body>
+<div id="container"></div>
+</body>
+</html>
+<script type="text/javascript">
+    var mp = new BMap.Map("container");
+    mp.centerAndZoom(new BMap.Point(106.716912,-6.292354), 10);
+    // mp.centerAndZoom(new BMap.Point(121.32540130615234,31.14361000061035), 10);
+    mp.enableScrollWheelZoom();
+    function showMarker(lng,lat){
+
+        window.mapInterface.javaMethod("lng");
+        theLocation(lng,lat)
+        // search();
+    
+    }
+ // 用经纬度设置地图中心点
+ function theLocation(lng,lat){
+    mp.clearOverlays(); 
+    var myIcon = new BMap.Icon("car.png", new BMap.Size(52, 26));
+    var new_point = new BMap.Point(lng,lat);
+    var marker = new BMap.Marker(new_point,{
+        icon: myIcon
+    }); 
+    mp.addOverlay(marker);            
+    mp.panTo(new_point);
+}
+
+// 搜索poi,目前只使用于中国大陆
+function search(){
+        var options = {
+		onSearchComplete: function(results){
+            alert(local.getStatus())
+            console.log(local.getStatus())
+			// 判断状态是否正确
+			if (local.getStatus() == BMAP_STATUS_SUCCESS){
+				var s = [];
+				for (var i = 0; i < results.getCurrentNumPois(); i ++){
+                    console.log(results.getPoi(i).title + ", " + results.getPoi(i).address);
+					s.push(results.getPoi(i).title + ", " + results.getPoi(i).address);
+				}
+				
+			}
+		}
+	};
+	var local = new BMap.LocalSearch(mp, options);
+	local.search("KFC");
+}
+
+</script>
