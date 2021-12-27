@@ -83,4 +83,15 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
+    <declare-styleable name="LightView">
+        <attr name="light_color" format="color" />
+        <attr name="light_radius" format="float" />
+        <attr name="light_src" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundImageView">
+        <attr name="RoundRage" format="float" />
+        <attr name="RoundType" format="integer" />
+    </declare-styleable>
 </resources>

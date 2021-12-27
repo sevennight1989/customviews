@@ -122,6 +122,17 @@ class HorizontalWaveProgressView(
         val rectBg: RectF =
             RectF(0f, 0f, waveActualSizeWidth.toFloat(), waveActualSizeHeight.toFloat())
         bitmapCanvas!!.drawRoundRect(rectBg, dp27.toFloat(), dp27.toFloat(), backgroundPaint!!)
+
+        if (isShowSecondWave) {
+            bitmapCanvas?.drawPath(canvasSecondPath(), secondWavePaint!!)
+        }
+    }
+
+    fun canvasSecondPath(): Path {
+        var secondWaveHeight = waveHeight
+        secondWavePath?.reset()
+
+        return secondWavePath!!
     }
 
     class WaveProgressAnimal : Animation() {
