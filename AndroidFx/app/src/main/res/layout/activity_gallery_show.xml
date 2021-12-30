@@ -112,13 +112,73 @@
         app:layout_constraintTop_toTopOf="@+id/gallery_view_root3"/>
 
 
+
+ <!--   用户发起者-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="@+id/gallery_view_root"
-        app:layout_constraintTop_toBottomOf="@+id/gallery_view3">
+        app:layout_constraintStart_toStartOf="@+id/gallery_view_root3"
+        app:layout_constraintTop_toBottomOf="@+id/gallery_view_root3">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/member_root">
+
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/member_name"
+                android:layout_width="wrap_content"
+                android:layout_height="40px"
+                android:minWidth="165px"
+                android:maxWidth="200px"
+                android:text="小菠萝妹妹"
+                android:paddingEnd="11px"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                android:paddingStart="74px"
+                android:textSize="20px"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/member_text_bg" />
+
+            <ImageView
+                android:layout_width="16px"
+                android:layout_height="16px"
+                android:id="@+id/member_status_img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="18px"
+                android:visibility="gone"
+                android:src="@drawable/bg_point"/>
+
+            <TextView
+                android:id="@+id/creator_tag"
+                android:layout_width="54px"
+                android:layout_height="18px"
+                android:text="发起者"
+                android:gravity="center"
+                android:textSize="14px"
+                android:background="@drawable/member_creator_bg"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="12px"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            layout="@layout/layout_user_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/member_root" />
 
 
 

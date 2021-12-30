@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.custview.R;
 import com.android.custview.view.GalleryImageView;
@@ -21,6 +22,7 @@ import com.bumptech.glide.request.transition.Transition;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class GalleryShowActivity extends BaseActivity {
 
@@ -35,6 +37,10 @@ public class GalleryShowActivity extends BaseActivity {
     private GalleryImageView galleryImageView2;
     private GalleryImageView galleryImageView3;
     private GalleryImageView galleryImageView4;
+    private TextView member_nameTv;
+    private ImageView member_status_img;
+    private TextView creator_tagTv;
+    private ImageView head_directionImg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +57,27 @@ public class GalleryShowActivity extends BaseActivity {
         galleryImageView2 = findViewById(R.id.gallery_view2);
         galleryImageView3 = findViewById(R.id.gallery_view3);
         galleryImageView4 = findViewById(R.id.gallery_view4);
+        member_status_img = findViewById(R.id.member_status_img);
+        creator_tagTv = findViewById(R.id.creator_tag);
+        member_nameTv = findViewById(R.id.member_name);
+        head_directionImg = findViewById(R.id.head_direction);
+
+  /*      member_nameTv.setPadding(40, 0, 21, 0);
+        member_status_img.setVisibility(View.VISIBLE);
+         head_directionImg.setRotation(135);
+        creator_tagTv.setVisibility(View.GONE)*/;
+
+        member_nameTv.setPadding(40, 0, 21, 0);
+        member_status_img.setVisibility(View.GONE);
+                head_directionImg.setRotation(90);
+        creator_tagTv.setVisibility(View.GONE);
+
+/*        member_nameTv.setPadding(74, 0, 21, 0);
+        member_status_img.setVisibility(View.GONE);
+        creator_tagTv.setVisibility(View.VISIBLE);
+        head_directionImg.setRotation(45);*/
+
+
 
         RequestOptions options = new RequestOptions();
         options.error(R.drawable.bg_02).diskCacheStrategy(DiskCacheStrategy.ALL);
