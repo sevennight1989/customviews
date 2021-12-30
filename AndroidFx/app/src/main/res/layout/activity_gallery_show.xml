@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sunflower_white"
+    tools:context=".ui.GalleryShowActivity">
+
+
+
+   <!-- 有活动选中-->
+    <FrameLayout
+        android:id="@+id/gallery_view_root"
+        android:layout_width="139px"
+        android:layout_height="101px"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.android.custview.view.GalleryImageView
+            android:id="@+id/gallery_view"
+            android:layout_width="139px"
+            android:layout_height="101px"
+            android:layout_marginTop="1px" />
+
+        <ImageView
+            android:layout_width="49px"
+            android:layout_height="47px"
+            android:layout_marginTop="1px"
+            android:background="@drawable/actvitity_gallery" />
+
+        <ImageView
+            android:layout_width="139px"
+            android:layout_height="101px"
+            android:background="@drawable/bg_gallery_highlight" />
+
+        <com.android.custview.view.LeanTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_tips"
+            android:textSize="12px"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginTop="5px"
+            android:layout_marginStart="5px"
+            android:text="活动"/>
+    </FrameLayout>
+
+    <!--有活动未选中-->
+    <FrameLayout
+        android:id="@+id/gallery_view_root2"
+        android:layout_width="139px"
+        android:layout_height="101px"
+        android:layout_marginStart="50dp"
+        app:layout_constraintStart_toEndOf="@+id/gallery_view_root"
+        app:layout_constraintTop_toTopOf="@+id/gallery_view_root">
+        <com.android.custview.view.GalleryImageView
+            android:id="@+id/gallery_view2"
+            android:layout_width="139px"
+            android:layout_height="101px" />
+
+        <ImageView
+            android:layout_width="49px"
+            android:layout_height="47px"
+            android:layout_marginTop="2px"
+            android:background="@drawable/actvitity_gallery" />
+
+        <com.android.custview.view.LeanTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_tips2"
+            android:textSize="12px"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginTop="5px"
+            android:layout_marginStart="5px"
+            android:text="活动"/>
+    </FrameLayout>
+
+
+    <!-- 没有有活动选中-->
+    <FrameLayout
+        android:id="@+id/gallery_view_root3"
+        android:layout_width="139px"
+        android:layout_height="101px"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="@+id/gallery_view_root"
+        app:layout_constraintTop_toBottomOf="@+id/gallery_view_root">
+
+        <com.android.custview.view.GalleryImageView
+            android:id="@+id/gallery_view3"
+            android:layout_width="139px"
+            android:layout_height="101px"
+            android:layout_marginTop="1px" />
+
+        <ImageView
+            android:layout_width="139px"
+            android:layout_height="101px"
+            android:background="@drawable/bg_gallery_highlight" />
+
+    </FrameLayout>
+
+   <!-- 没有活动未选中-->
+    <com.android.custview.view.GalleryImageView
+        android:id="@+id/gallery_view4"
+        android:layout_width="139px"
+        android:layout_height="101px"
+        android:layout_marginStart="50dp"
+        app:layout_constraintStart_toEndOf="@+id/gallery_view_root3"
+        app:layout_constraintTop_toTopOf="@+id/gallery_view_root3"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="@+id/gallery_view_root"
+        app:layout_constraintTop_toBottomOf="@+id/gallery_view3">
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/sunflower_white"
     tools:context=".ui.ProgressBarActivity">
 
     <Button
@@ -44,5 +45,80 @@
         app:firstColor="@color/colorAccent"
         app:secondColor="@color/colorPrimary"
         app:speed="30" />
+
+    <com.android.custview.view.MaskFilterView
+        android:id="@+id/mast_01"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/cust_pb"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/bg_mask" />
+
+    <com.android.custview.view.MaskFilterView
+        android:id="@+id/mast_02"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/mast_01"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/bg_mask" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cust_pb"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_toEndOf="@+id/mast_01">
+
+        <com.android.custview.view.MaskFilterView
+            android:id="@+id/mf_view"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_mask"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/head_img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_launcher_round" />
+
+        <com.android.custview.view.MaskFilterView
+            android:id="@+id/mast_03"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_mask"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/touxiang" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.android.custview.view.MaskFilterView
+        android:id="@+id/mast_04"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/mast_01"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_toEndOf="@+id/mast_02"
+        android:background="@drawable/bg_mask" />
+
 
 </RelativeLayout>

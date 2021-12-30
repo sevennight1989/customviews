@@ -94,4 +94,8 @@
         <attr name="RoundRage" format="float" />
         <attr name="RoundType" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="LeanTextView">
+        <attr name="degree" format="dimension" />
+    </declare-styleable>
 </resources>

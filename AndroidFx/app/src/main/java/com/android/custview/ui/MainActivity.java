@@ -84,7 +84,7 @@ public class MainActivity extends BaseActivity {
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
             , "ListView侧滑", "自定义跑马灯", "卡片框架", "自定义上滑", "JetPacket系列", "通知测试", "GLSurfaceView使用"
             , "Excel解析", "RecycleView案例", "LargeImageView展示", "插件主界面", "换肤", "Fragment任务栈"
-            , "直播主页","联系人列表","Sunflower","MiuiDialog","地图"};
+            , "直播主页","联系人列表","Sunflower","MiuiDialog","地图","图片相册"};
 
     private boolean autoScroll = false;
     //是否启动悬浮窗
@@ -237,6 +237,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 22:
                         intent.setClass(MainActivity.this, MapActivity.class);
+                        break;
+                    case 23:
+                        intent.setClass(MainActivity.this, GalleryShowActivity.class);
                         break;
                 }
                 startActivity(intent);

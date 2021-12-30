@@ -1,21 +1,29 @@
 package com.android.custview.ui;
 
-
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.core.content.ContextCompat;
 
 import com.android.custview.R;
+import com.android.custview.view.MaskFilterView;
 import com.android.zp.base.BaseActivity;
+import com.android.zp.base.utils.RoundRect;
 
 import java.lang.reflect.Method;
 
 public class ProgressBarActivity extends BaseActivity {
 
     private ProgressBar mPb;
+    private MaskFilterView maskFilterView1;
+    private MaskFilterView maskFilterView2;
+    private MaskFilterView maskFilterView3;
+    private MaskFilterView maskFilterView4;
+    private ImageView image2;
 
     @Override
     public int getLayout() {
@@ -27,6 +35,19 @@ public class ProgressBarActivity extends BaseActivity {
         mPb = findViewById(R.id.progressBar);
         mPb.setMax(100);
         mPb.setProgress(30);
+        maskFilterView1 = findViewById(R.id.mast_01);
+        maskFilterView2 = findViewById(R.id.mast_02);
+        maskFilterView3 = findViewById(R.id.mast_03);
+        maskFilterView4 = findViewById(R.id.mast_04);
+        image2 = findViewById(R.id.image2);
+        maskFilterView1.setBlurType(0);
+        maskFilterView2.setBlurType(1);
+        maskFilterView4.setBlurType(3);
+        maskFilterView3.setCircleRadius(130).setRadioRadius(30).setBlurType(2).refreshUI();
+        RoundRect roundRect2 = new RoundRect(
+                200, 200, 100f);
+        Bitmap bitmap  = roundRect2.toRoundRect(this, R.mipmap.touxiang);
+        image2.setImageBitmap(bitmap);
     }
 
     @Override
@@ -50,7 +71,7 @@ public class ProgressBarActivity extends BaseActivity {
             mPb.setProgressDrawableTiled(ContextCompat.getDrawable(this, resId));
         } else {
             Drawable layerDrawable = mPb.getResources().getDrawable(resId);
-            Drawable drawable = getMethod(mPb, new Object[]{layerDrawable, false});
+            Drawable drawable = getMethod(mPb, new Object[] {layerDrawable, false});
             mPb.setProgressDrawable(drawable);
         }
     }
