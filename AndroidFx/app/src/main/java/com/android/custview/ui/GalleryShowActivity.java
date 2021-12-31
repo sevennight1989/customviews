@@ -62,20 +62,20 @@ public class GalleryShowActivity extends BaseActivity {
         member_nameTv = findViewById(R.id.member_name);
         head_directionImg = findViewById(R.id.head_direction);
 
-  /*      member_nameTv.setPadding(40, 0, 21, 0);
+/*        member_nameTv.setPadding(40, 0, 21, 0);
         member_status_img.setVisibility(View.VISIBLE);
          head_directionImg.setRotation(135);
-        creator_tagTv.setVisibility(View.GONE)*/;
+        creator_tagTv.setVisibility(View.GONE);*/
 
-        member_nameTv.setPadding(40, 0, 21, 0);
-        member_status_img.setVisibility(View.GONE);
-                head_directionImg.setRotation(90);
-        creator_tagTv.setVisibility(View.GONE);
+//        member_nameTv.setPadding(40, 0, 21, 0);
+//        member_status_img.setVisibility(View.GONE);
+//                head_directionImg.setRotation(90);
+//        creator_tagTv.setVisibility(View.GONE);
 
-/*        member_nameTv.setPadding(74, 0, 21, 0);
+        member_nameTv.setPadding(74, 0, 21, 0);
         member_status_img.setVisibility(View.GONE);
         creator_tagTv.setVisibility(View.VISIBLE);
-        head_directionImg.setRotation(45);*/
+        head_directionImg.setRotation(45);
 
 
 

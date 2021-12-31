@@ -1,12 +1,10 @@
 package com.android.custview.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
-import com.android.custview.R;
 
 public class LeanTextView extends androidx.appcompat.widget.AppCompatTextView {
 
@@ -28,9 +26,6 @@ public class LeanTextView extends androidx.appcompat.widget.AppCompatTextView {
     public LeanTextView(Context context, AttributeSet attrs) {
         super(context, attrs, android.R.attr.textViewStyle);
         this.setGravity(Gravity.CENTER);
-//        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LeanTextView);
-//        mDegrees = a.getDimensionPixelSize(R.styleable.LeanTextView_degree, 0);
-//        a.recycle();
     }
 
     @Override

@@ -181,7 +181,6 @@
             app:layout_constraintTop_toBottomOf="@+id/member_root" />
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

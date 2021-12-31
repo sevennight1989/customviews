@@ -8,22 +8,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
+        <com.android.custview.view.CircleImageView
+            android:layout_width="57px"
+            android:layout_height="57px"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/bg_01"/>
+
         <ImageView
             android:id="@+id/head_direction"
             android:layout_width="94px"
             android:layout_height="94px"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/user_head_01" />
+            android:background="@drawable/user_head_04" />
 
-        <com.android.custview.view.CircleImageView
-            android:layout_width="54px"
-            android:layout_height="54px"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/bg_01"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
