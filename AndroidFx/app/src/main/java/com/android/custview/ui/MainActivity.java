@@ -1,6 +1,5 @@
 package com.android.custview.ui;
 
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,8 +13,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -84,7 +81,7 @@ public class MainActivity extends BaseActivity {
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
             , "ListView侧滑", "自定义跑马灯", "卡片框架", "自定义上滑", "JetPacket系列", "通知测试", "GLSurfaceView使用"
             , "Excel解析", "RecycleView案例", "LargeImageView展示", "插件主界面", "换肤", "Fragment任务栈"
-            , "直播主页","联系人列表","Sunflower","MiuiDialog","地图","图片相册"};
+            , "直播主页", "联系人列表", "Sunflower", "MiuiDialog", "地图", "图片相册","OpenGLES"};
 
     private boolean autoScroll = false;
     //是否启动悬浮窗
@@ -227,7 +224,7 @@ public class MainActivity extends BaseActivity {
                         intent.setClass(MainActivity.this, LiveMainActivity.class);
                         break;
                     case 19:
-                        intent.setClass(MainActivity.this,ContactListActivity.class);
+                        intent.setClass(MainActivity.this, ContactListActivity.class);
                         break;
                     case 20:
                         intent.setClass(MainActivity.this, GardenActivity.class);
@@ -240,6 +237,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 23:
                         intent.setClass(MainActivity.this, GalleryShowActivity.class);
+                        break;
+                    case 24:
+                        intent.setClass(MainActivity.this, OpenGLESActivity.class);
                         break;
                 }
                 startActivity(intent);
@@ -285,10 +285,10 @@ public class MainActivity extends BaseActivity {
                 }
             }).start();
         }
-        Map<String,Object> map = new HashMap<>();
-        map.put("bookId","id12345");
-        map.put("bookName","上海一日游");
-        Map<String,Object> sendData = makeTipsContent(1,map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("bookId", "id12345");
+        map.put("bookName", "上海一日游");
+        Map<String, Object> sendData = makeTipsContent(1, map);
         String sendJsonData = mGson.toJson(sendData);
         KLog.logI("sendJsonData: " + sendJsonData);
         checkPermission();
@@ -301,6 +301,7 @@ public class MainActivity extends BaseActivity {
         KLog.logI("totalList 1---> " + GsonUtils.toJson(totalList));
         aList.get(0).setName("C");
         KLog.logI("totalList 2---> " + GsonUtils.toJson(totalList));
+
     }
 
     private Gson mGson = new Gson();
@@ -322,7 +323,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void checkPermission() {
-        if(!startFlowWindow){
+        if (!startFlowWindow) {
             return;
         }
         if (Build.VERSION.SDK_INT >= 23) {
@@ -333,9 +334,10 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 10) {
             if (Build.VERSION.SDK_INT >= 23) {
                 if (!Settings.canDrawOverlays(this)) {

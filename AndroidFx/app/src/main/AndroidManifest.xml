@@ -30,6 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sunflower">
         <activity
+            android:name=".ui.OpenGLESActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.GalleryShowActivity"
             android:exported="true" />
         <activity
