@@ -39,7 +39,7 @@ buildscript {
         pagingVersion = '3.0.0-alpha02'
         recyclerViewVersion = '1.2.0-alpha04'
         retrofitVersion = '2.9.0'
-        roomVersion = '2.4.0-alpha03'
+        roomVersion = '2.2.5'
         runnerVersion = '1.0.1'
         truthVersion = '0.42'
         testExtJunit = '1.1.0'
@@ -69,7 +69,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
-//        classpath 'com.hearing.plugin:custome:1.1.1'
+        classpath 'com.hearing.plugin:custome:1.1.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

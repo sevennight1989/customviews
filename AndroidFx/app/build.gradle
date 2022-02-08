@@ -1,6 +1,6 @@
 //import com.hearing.plugin.PluginImpl
 
-//import com.hearing.plugin.Api
+import com.hearing.plugin.Api
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -12,7 +12,7 @@ apply plugin: 'kotlin-android-extensions'
 
 def commonPackage = "com.android.custview"
 def pubPackage = "com.android.custview.pub"
-//apply plugin: 'com.hearing.plugin'
+apply plugin: 'com.hearing.plugin'
 /*releaseInfo {
     versionCode = "1"
     versionName = "1.0.0"
@@ -21,18 +21,10 @@ def pubPackage = "com.android.custview.pub"
 }*/
 
 android {
-//    def api = new Api()
+    def api = new Api()
 //    print('api name =' + api.name)
 //    print('api url = ' + api.url)
     compileSdkVersion rootProject.ext.compileSdkVersion
-    compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 
     defaultConfig {
         versionCode rootProject.ext.versionCode
@@ -188,8 +180,8 @@ android {
 
 
 configurations {
-    commonImplementation
-    pubImplementation
+    commonCompile
+    pubCompile
 }
 android.applicationVariants.all { variant ->
     variant.outputs.all {
