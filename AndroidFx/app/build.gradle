@@ -304,6 +304,7 @@ dependencies {
     implementation 'com.google.android:flexbox:1.0.0'
     implementation project(path: ':base')
     implementation project(path: ':sunflower')
+    implementation project(path: ':material')
     implementation 'com.github.bytedance:AlphaPlayer:1.0.6'
     implementation 'com.google.android.exoplayer:exoplayer-core:2.9.3'
 //    implementation 'com.netease.yunxin:nertc:4.4.3-SNAPSHOT'

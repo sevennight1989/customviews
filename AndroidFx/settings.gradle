@@ -21,3 +21,4 @@ gradle.addBuildListener([
 ] as BuildListener)
 include ':TaskTest'
 include ':sunflower'
+include ':material'

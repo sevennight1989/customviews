@@ -3,4 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zp.sunflower">
 
+    <application>
+        <activity
+            android:name="com.zp.sunflower.GardenActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Sunflower.NoActionBar" />
+    </application>
 </manifest>

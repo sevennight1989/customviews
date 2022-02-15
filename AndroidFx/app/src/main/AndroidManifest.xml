@@ -106,10 +106,6 @@
             android:authorities="${applicationId}.workmanager-init"
             tools:node="remove" />
 
-        <activity
-            android:name="com.zp.sunflower.GardenActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Sunflower.NoActionBar" />
     </application>
 
 </manifest>

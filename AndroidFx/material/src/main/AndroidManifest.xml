@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.yechaoa.materialdesign">
+
+    <application>
+        <activity android:name="com.yechaoa.materialdesign.activity.MainActivity"
+            />
+        <activity android:name="com.yechaoa.materialdesign.activity.SwipeRefreshLayoutActivity"
+            />
+        <activity android:name="com.yechaoa.materialdesign.activity.FloatingActionButtonActivity"
+            />
+        <activity android:name="com.yechaoa.materialdesign.activity.ToolbarActivity"
+            />
+        <activity android:name="com.yechaoa.materialdesign.activity.SnackbarActivity"
+            />
+        <activity android:name="com.yechaoa.materialdesign.activity.TabLayoutActivity"
+            />
+        <activity android:name="com.yechaoa.materialdesign.activity.CardViewActivity"
+            />
+        <activity android:name="com.yechaoa.materialdesign.activity.MyDialogActivity"
+            />
+        <activity android:name="com.yechaoa.materialdesign.activity.BottomNavigationActivity" />
+        <activity
+            android:name="com.yechaoa.materialdesign.activity.CollapsingToolbarActivity"
+            android:label="@string/collapsing_toolbar" />
+        <activity
+            android:name="com.yechaoa.materialdesign.activity.TabViewPagerScrollActivity"
+            android:label="@string/collapsing_toolbar" />
+        <activity android:name="com.yechaoa.materialdesign.activity.TextInputLayoutActivity" />
+        <activity android:name="com.yechaoa.materialdesign.activity.SearchViewActivity" />
+        <activity android:name="com.yechaoa.materialdesign.activity.TabLayoutCustomViewActivity" />
+        <activity android:name="com.yechaoa.materialdesign.activity.DrawerLayoutActivity" />
+        <activity android:name="com.yechaoa.materialdesign.activity.BottomSheetActivity" />
+        <activity android:name="com.yechaoa.materialdesign.activity.MaterialButtonActivity" />
+        <activity android:name="com.yechaoa.materialdesign.activity.ShapeableImageViewActivity" />
+        <activity android:name="com.yechaoa.materialdesign.activity.BadgeDrawableActivity" />
+    </application>
+</manifest>
