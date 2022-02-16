@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.hearing.plugin'
+//apply plugin: 'com.hearing.plugin'
 //releaseInfo {
 //    versionCode = "3"
 //    versionName = "3.0.0"
