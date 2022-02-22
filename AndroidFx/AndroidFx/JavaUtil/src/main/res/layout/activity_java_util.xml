@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".JavaUtilActivity">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/start_print_thread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:onClick="onClick"
+        android:text="开始打印"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/stop_print_thread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:onClick="onClick"
+        android:text="结束打印"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/start_print_thread"
+        app:layout_constraintTop_toTopOf="@+id/start_print_thread" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/start_print_Semaphore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="onClick"
+        android:text="开始打印Semaphore"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@+id/start_print_thread"
+        app:layout_constraintTop_toBottomOf="@+id/start_print_thread" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/stop_print_Semaphore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:onClick="onClick"
+        android:text="结束打印Semaphore"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/start_print_Semaphore"
+        app:layout_constraintTop_toTopOf="@+id/start_print_Semaphore" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/start_print_Lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="onClick"
+        android:text="开始打印Lock"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@+id/start_print_Semaphore"
+        app:layout_constraintTop_toBottomOf="@+id/start_print_Semaphore" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/stop_print_Lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:onClick="onClick"
+        android:text="结束打印Lock"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/start_print_Lock"
+        app:layout_constraintTop_toTopOf="@+id/start_print_Lock" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -53,6 +53,7 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.gson.Gson;
+import com.java.util.JavaUtilActivity;
 import com.tencent.mmkv.MMKV;
 import com.zp.sunflower.GardenActivity;
 
@@ -81,7 +82,8 @@ public class MainActivity extends BaseActivity {
     private String[] items = {"自定义View1", "进度条变色", "自定义音量条", "自定义ViewGroup", "自定义拖拽"
             , "ListView侧滑", "自定义跑马灯", "卡片框架", "自定义上滑", "JetPacket系列", "通知测试", "GLSurfaceView使用"
             , "Excel解析", "RecycleView案例", "LargeImageView展示", "插件主界面", "换肤", "Fragment任务栈"
-            , "直播主页", "联系人列表", "Sunflower", "MiuiDialog", "地图", "图片相册","OpenGLES","Material"};
+            , "直播主页", "联系人列表", "Sunflower", "MiuiDialog", "地图", "图片相册","OpenGLES","Material"
+            , "JavaUtil"};
 
     private boolean autoScroll = false;
     //是否启动悬浮窗
@@ -243,6 +245,9 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 25:
                         intent.setClass(MainActivity.this, com.yechaoa.materialdesign.activity.MainActivity.class);
+                        break;
+                    case 26:
+                        intent.setClass(MainActivity.this, JavaUtilActivity.class);
                         break;
                 }
                 startActivity(intent);
