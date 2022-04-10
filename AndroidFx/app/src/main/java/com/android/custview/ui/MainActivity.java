@@ -565,4 +565,10 @@ public class MainActivity extends BaseActivity {
     public void setAnyCallBack(AnyCallback anyCallBack) {
         mAnyCallback = anyCallBack;
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        KLog.logI("attachBaseContext");
+        super.attachBaseContext(base);
+    }
 }

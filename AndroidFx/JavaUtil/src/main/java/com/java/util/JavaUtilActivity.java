@@ -5,6 +5,9 @@ import android.view.View;
 
 import com.android.zp.base.BaseActivity;
 
+/**
+ * Java 线程同步类学习
+ */
 public class JavaUtilActivity extends BaseActivity {
 
     @Override
