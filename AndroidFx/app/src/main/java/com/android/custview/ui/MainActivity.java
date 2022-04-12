@@ -155,6 +155,9 @@ public class MainActivity extends BaseActivity {
                 KLog.logI("点击了 " + pos);
                 switch (pos) {
                     case 0:
+                        //模拟Crash
+//                        String str = null;
+//                        str.length();
                         onPress.setValue(true);
                         TestCase.getInstance().sendAccStatus(true);
                         if (startFlowWindow) {

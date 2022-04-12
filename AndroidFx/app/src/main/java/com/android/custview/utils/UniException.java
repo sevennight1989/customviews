@@ -1,12 +1,18 @@
 package com.android.custview.utils;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import com.android.custview.ui.ErrorMsgActivity;
 import com.android.zp.base.KLog;
 
 import java.io.File;
@@ -35,6 +41,17 @@ public class UniException implements Thread.UncaughtExceptionHandler {
         if (!handleException(e) && mDefaultHandler != null) {
             mDefaultHandler.uncaughtException(t, e);
         } else {
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("error_message", e.getMessage());
+            editor.commit();
+
+            Intent intent = new Intent(mContext.getApplicationContext(), ErrorMsgActivity.class);
+            PendingIntent restartIntent = PendingIntent.getActivity(mContext.getApplicationContext(), 0, intent, Intent.FLAG_ACTIVITY_NEW_TASK);
+            AlarmManager manager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+            manager.set(AlarmManager.RTC, System.currentTimeMillis() + 1, restartIntent);
+
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException interruptedException) {
