@@ -1,6 +1,7 @@
 package com.android.custview.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -8,15 +9,21 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
 
 import com.android.custview.R;
+import com.android.custview.constant.PJConstant;
+import com.android.custview.impl.AnalyticsDelegateImpl;
+import com.android.custview.impl.LogoutDelegateImpl;
+import com.android.custview.inf.AnalyticsDelegate;
+import com.android.custview.inf.LogoutDelegate;
 import com.android.custview.view.MaskFilterView;
 import com.android.zp.base.BaseActivity;
 import com.android.zp.base.utils.RoundRect;
 
 import java.lang.reflect.Method;
 
-public class ProgressBarActivity extends BaseActivity {
+public class ProgressBarActivity extends BaseActivity  {
 
     private ProgressBar mPb;
     private MaskFilterView maskFilterView1;
@@ -24,6 +31,8 @@ public class ProgressBarActivity extends BaseActivity {
     private MaskFilterView maskFilterView3;
     private MaskFilterView maskFilterView4;
     private ImageView image2;
+    private AnalyticsDelegate analyticsDelegate;
+    private LogoutDelegate logoutDelegate;
 
     @Override
     public int getLayout() {
@@ -48,6 +57,10 @@ public class ProgressBarActivity extends BaseActivity {
                 200, 200, 100f);
         Bitmap bitmap  = roundRect2.toRoundRect(this, R.mipmap.touxiang);
         image2.setImageBitmap(bitmap);
+        analyticsDelegate = new AnalyticsDelegateImpl();
+        analyticsDelegate.registerAnalytics(getLifecycle());
+        logoutDelegate = new LogoutDelegateImpl();
+        logoutDelegate.registerLogout(this);
     }
 
     @Override
@@ -64,6 +77,8 @@ public class ProgressBarActivity extends BaseActivity {
 
             case R.id.switchColor2:
                 resId = R.drawable.progress2;
+                Intent intent = new Intent(PJConstant.LOGOUT);
+                sendBroadcast(intent);
                 break;
         }
 
@@ -92,5 +107,4 @@ public class ProgressBarActivity extends BaseActivity {
         }
         return newDrawable;
     }
-
 }

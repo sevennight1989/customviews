@@ -312,6 +312,7 @@ public class MainActivity extends BaseActivity {
         KLog.logI("totalList 1---> " + GsonUtils.toJson(totalList));
         aList.get(0).setName("C");
         KLog.logI("totalList 2---> " + GsonUtils.toJson(totalList));
+        hashmapTest();
 
     }
 
@@ -573,5 +574,13 @@ public class MainActivity extends BaseActivity {
     protected void attachBaseContext(Context base) {
         KLog.logI("attachBaseContext");
         super.attachBaseContext(base);
+    }
+
+    private void hashmapTest(){
+        HashMap<String,String> map = new HashMap<>();
+        String  value = map.put("name","Tom");
+        KLog.logI("map value : " + value);
+        String oldValue = map.put("name","Peter");
+        KLog.logI("map oldValue : " + oldValue);
     }
 }
