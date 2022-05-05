@@ -30,6 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sunflower">
         <activity
+            android:name=".ui.LearnActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ErrorMsgActivity"
             android:exported="false" />
         <activity

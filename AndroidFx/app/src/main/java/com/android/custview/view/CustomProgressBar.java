@@ -91,6 +91,7 @@ public class CustomProgressBar extends View {
         mPaint.setStrokeWidth(mCircleWidth);
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
         RectF oval = new RectF(center - radius, center - radius, center + radius, center + radius);
         if (!isNext) {
             mPaint.setColor(mFirstColor);
