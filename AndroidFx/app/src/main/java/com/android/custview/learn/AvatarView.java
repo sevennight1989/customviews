@@ -42,6 +42,7 @@ public class AvatarView extends View {
     {
         bitmap = getAvatar(WIDTH);
         paint.setColor(Color.BLUE);
+//        setLayerType(LAYER_TYPE_HARDWARE,null);
     }
 
     @Override

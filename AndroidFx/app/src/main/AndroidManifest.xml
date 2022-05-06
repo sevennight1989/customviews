@@ -33,6 +33,9 @@
             android:name=".ui.LearnActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.Learn02Activity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ErrorMsgActivity"
             android:exported="false" />
         <activity

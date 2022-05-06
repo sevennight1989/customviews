@@ -37,7 +37,7 @@ public class InitApplication extends Application implements Configuration.Provid
         if (!isMainProcess(this)) {
             return;
         }
-        UniException.getInstance().init(this);
+//        UniException.getInstance().init(this);
         String rootDir = MMKV.initialize(this);
         KLog.logI("rootDir: " + rootDir);
         ConfigUtils.Companion.getInstance(mContext).initDemoConfigs();
