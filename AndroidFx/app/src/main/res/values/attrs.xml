@@ -16,4 +16,9 @@
         <!--指示器颜色-->
         <attr name="letterIndicatorColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="MaterialEditText">
+        <attr name="useFloatingLabel" format="boolean" />
+    </declare-styleable>
+
 </resources>
