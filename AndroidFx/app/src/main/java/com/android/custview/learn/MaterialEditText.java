@@ -86,6 +86,9 @@ public class MaterialEditText extends AppCompatEditText {
         }
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialEditText);
         useFloatingLabel = typedArray.getBoolean(R.styleable.MaterialEditText_useFloatingLabel, true);
+
+//        TypedArray typedArray = context.obtainStyledAttributes(attrs, new int[]{R.attr.useFloatingLabel});
+//        useFloatingLabel = typedArray.getBoolean(0, true);
         typedArray.recycle();
         init();
     }

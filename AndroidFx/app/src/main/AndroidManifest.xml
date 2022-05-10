@@ -30,8 +30,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sunflower">
         <activity
+            android:name=".ui.Learn04Activity"
+            android:exported="false" />
+        <activity
             android:name=".ui.Learn03Activity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.LearnActivity"
             android:exported="false" />
