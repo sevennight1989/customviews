@@ -33,7 +33,8 @@
 
     <com.android.custview.learn.TagLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="50dp"
@@ -67,7 +68,12 @@
             android:scaleType="centerCrop"
             android:src="@drawable/avatar"/>
 
-
-
     </com.android.custview.learn.TagLayout>
+
+    <com.android.custview.learn.TouchView
+        android:id="@+id/touchView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@color/colorAccent"/>
+
 </LinearLayout>
