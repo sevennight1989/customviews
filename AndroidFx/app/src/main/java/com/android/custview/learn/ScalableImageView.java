@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.OverScroller;
 
@@ -19,7 +20,7 @@ import com.android.zp.base.utils.CommonUtils;
 import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 
-public class ScalableImageView extends View implements Runnable{
+public class ScalableImageView extends View implements Runnable {
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Bitmap bitmap;
     private static final float IMAGE_WIDTH = CommonUtils.dp2Px(200);
@@ -32,14 +33,17 @@ public class ScalableImageView extends View implements Runnable{
     private float bigScale;
     private boolean isBig = false;
     private final GestureDetectorCompat detector;
-    private float scaleFraction;   //0 ~1f
+    private float currentScale;   //0 ~1f
     private ObjectAnimator scaleAnimator;
     private OverScroller scroller;
+    private MyScaleListener myScaleListener;
+    private ScaleGestureDetector scaleDetector;
 
     public ScalableImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         paint.setColor(Color.RED);
         bitmap = CommonUtils.getAvatar(context, R.drawable.avatar, (int) IMAGE_WIDTH);
+
         detector = new GestureDetectorCompat(context, new GestureDetector.OnGestureListener() {
             @Override
             public boolean onDown(MotionEvent e) {//MotionEvent.ACTION_DOWN
@@ -108,12 +112,11 @@ public class ScalableImageView extends View implements Runnable{
                 KLog.logI("GestureDetector onDoubleTap");
                 isBig = !isBig;
                 if (isBig) {
+                    offsetX = (e.getX() - getWidth() / 2f) - (e.getX() - getWidth() / 2f) * bigScale / smallScale;
+                    offsetY = (e.getY() - getHeight() / 2f) - (e.getY() - getHeight() / 2f) * bigScale / smallScale;
                     getScaleAnimator().start();
                 } else {
                     getScaleAnimator().reverse();
-                    //缩小还原初始位置
-                    offsetX = 0;
-                    offsetY = 0;
                 }
                 return false;//返回值不用
             }
@@ -126,6 +129,8 @@ public class ScalableImageView extends View implements Runnable{
         });
         // detector.setIsLongpressEnabled(false);//关闭长按
         scroller = new OverScroller(context);
+        myScaleListener = new MyScaleListener();
+        scaleDetector = new ScaleGestureDetector(context, myScaleListener);
     }
 
 /*    private void refresh() {
@@ -137,7 +142,11 @@ public class ScalableImageView extends View implements Runnable{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return detector.onTouchEvent(event);
+        boolean result = scaleDetector.onTouchEvent(event);
+        if (!scaleDetector.isInProgress()) {
+            result = detector.onTouchEvent(event);
+        }
+        return result;
     }
 
     @Override
@@ -153,31 +162,40 @@ public class ScalableImageView extends View implements Runnable{
             smallScale = getHeight() / (float) bitmap.getHeight();
             bigScale = getWidth() / (float) bitmap.getWidth() * OVER_SCALE_FACTOR;
         }
+        currentScale = smallScale;
 
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.translate(offsetX, offsetY);
-        float scale = smallScale + (bigScale - smallScale) * scaleFraction;
-        canvas.scale(scale, scale, getWidth() / 2f, getHeight() / 2f);
+        float scaleFraction = (currentScale - smallScale) / (bigScale / smallScale);
+        canvas.translate(offsetX * scaleFraction, offsetY * scaleFraction);
+        canvas.scale(currentScale, currentScale, getWidth() / 2f, getHeight() / 2f);
         canvas.drawBitmap(bitmap, originOffsetX, originOffsetY, paint);
     }
 
     private ObjectAnimator getScaleAnimator() {
         if (scaleAnimator == null) {
-            scaleAnimator = ObjectAnimator.ofFloat(this, "scaleFraction", 0, 1);
+            scaleAnimator = ObjectAnimator.ofFloat(this, "currentScale", 0, 1);
+//            scaleAnimator.addListener(new AnimatorListenerAdapter() {
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    offsetX = 0;
+//                    offsetY = 0;
+//                }
+//            });
         }
+        scaleAnimator.setFloatValues(smallScale, bigScale);
         return scaleAnimator;
     }
 
-    private float getScaleFraction() {
-        return scaleFraction;
+    private float getCurrentScale() {
+        return currentScale;
     }
 
-    private void setScaleFraction(float scaleFraction) {
-        this.scaleFraction = scaleFraction;
+    private void setCurrentScale(float currentScale) {
+        this.currentScale = currentScale;
         invalidate();
     }
 
@@ -188,6 +206,28 @@ public class ScalableImageView extends View implements Runnable{
             offsetY = scroller.getCurrY();
             invalidate();
             postOnAnimation(this);
+        }
+    }
+
+    private class MyScaleListener implements ScaleGestureDetector.OnScaleGestureListener {
+        float initialScale;
+
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            currentScale = initialScale * detector.getScaleFactor();
+            invalidate();
+            return false;
+        }
+
+        @Override
+        public boolean onScaleBegin(ScaleGestureDetector detector) {
+            initialScale = currentScale;
+            return true;
+        }
+
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+
         }
     }
 }
