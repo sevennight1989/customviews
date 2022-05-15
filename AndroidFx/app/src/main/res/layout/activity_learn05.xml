@@ -21,7 +21,37 @@
 
     <com.android.custview.learn.ScalableImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
+    <com.android.custview.learn.MultiTouchView1
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rl1"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@color/blue_grey_300"
+        android:clipToPadding="false"
+        android:paddingTop="20dp"
+        android:scrollbars="none"
+        android:visibility="gone" />
+
+    <com.android.custview.learn.MultiTouchView2
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <com.android.custview.learn.MultiTouchView3
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/two_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
