@@ -2,6 +2,31 @@
 
 //import com.hearing.plugin.Api
 
+class PluginDemo implements Plugin<Project>{
+
+    @Override
+    void apply(Project target) {
+//        def extension = new ExtensionDemo()
+//        def author = "Tom"
+        def extension = target.extensions.create('zp',ExtensionDemo)
+        target.afterEvaluate {
+            println("Hello ${extension.name}")
+        }
+
+
+    }
+}
+
+class ExtensionDemo {
+    def name = 'Peter'
+}
+
+apply plugin: PluginDemo
+
+zp {
+    name 'Smith'
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'

@@ -1,5 +1,6 @@
 package com.android.custview.ui;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,9 +12,16 @@ import com.android.custview.layout.LinearLayoutManagerExtend;
 import com.android.zp.base.BaseActivity;
 import com.android.zp.base.KLog;
 
+import java.time.LocalDate;
+import java.util.concurrent.TimeUnit;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 
 public class Learn05Activity extends BaseActivity {
     private RecyclerView rl1;
@@ -47,6 +55,39 @@ public class Learn05Activity extends BaseActivity {
 
     @Override
     public void initData() {
+        Single.just(1)
+                .map(new Function<Integer, String>() {
+                    @Override
+                    public String apply(Integer integer) throws Exception {
+                        return String.valueOf(integer);
+                    }
+                }).delay(2, TimeUnit.SECONDS)
+                .subscribe(new SingleObserver<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+        java8Tools();
+    }
+
+    private void java8Tools(){
+        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            LocalDate today = LocalDate.now();
+            int dayOfMonth = today.getDayOfMonth();
+            int dayOfWeek = today.getDayOfWeek().getValue();
+            int dayOfYear = today.getDayOfYear();
+        }
 
     }
 

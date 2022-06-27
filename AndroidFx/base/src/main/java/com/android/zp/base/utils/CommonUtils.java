@@ -14,11 +14,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.RandomAccess;
 
 public class CommonUtils {
 
@@ -42,21 +48,20 @@ public class CommonUtils {
 
     public static List<String> getProvinces(Context context) {
         List<String> list = new ArrayList<>();
-        InputStream inputStream = null;
-        InputStreamReader inputStreamReader = null;
-        BufferedReader bufferReader = null;
+//        InputStream inputStream = null;
+//        InputStreamReader inputStreamReader = null;
+//        BufferedReader bufferReader = null;
         StringBuilder stringBuilder = new StringBuilder();
-        try {
-            inputStream = context.getAssets().open("city.json");
-            inputStreamReader = new InputStreamReader(inputStream);
-            bufferReader = new BufferedReader(inputStreamReader);
+        try (InputStream inputStream = context.getAssets().open("city.json");
+             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+             BufferedReader bufferReader = new BufferedReader(inputStreamReader)) {
             String jsonLine;
             while ((jsonLine = bufferReader.readLine()) != null) {
                 stringBuilder.append(jsonLine);
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
+        } /*finally {
             try {
                 if (inputStream != null) {
                     inputStream.close();
@@ -70,7 +75,7 @@ public class CommonUtils {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         try {
             JSONArray jsonArray = new JSONArray(stringBuilder.toString());
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -84,4 +89,22 @@ public class CommonUtils {
         KLog.logI("getProvinces = " + list);
         return list;
     }
+
+    private void nio(String filePath) {
+        FileChannel channel;
+        try (RandomAccessFile file = new RandomAccessFile(filePath, "r")) {
+            channel = file.getChannel();
+            ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+            channel.read(byteBuffer);
+
+//            byteBuffer.limit(byteBuffer.position());
+//            byteBuffer.position(0);
+            byteBuffer.flip();
+            Charset.defaultCharset().decode(byteBuffer);
+            byteBuffer.clear();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
