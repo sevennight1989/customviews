@@ -1,7 +1,8 @@
 package com.android.custview.ui;
 
-
+import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,7 +11,15 @@ import com.android.custview.view.ExpandLinearLayout;
 import com.android.custview.view.TagTextView;
 import com.android.zp.base.BaseActivity;
 import com.android.zp.base.KLog;
+import com.android.zp.base.utils.PCMUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,5 +89,8 @@ public class CustView01Activity extends BaseActivity {
 
     @Override
     public void initData() {
+        PCMUtils.gainPcm(this);
     }
+
+
 }

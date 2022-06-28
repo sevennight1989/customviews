@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".ui.Learn05Activity">
+
+    <com.android.custview.ui.TestTouchView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@color/colorAccent"
+        android:visibility="gone" />
+
+    <com.android.custview.ui.TestTouchView2
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@color/red_300"
+        android:visibility="gone" />
+
+    <com.android.custview.learn.ScalableImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <com.android.custview.learn.MultiTouchView1
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rl1"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@color/blue_grey_300"
+        android:clipToPadding="false"
+        android:paddingTop="20dp"
+        android:scrollbars="none"
+        android:visibility="gone" />
+
+    <com.android.custview.learn.MultiTouchView2
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <com.android.custview.learn.MultiTouchView3
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/two_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

@@ -15,6 +15,7 @@ import com.android.custview.extend.ChatApplicationLifecycle;
 import com.android.custview.impl.ChatServiceImpl;
 import com.android.custview.inf.ChatService;
 import com.android.custview.utils.ConfigUtils;
+import com.android.custview.utils.UniException;
 import com.android.zp.base.BaseApplicaion;
 import com.android.zp.base.KLog;
 import com.android.zp.base.module.ApplicationLifecycleMgr;
@@ -36,6 +37,7 @@ public class InitApplication extends Application implements Configuration.Provid
         if (!isMainProcess(this)) {
             return;
         }
+//        UniException.getInstance().init(this);
         String rootDir = MMKV.initialize(this);
         KLog.logI("rootDir: " + rootDir);
         ConfigUtils.Companion.getInstance(mContext).initDemoConfigs();

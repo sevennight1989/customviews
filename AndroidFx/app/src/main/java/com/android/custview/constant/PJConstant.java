@@ -6,4 +6,6 @@ public class PJConstant {
     public static final String IS_RUNNING = "is_running";
     public static final String ID = "id";
 
+    public static final String LOGOUT = "ACTION_LOGOUT";
+
 }

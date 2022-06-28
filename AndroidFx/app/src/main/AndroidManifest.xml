@@ -30,10 +30,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sunflower">
         <activity
+            android:name=".ui.Learn05Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Learn04Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Learn03Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.LearnActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Learn02Activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ErrorMsgActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.OpenGLESActivity"
             android:exported="true" />
         <activity
             android:name=".ui.GalleryShowActivity"
+            android:documentLaunchMode="intoExisting"
+            android:excludeFromRecents="false"
             android:exported="true" />
         <activity
             android:name=".ui.MapActivity"
@@ -105,7 +125,6 @@
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="${applicationId}.workmanager-init"
             tools:node="remove" />
-
     </application>
 
 </manifest>

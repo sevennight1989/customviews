@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity {
             , "ListView侧滑", "自定义跑马灯", "卡片框架", "自定义上滑", "JetPacket系列", "通知测试", "GLSurfaceView使用"
             , "Excel解析", "RecycleView案例", "LargeImageView展示", "插件主界面", "换肤", "Fragment任务栈"
             , "直播主页", "联系人列表", "Sunflower", "MiuiDialog", "地图", "图片相册","OpenGLES","Material"
-            , "JavaUtil"};
+            , "JavaUtil","Learn","Learn02","Learn03","Learn04","Learn05"};
 
     private boolean autoScroll = false;
     //是否启动悬浮窗
@@ -155,6 +155,9 @@ public class MainActivity extends BaseActivity {
                 KLog.logI("点击了 " + pos);
                 switch (pos) {
                     case 0:
+                        //模拟Crash
+//                        String str = null;
+//                        str.length();
                         onPress.setValue(true);
                         TestCase.getInstance().sendAccStatus(true);
                         if (startFlowWindow) {
@@ -249,6 +252,21 @@ public class MainActivity extends BaseActivity {
                     case 26:
                         intent.setClass(MainActivity.this, JavaUtilActivity.class);
                         break;
+                    case 27:
+                        intent.setClass(MainActivity.this,LearnActivity.class);
+                        break;
+                    case 28:
+                        intent.setClass(MainActivity.this,Learn02Activity.class);
+                        break;
+                    case 29:
+                        intent.setClass(MainActivity.this,Learn03Activity.class);
+                        break;
+                    case 30:
+                        intent.setClass(MainActivity.this,Learn04Activity.class);
+                        break;
+                    case 31:
+                        intent.setClass(MainActivity.this,Learn05Activity.class);
+                        break;
                 }
                 startActivity(intent);
             }
@@ -260,8 +278,8 @@ public class MainActivity extends BaseActivity {
             mRv.setLayoutManager(new MyLayoutManager(this));
         }
         mRv.setAdapter(mMainAdapter);
-        OneTimeWorkRequest worker = new OneTimeWorkRequest.Builder(ListWorker.class).build();
-        WorkManager.getInstance(this).beginWith(worker).enqueue();
+//        OneTimeWorkRequest worker = new OneTimeWorkRequest.Builder(ListWorker.class).build();
+//        WorkManager.getInstance(this).beginWith(worker).enqueue();
         KLog.logI(formatTbt(jsonStr));
         KLog.logI("Has location permission : " + hasLocationPermission(this));
         mRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -309,6 +327,7 @@ public class MainActivity extends BaseActivity {
         KLog.logI("totalList 1---> " + GsonUtils.toJson(totalList));
         aList.get(0).setName("C");
         KLog.logI("totalList 2---> " + GsonUtils.toJson(totalList));
+        hashmapTest();
 
     }
 
@@ -564,5 +583,19 @@ public class MainActivity extends BaseActivity {
 
     public void setAnyCallBack(AnyCallback anyCallBack) {
         mAnyCallback = anyCallBack;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        KLog.logI("attachBaseContext");
+        super.attachBaseContext(base);
+    }
+
+    private void hashmapTest(){
+        HashMap<String,String> map = new HashMap<>();
+        String  value = map.put("name","Tom");
+        KLog.logI("map value : " + value);
+        String oldValue = map.put("name","Peter");
+        KLog.logI("map oldValue : " + oldValue);
     }
 }

@@ -134,4 +134,10 @@ public class GalleryShowActivity extends BaseActivity {
     public void initData() {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAndRemoveTask();
+    }
 }
