@@ -11,9 +11,13 @@ import com.android.custview.R;
 import com.android.custview.layout.LinearLayoutManagerExtend;
 import com.android.zp.base.BaseActivity;
 import com.android.zp.base.KLog;
+import com.blankj.utilcode.util.GsonUtils;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -87,6 +91,18 @@ public class Learn05Activity extends BaseActivity {
             int dayOfMonth = today.getDayOfMonth();
             int dayOfWeek = today.getDayOfWeek().getValue();
             int dayOfYear = today.getDayOfYear();
+            KLog.logI("当月第" + dayOfMonth + "天");
+            KLog.logI("本周周中第" + dayOfWeek + "天");
+            KLog.logI("当年中第" + dayOfYear + "天");
+
+            List<String> list = Stream.of("one", "two", "three", "four")
+                    .filter(e -> e.length() > 3)
+                    .peek(e -> KLog.logI("Filtered value : " + e))
+                    .map(String::toUpperCase)
+                    .peek(e -> KLog.logI("Mapped value ： " + e))
+                    .collect(Collectors.toList());
+            KLog.logI("List size -> " + list.size());
+            KLog.logI("List -> " + GsonUtils.toJson(list));
         }
 
     }

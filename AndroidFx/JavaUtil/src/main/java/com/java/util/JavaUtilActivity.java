@@ -6,10 +6,17 @@ import android.view.View;
 import com.android.zp.base.BaseActivity;
 
 import android.text.TextUtils;
-import android.view.View;
-import com.android.zp.base.BaseActivity;
 import com.android.zp.base.KLog;
+import com.java.util.chain.ResDownloadHandler;
+import com.java.util.chain.ResHandler;
+import com.java.util.chain.ResHandlerChain;
+import com.java.util.chain.ResMd5CheckHandler;
+import com.java.util.chain.ResUnzipHandler;
+
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Java 线程同步类学习
@@ -40,6 +47,11 @@ public class JavaUtilActivity extends BaseActivity {
             PrintNumberLock.startPrintNumberLock();
         } else if (id == R.id.stop_print_Lock) {
             PrintNumberLock.stopPrintNumberLock();
+        } else if (id == R.id.start_chain){
+
+            List<ResHandler> handlerList = Stream.of(new ResDownloadHandler(),new ResMd5CheckHandler(),new ResUnzipHandler())
+                    .collect(Collectors.toList());
+            new ResHandlerChain(handlerList,0).proceed();
         }
     }
 

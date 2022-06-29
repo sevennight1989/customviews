@@ -72,4 +72,15 @@
         android:textAllCaps="false"
         app:layout_constraintStart_toEndOf="@+id/start_print_Lock"
         app:layout_constraintTop_toTopOf="@+id/start_print_Lock" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/start_chain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:onClick="onClick"
+        android:text="启动Chain"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/stop_print_Lock"
+        app:layout_constraintTop_toTopOf="@+id/start_print_Lock" />
 </androidx.constraintlayout.widget.ConstraintLayout>
