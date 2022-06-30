@@ -12,6 +12,12 @@ import com.java.util.chain.ResHandler;
 import com.java.util.chain.ResHandlerChain;
 import com.java.util.chain.ResMd5CheckHandler;
 import com.java.util.chain.ResUnzipHandler;
+import com.java.util.chain2.InterceptChain;
+import com.java.util.chain2.InterceptFillInfo;
+import com.java.util.chain2.InterceptMemberApprove;
+import com.java.util.chain2.InterceptNewMember;
+import com.java.util.chain2.InterceptSkill;
+import com.java.util.chain2.JobInterceptBean;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -52,8 +58,21 @@ public class JavaUtilActivity extends BaseActivity {
             List<ResHandler> handlerList = Stream.of(new ResDownloadHandler(),new ResMd5CheckHandler(),new ResUnzipHandler())
                     .collect(Collectors.toList());
             new ResHandlerChain(handlerList,0).proceed();
+        } else if (id == R.id.start_chain2){
+            JobInterceptBean jobInterceptBean = new JobInterceptBean();
+            InterceptNewMember interceptNewMember = new InterceptNewMember(jobInterceptBean);
+            InterceptChain chain = InterceptChain.create(4)
+                    .attach(this)
+                    .addInterceptor(interceptNewMember)
+                    .addInterceptor(new InterceptFillInfo(jobInterceptBean))
+                    .addInterceptor(new InterceptMemberApprove(jobInterceptBean))
+                    .addInterceptor(new InterceptSkill(jobInterceptBean))
+                    .build();
+            chain.process();
         }
     }
+
+
 
     @Override
     public void initView() {
