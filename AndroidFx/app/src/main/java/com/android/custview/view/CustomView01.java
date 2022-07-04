@@ -61,6 +61,7 @@ public class CustomView01 extends View {
             switch (attr) {
                 case R.styleable.CustomView01_image:
                     mImage = ImageUtils.getBitmap(context, a.getResourceId(attr, 0));
+                    ImageUtils.blur(context,mImage,20);
                     Log.d("PengLog", "mImage width:" + mImage.getWidth());
                     break;
                 case R.styleable.CustomView01_imageScaleType:

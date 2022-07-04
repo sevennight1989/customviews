@@ -1,11 +1,17 @@
 package com.java.util;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import com.android.zp.base.BaseActivity;
 
 import android.text.TextUtils;
+import android.widget.LinearLayout;
+
 import com.android.zp.base.KLog;
 import com.java.util.chain.ResDownloadHandler;
 import com.java.util.chain.ResHandler;
@@ -24,11 +30,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import androidx.annotation.RequiresApi;
+
 /**
  * Java 线程同步类学习
  */
 public class JavaUtilActivity extends BaseActivity {
-
+    private LinearLayout ll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,12 +79,35 @@ public class JavaUtilActivity extends BaseActivity {
             chain.process();
         }
     }
+    private final static String TEST_PRODUCT_ID = "4806038";
+    private final static String TEST_DEVICE_ID = "PateoTest008";
+    private final static String TEST_SIGNATURE = "your_signature";
+
+    private void generateSignature(){
 
 
+    }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void initView() {
+        ll = findViewById(R.id.ll);
+        ll.setBackground(getBackgroundDrawable());
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private Drawable getBackgroundDrawable() {
+        int[] colors = {Color.RED, Color.GREEN, };
+//        int[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.WHITE, Color.BLACK};
+//        int[] colors2 = {0XB2366FBB,0xB2285CA4,0xB22E67B4,0xB23D7DC9,0xB264B0F4};
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setCornerRadius(150);
+        gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+        gradientDrawable.setColors(colors,new float[]{0.8f,0.2f});
+        gradientDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+        gradientDrawable.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+        return gradientDrawable;
     }
 
     @Override

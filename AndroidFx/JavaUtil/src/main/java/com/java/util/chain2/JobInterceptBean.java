@@ -6,7 +6,7 @@ public class JobInterceptBean {
 
     public boolean isFillInfo = true;
 
-    public boolean isMemberApprove = true;
+    public boolean isMemberApprove = false;
 
     public boolean isNeedSkill = false;
 }
