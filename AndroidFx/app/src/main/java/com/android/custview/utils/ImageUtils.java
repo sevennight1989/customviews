@@ -68,10 +68,6 @@ public class ImageUtils {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(srcBitmap, rect, rect, paint);
         canvas.restore();
-        //回收之前的Bitmap
-//        if (recycleSrc && srcBitmap != null && !srcBitmap.equals(output) && !srcBitmap.isRecycled()) {
-//            GlideBitmapPool.putBitmap(srcBitmap);
-//        }
         return output;
     }
 
@@ -81,21 +77,11 @@ public class ImageUtils {
      * @param filePath
      */
     private void saveBitmap(Bitmap bitmap, String filePath){
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(filePath);
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (fos != null) {
-                    fos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -115,10 +101,6 @@ public class ImageUtils {
         matrix.postScale(scaleWidth, scaleHeight);
         Bitmap bitmap = Bitmap.createBitmap(srcBitmap, 0, 0, width, height, matrix, true);
         if (bitmap != null) {
-            /**回收*/
-//            if (recycleSrc && srcBitmap != null && !srcBitmap.equals(bitmap) && !srcBitmap.isRecycled()) {
-//                GlideBitmapPool.putBitmap(srcBitmap);
-//            }
             return bitmap;
         } else {
             return srcBitmap;
