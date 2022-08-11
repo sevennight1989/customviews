@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
-import android.graphics.PixelFormat
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
@@ -30,7 +29,6 @@ class CustomSurfaceView @JvmOverloads constructor(
         path = Path()
         surfaceHolder = holder
         surfaceHolder?.addCallback(this)
-//        setBackgroundColor(Color.BLACK)
 
     }
 
@@ -39,6 +37,7 @@ class CustomSurfaceView @JvmOverloads constructor(
             MotionEvent.ACTION_DOWN -> {
                 KLog.logI("Touch ${event.x}, ${event.y}")
                 path.moveTo(event.x, event.y)
+                return true
             }
             MotionEvent.ACTION_MOVE -> {
                 path.lineTo(event.x, event.y)
@@ -72,4 +71,5 @@ class CustomSurfaceView @JvmOverloads constructor(
         KLog.logI("surfaceDestroyed")
         flag = false
     }
+
 }
