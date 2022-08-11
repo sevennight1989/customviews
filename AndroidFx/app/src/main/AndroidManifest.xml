@@ -30,6 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sunflower">
         <activity
+            android:name=".ui.CustomSurfaceViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.Learn05Activity"
             android:exported="false" />
         <activity
@@ -61,7 +64,7 @@
         <activity
             android:name=".ui.MiuiDialogActivity"
             android:exported="true"
-            android:theme="@style/Theme.Sunflower.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".ui.ContactListActivity" />
         <activity android:name=".live.LiveMainActivity" />
         <activity android:name=".fgstack.FragmentStackActivity" />

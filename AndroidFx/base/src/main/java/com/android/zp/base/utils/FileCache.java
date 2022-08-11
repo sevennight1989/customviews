@@ -13,9 +13,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * Created by luc on 2020/11/8.
- */
 public final class FileCache {
   private static final String CACHE_NAME = "temp";
   private static File cacheRoot = null;
