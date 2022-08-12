@@ -102,8 +102,8 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
                     //清空画布-透明处理
                     canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                     int xCenter = getWidth() / 2;
-                    int yCenter = getHeight() / 2;
-                    int radius = (int) (xCenter - 10);
+                    int yCenter = getHeight() / 2 + 30;
+                    int radius = (int) (xCenter - 100);
                     RectF rectF = new RectF(xCenter - radius, yCenter - radius, xCenter + radius,
                             yCenter + radius);
                     canvas.drawArc(rectF, -90, progress * 360 / 100, false, mPaint);

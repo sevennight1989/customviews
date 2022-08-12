@@ -53,6 +53,7 @@ class CustomSurfaceView @JvmOverloads constructor(
                 val canvas = surfaceHolder?.lockCanvas()
                 canvas?.drawPath(path, paint)
                 surfaceHolder?.unlockCanvasAndPost(canvas)
+                Thread.sleep(10)
             }
         }.start()
     }
