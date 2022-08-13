@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity {
             , "ListView侧滑", "自定义跑马灯", "卡片框架", "自定义上滑", "JetPacket系列", "通知测试", "GLSurfaceView使用"
             , "Excel解析", "RecycleView案例", "LargeImageView展示", "插件主界面", "换肤", "Fragment任务栈"
             , "直播主页", "联系人列表", "Sunflower", "MiuiDialog", "地图", "图片相册","OpenGLES","Material"
-            , "JavaUtil","Learn","Learn02","Learn03","Learn04","Learn05","CustomSurfaceView"};
+            , "JavaUtil","Learn","Learn02","Learn03","Learn04","Learn05","CustomSurfaceViewList"};
 
     private boolean autoScroll = false;
     //是否启动悬浮窗
@@ -268,7 +268,7 @@ public class MainActivity extends BaseActivity {
                         intent.setClass(MainActivity.this,Learn05Activity.class);
                         break;
                     case 32:
-                        intent.setClass(MainActivity.this, CustomSurfaceViewActivity.class);
+                        intent.setClass(MainActivity.this, CustomSurfaceViewList.class);
                         break;
                 }
                 startActivity(intent);
