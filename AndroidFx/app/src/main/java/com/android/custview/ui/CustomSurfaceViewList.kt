@@ -28,6 +28,9 @@ class CustomSurfaceViewList : BaseActivity() {
             R.id.custom_surface_view2 -> {
                 intent.setClass(this, CustomSurfaceViewActivity2::class.java)
             }
+            R.id.custom_surface_view3 -> {
+                intent.setClass(this, CustomSurfaceViewActivity3::class.java)
+            }
         }
         startActivity(intent)
     }

@@ -30,6 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sunflower">
         <activity
+            android:name=".ui.CustomSurfaceViewActivity3"
+            android:exported="false" />
+        <activity
             android:name=".ui.CustomSurfaceViewActivity2"
             android:exported="false" />
         <activity
