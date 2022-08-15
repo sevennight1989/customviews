@@ -1,12 +1,15 @@
 package com.android.custview.ui
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.BitmapRegionDecoder
 import android.graphics.Rect
+import android.os.Environment
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.content.FileProvider
 import com.android.custview.R
 import com.android.custview.utils.ColorUtil
 import com.android.zp.base.*
@@ -14,6 +17,7 @@ import com.blankj.utilcode.util.ToastUtils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import java.io.File
 import java.io.InputStream
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -44,6 +48,24 @@ class LargeImageViewActivity : BaseActivity() {
         return R.layout.layout_large_image_view
     }
 
+    private fun viewDoc() {
+        val path = "${Environment.getExternalStorageDirectory().path}/Android/data/com.android.custview/log/pateo.txt"
+        KLog.logI("viewDoc = $path")
+        val docFilePath = File(path)
+        if (!docFilePath.parentFile.exists()) {
+            docFilePath.parentFile.mkdir()
+        }
+        val contentUri = FileProvider.getUriForFile(baseContext, "com.android.custview.fileProvider", docFilePath)
+        KLog.logI("contentUri = $contentUri")
+        val intent = Intent()
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.action = Intent.ACTION_VIEW
+        intent.setDataAndType(contentUri, "text/plain")
+        startActivity(intent)
+
+    }
+
     override fun initView() {
         imageView = findViewById(R.id.img)
         imageView2 = findViewById(R.id.img2)
@@ -53,6 +75,8 @@ class LargeImageViewActivity : BaseActivity() {
         addSpace(mContainer!!, 100)
         addButton(mContainer!!, "ClickMe!", View.OnClickListener {
             ToastUtils.showShort("You click me , ha ha!")
+            viewDoc()
+
         })
         mContainer!!.setBackgroundColor(ColorUtil.getMaterialColor(resources,1))
 
