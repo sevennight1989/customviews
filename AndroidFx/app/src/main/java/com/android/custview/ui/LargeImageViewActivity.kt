@@ -66,7 +66,50 @@ class LargeImageViewActivity : BaseActivity() {
 
     }
 
+    private fun testScope(){
+        GlobalScope.launch(Dispatchers.IO) {
+            KLog.logI("test GlobalScope 001")
+        }
+
+        GlobalScope.launch (Dispatchers.Main){
+            val image = withContext(Dispatchers.IO){
+                "hello"
+            }
+            KLog.logI("image:$image")
+            val name = withContext(Dispatchers.IO){
+                "peter"
+            }
+            KLog.logI("name:$name")
+
+            val finalName = getName()
+            KLog.logI("finalName:$finalName")
+
+            KLog.logI("--process--${Thread.currentThread().name}")
+            withContext(Dispatchers.Main) {
+                KLog.logI("--end---${Thread.currentThread().name}")
+            }
+        }
+
+            GlobalScope.launch {
+                val avatar = async { "123" }
+                val logo = async { "456" }
+                val merged = "$avatar-$logo"
+                KLog.logI("merged:$merged")
+            }
+        KLog.logI("--testScope--${Thread.currentThread().name}")
+
+    }
+
+    private suspend fun getName(): String {
+        return withContext(Dispatchers.IO) {
+            delay(1000)
+            KLog.logI("sleep:${Thread.currentThread().name}")
+            "Tom"
+        }
+    }
+
     override fun initView() {
+        testScope()
         imageView = findViewById(R.id.img)
         imageView2 = findViewById(R.id.img2)
         mContainer = findViewById(R.id.container)
