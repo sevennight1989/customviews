@@ -7,9 +7,8 @@ import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.Window
 import android.view.WindowManager
-import javax.inject.Inject
 
-class MiuiLoadingDialog @Inject constructor(context: Context) : Dialog(context) {
+class MiuiLoadingDialog @JvmOverloads constructor(context: Context, themeResId: Int = 0) : Dialog(context, themeResId) {
 
     private var miuiLoadingView: MiuiLoadingView = MiuiLoadingView(context)
 

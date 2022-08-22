@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.android.custview.R;
+import com.android.zp.base.KLog;
 
 import java.util.List;
 
@@ -29,15 +30,22 @@ public class TagTextView extends AppCompatTextView {
 
     public TagTextView(@NonNull Context context) {
         this(context, null);
+        KLog.logE("TagTextView Construct init 333");
     }
 
     public TagTextView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
+        KLog.logE("TagTextView Construct init 222");
     }
 
     public TagTextView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        KLog.logE("TagTextView Construct init 111");
         mContext = context;
+    }
+
+    {
+        KLog.logE("TagTextView Construct init 000");
     }
 
     public void setTagAndText(List<String> tags, int textColor, int bgColor, String text) {

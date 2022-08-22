@@ -2,9 +2,6 @@ package com.android.zp.base.utils;
 
 import android.view.View;
 
-/**
- * Created by luc on 2020/11/25.
- */
 public final class ViewUtils {
 
     /**

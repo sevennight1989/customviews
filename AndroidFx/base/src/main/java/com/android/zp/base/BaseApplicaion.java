@@ -2,6 +2,11 @@ package com.android.zp.base;
 
 import android.content.Context;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
+
 public class BaseApplicaion {
 
     private static Context mContext;
@@ -20,5 +25,10 @@ public class BaseApplicaion {
 
     public void onCreate(Context context) {
         mContext  = context;
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .tag("PengLog")
+                .showThreadInfo(true)
+                .build();
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
     }
 }

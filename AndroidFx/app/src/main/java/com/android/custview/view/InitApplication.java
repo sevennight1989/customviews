@@ -39,9 +39,9 @@ public class InitApplication extends Application implements Configuration.Provid
         }
 //        UniException.getInstance().init(this);
         String rootDir = MMKV.initialize(this);
+        BaseApplicaion.getInstance().onCreate(mContext);
         KLog.logI("rootDir: " + rootDir);
         ConfigUtils.Companion.getInstance(mContext).initDemoConfigs();
-        BaseApplicaion.getInstance().onCreate(mContext);
         String logDir = AppManifestUtil.getAndroidManifestStringValueByName(this, AppManifestUtil.ManifestName.LogDir);
         KLog.logI("LogDir: " + logDir);
         KLog.logI("AppName : " + BuildConfig.appName);
