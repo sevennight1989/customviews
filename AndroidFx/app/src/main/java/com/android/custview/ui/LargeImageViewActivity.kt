@@ -6,10 +6,13 @@ import android.graphics.BitmapFactory
 import android.graphics.BitmapRegionDecoder
 import android.graphics.Rect
 import android.os.Environment
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.FileProvider
+import androidx.core.view.GestureDetectorCompat
 import com.android.custview.R
 import com.android.custview.utils.ColorUtil
 import com.android.zp.base.*
@@ -21,12 +24,41 @@ import java.io.File
 import java.io.InputStream
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.math.abs
 
 class LargeImageViewActivity : BaseActivity() {
     var imageView: ImageView? = null
     var imageView2: ImageView? = null
     private var mContainer: LinearLayout? = null
+    private var widthPixels:Int = 0
+
+    private lateinit var gestureDetectorCompat: GestureDetectorCompat
+
+    private val simpleOnGestureListener = object : GestureDetector.SimpleOnGestureListener(){
+
+        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+            val distantX = abs((e2?.x?:0f) - (e1?.x?:0f))
+            val distantY = abs((e2?.y?:0f) - (e1?.y?:0f))
+            e1?.x?.let {
+                KLog.logI("it:$it --- widthPixels:$widthPixels --- distantX:$distantX --- distantY:$distantY")
+                if(it < 100 || it > widthPixels - 100){
+                    if (distantX > distantY) {
+                        onBackPressed()
+                    }
+                }
+            }
+            return super.onFling(e1, e2, velocityX, velocityY)
+        }
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        gestureDetectorCompat.onTouchEvent(event)
+        return super.onTouchEvent(event)
+    }
+
     override fun initData() {
+        gestureDetectorCompat = GestureDetectorCompat(this,simpleOnGestureListener)
+        widthPixels = resources.displayMetrics.widthPixels
         val inputStream: InputStream = assets.open("tangyan.jpg")
         val tmpOptions = BitmapFactory.Options()
         tmpOptions.inJustDecodeBounds = true

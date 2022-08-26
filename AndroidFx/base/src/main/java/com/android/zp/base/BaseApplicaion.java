@@ -27,7 +27,9 @@ public class BaseApplicaion {
         mContext  = context;
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
                 .tag("PengLog")
-                .showThreadInfo(true)
+                .methodCount(1)
+                .methodOffset(1)
+                .showThreadInfo(false)
                 .build();
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
     }
