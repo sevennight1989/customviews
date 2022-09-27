@@ -48,6 +48,7 @@ import com.android.custview.view.InitApplication;
 import com.android.custview.widget.SpacesItemDecoration;
 import com.android.zp.base.BaseActivity;
 import com.android.zp.base.LR;
+import com.android.zp.base.utils.Base64Utils;
 import com.blankj.utilcode.util.GsonUtils;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
@@ -66,6 +67,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -268,6 +270,15 @@ public class MainActivity extends BaseActivity {
                         intent.setClass(MainActivity.this,Learn05Activity.class);
                         break;
                     case 32:
+                        People people = new People();
+                        people.setName("Tom");
+                        people.setAge(18);
+                        people.setMoney(125.12);
+
+                        String sample_01 = Base64Utils.Companion.encodeBase64(people);
+                        KLog.logI("sample_01 : " + sample_01);
+                        People decodeData = (People) Base64Utils.Companion.decodeBase64(sample_01);
+                        KLog.logI("sample_01 2---> " + GsonUtils.toJson(decodeData));
                         intent.setClass(MainActivity.this, CustomSurfaceViewList.class);
                         break;
                 }
@@ -331,13 +342,30 @@ public class MainActivity extends BaseActivity {
         aList.get(0).setName("C");
         KLog.logI("totalList 2---> " + GsonUtils.toJson(totalList));
         hashmapTest();
-
     }
 
     private Gson mGson = new Gson();
 
-    class People {
+    private static class People implements Serializable {
         public String name;
+        private int age;
+        private double money;
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public double getMoney() {
+            return money;
+        }
+
+        public void setMoney(double money) {
+            this.money = money;
+        }
 
         public People setName(String name) {
             this.name = name;

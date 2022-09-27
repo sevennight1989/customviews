@@ -5,7 +5,7 @@ import com.orhanobut.logger.Logger;
 
 public class KLog {
 
-    private static final String TAG = "PengLog";
+    public static final String TAG = "PengLog";
 
     private static boolean ENABLE_LOG = true;
 

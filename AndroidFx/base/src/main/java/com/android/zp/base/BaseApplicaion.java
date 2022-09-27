@@ -26,7 +26,7 @@ public class BaseApplicaion {
     public void onCreate(Context context) {
         mContext  = context;
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
-                .tag("PengLog")
+                .tag(KLog.TAG)
                 .methodCount(1)
                 .methodOffset(1)
                 .showThreadInfo(false)
