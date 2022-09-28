@@ -116,6 +116,7 @@ public class MainActivity extends BaseActivity {
         kv.encode(PJConstant.ID, 1001);
         kv.encode(PJConstant.IS_RUNNING, true);
         kv.encode(PJConstant.NAME, "Thread-01");
+        new SixTeenTest().startTest().modeTest();
         setAnyCallBack(new AnyCallback() {
             @Override
             public void onCallObject(Object obj) {
