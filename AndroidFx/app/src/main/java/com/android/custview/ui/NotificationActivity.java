@@ -6,17 +6,20 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import androidx.core.app.NotificationCompat;
 
 import com.android.custview.R;
+import com.android.custview.view.LeanTextView;
 import com.android.zp.base.BaseActivity;
 
 public class NotificationActivity extends BaseActivity {
 
     private static final String URL_1 = "www.qq.com";
     private static final String URL_2 = "www.baidu.com";
-
+    private FrameLayout container;
+    private LeanTextView leanTextView;
     @Override
     public int getLayout() {
         return R.layout.activity_notification;
@@ -24,7 +27,10 @@ public class NotificationActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        leanTextView = new LeanTextView(this);
+        leanTextView.setmDegrees(30);
+        leanTextView.setText("112222");
+        container = findViewById(R.id.container);
     }
 
     @Override
@@ -36,10 +42,12 @@ public class NotificationActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.send_qq:
                 createLinkNotification(URL_1, "QQ");
+                container.addView(leanTextView);
                 break;
 
             case R.id.send_baidu:
                 createLinkNotification(URL_2, "Baidu");
+                container.removeView(leanTextView);
                 break;
         }
     }

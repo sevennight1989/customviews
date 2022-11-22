@@ -3,8 +3,10 @@ package com.android.custview.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 
+import com.android.zp.base.KLog;
 
 public class LeanTextView extends androidx.appcompat.widget.AppCompatTextView {
 
@@ -41,5 +43,17 @@ public class LeanTextView extends androidx.appcompat.widget.AppCompatTextView {
         canvas.rotate(-mDegrees, this.getWidth() / 2f, this.getHeight() / 2f);
         super.onDraw(canvas);
         canvas.restore();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        KLog.logE("onAttachedToWindow");
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        KLog.logE("onDetachedFromWindow");
     }
 }

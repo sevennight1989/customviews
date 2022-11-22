@@ -1,13 +1,19 @@
 package com.android.custview.view;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
+import android.os.Bundle;
 import android.os.Process;
 import android.util.Log;
-
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.work.Configuration;
 
 import com.android.custview.BuildConfig;
@@ -28,7 +34,7 @@ import dagger.hilt.android.HiltAndroidApp;
 @HiltAndroidApp
 public class InitApplication extends Application implements Configuration.Provider {
     private static Context  mContext;
-
+    private boolean enableBlackWriteMode = false;//开启黑白模式
 
     @Override
     public void onCreate() {
@@ -57,6 +63,50 @@ public class InitApplication extends Application implements Configuration.Provid
 
         ModuleServiceMgr.getInstance()
                 .registerService(ChatService.class,getApplicationContext(),new ChatServiceImpl());
+        Paint paint = new Paint();
+        ColorMatrix colorMatrix = new ColorMatrix();
+        colorMatrix.setSaturation(0);
+        paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+                if(enableBlackWriteMode){
+                    View decorView = activity.getWindow().getDecorView();
+                    decorView.setLayerType(View.LAYER_TYPE_HARDWARE,paint);
+                }
+            }
+
+            @Override
+            public void onActivityStarted(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(@NonNull Activity activity) {
+
+            }
+        });
+
     }
 
     /**

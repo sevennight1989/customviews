@@ -20,6 +20,7 @@ import com.android.zp.base.KLog;
 import com.android.custview.jetpack.WorkerToMe;
 import com.android.custview.jetpack.WorkerToYou;
 import com.android.zp.base.BaseActivity;
+import com.blankj.utilcode.util.NetworkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class JetPackActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        NetworkUtils.isAvailableByPing();
 
     }
     private static final String PROGRESS = "PROGRESS";
