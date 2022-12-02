@@ -41,6 +41,7 @@ import com.android.custview.jetpack.bean.ItemDao;
 import com.android.custview.live.LiveMainActivity;
 import com.android.custview.project.TestCase;
 import com.android.custview.service.IntercomTimeWindowService;
+import com.android.custview.service.LocationService;
 import com.android.zp.base.KLog;
 import com.android.custview.adapter.MainAdapter;
 import com.android.custview.bean.Person;
@@ -111,6 +112,7 @@ public class MainActivity extends BaseActivity {
     @SuppressLint("SetWorldReadable")
     @Override
     public void initData() {
+        LocationService.startLocationService(this);
         KLog.logE("00011112255");
         kv = MMKV.mmkvWithID("cmpj");
         kv.encode(PJConstant.ID, 1001);
@@ -147,7 +149,6 @@ public class MainActivity extends BaseActivity {
         createFile();
         readFile();
         getLifecycle().addObserver(new MyObserver());
-
         mMainAdapter = new MainAdapter();
 //        String[] items = getResources().getStringArray(R.array.main_items);
         mMainAdapter.setData(items);
@@ -629,5 +630,11 @@ public class MainActivity extends BaseActivity {
         KLog.logI("map value : " + value);
         String oldValue = map.put("name","Peter");
         KLog.logI("map oldValue : " + oldValue);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocationService.stopLocationService(this);
     }
 }

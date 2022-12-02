@@ -27,4 +27,5 @@
     <color name="cyan_300">#4dd0e1</color>
     <color name="grey_300">#e0e0e0</color>
     <color name="grey_400">#78909C</color>
+    <color name="color_high_light">#ff2196f3</color>
 </resources>
