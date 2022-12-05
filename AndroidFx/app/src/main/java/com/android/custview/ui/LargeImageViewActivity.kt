@@ -71,8 +71,8 @@ class LargeImageViewActivity : BaseActivity() {
         options.inPreferredConfig = Bitmap.Config.RGB_565
         val bitmap = bitmapRegionDecoder.decodeRegion(Rect(width / 2 - 100, height / 2 - 100, width / 2 + 100, height / 2 + 100), options)
         val bitmap2 = bitmapRegionDecoder.decodeRegion(Rect(0, 0, width, height), options)
-        imageView!!.setImageBitmap(bitmap)
-        imageView2!!.setImageBitmap(bitmap2)
+        imageView?.setImageBitmap(bitmap)
+        imageView2?.setImageBitmap(bitmap2)
 
     }
 
@@ -84,8 +84,11 @@ class LargeImageViewActivity : BaseActivity() {
         val path = "${Environment.getExternalStorageDirectory().path}/Android/data/com.android.custview/log/pateo.txt"
         KLog.logI("viewDoc = $path")
         val docFilePath = File(path)
-        if (!docFilePath.parentFile.exists()) {
-            docFilePath.parentFile.mkdir()
+        if (!docFilePath.parentFile!!.exists()) {
+            val ret = docFilePath.parentFile!!.mkdir()
+            if (!ret) {
+                KLog.logE("Create ${docFilePath.parentFile} failed!")
+            }
         }
         val contentUri = FileProvider.getUriForFile(baseContext, "com.android.custview.fileProvider", docFilePath)
         KLog.logI("contentUri = $contentUri")

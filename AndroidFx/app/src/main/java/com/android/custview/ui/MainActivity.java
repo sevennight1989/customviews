@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity {
             , "ListView侧滑", "自定义跑马灯", "卡片框架", "自定义上滑", "JetPacket系列", "通知测试", "GLSurfaceView使用"
             , "Excel解析", "RecycleView案例", "LargeImageView展示", "插件主界面", "换肤", "Fragment任务栈"
             , "直播主页", "联系人列表", "Sunflower", "MiuiDialog", "地图", "图片相册","OpenGLES","Material"
-            , "JavaUtil","Learn","Learn02","Learn03","Learn04","Learn05","CustomSurfaceViewList"};
+            , "JavaUtil","Learn","Learn02","Learn03","Learn04","Learn05","CustomSurfaceViewList","光圈"};
 
     private boolean autoScroll = false;
     //是否启动悬浮窗
@@ -282,6 +282,9 @@ public class MainActivity extends BaseActivity {
                         People decodeData = (People) Base64Utils.Companion.decodeBase64(sample_01);
                         KLog.logI("sample_01 2---> " + GsonUtils.toJson(decodeData));
                         intent.setClass(MainActivity.this, CustomSurfaceViewList.class);
+                        break;
+                    case 33:
+                        intent.setClass(MainActivity.this,ApertureActivity.class);
                         break;
                 }
                 startActivity(intent);
