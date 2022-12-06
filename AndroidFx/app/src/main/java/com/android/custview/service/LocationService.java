@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.GnssStatus;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,6 +23,9 @@ import android.os.IBinder;
 import com.android.custview.R;
 import com.android.custview.ui.MainActivity;
 import com.android.zp.base.KLog;
+
+import java.io.IOException;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -150,6 +155,7 @@ public class LocationService extends Service implements LocationListener {
                 + ", s = " + location.getSpeed()
                 + ", t = " + location.getTime()
         );
+        getAddress(location.getLatitude(),location.getLongitude());
     }
 
     @Override
@@ -165,5 +171,20 @@ public class LocationService extends Service implements LocationListener {
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    private void getAddress(double latitude, double longitude) {
+        List<Address> addressList = null;
+        Geocoder geocoder = new Geocoder(this);
+        try {
+            addressList = geocoder.getFromLocation(latitude, longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addressList != null) {
+            for (Address address : addressList) {
+                KLog.logI(String.format("address: %s", address.toString()));
+            }
+        }
     }
 }
