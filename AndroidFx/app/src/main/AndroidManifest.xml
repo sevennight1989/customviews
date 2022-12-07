@@ -34,6 +34,13 @@
         android:theme="@style/Theme.Sunflower"
         tools:replace="android:label">
         <activity
+            android:name="com.android.custview.ui.RecycleViewDiffActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="com.android.custview.ui.ApertureActivity"
             android:exported="false">
             <meta-data

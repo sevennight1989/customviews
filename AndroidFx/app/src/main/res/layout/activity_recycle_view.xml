@@ -59,4 +59,15 @@
         android:background="@drawable/xuanzhuan"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_activity" />
+
+    <Button
+        android:id="@+id/rv_diff_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="onClick"
+        android:text="rv_diff_activity"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
 </androidx.constraintlayout.widget.ConstraintLayout>

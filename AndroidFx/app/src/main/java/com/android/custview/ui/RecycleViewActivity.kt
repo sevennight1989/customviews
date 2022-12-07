@@ -81,6 +81,9 @@ class RecycleViewActivity : BaseActivity() {
             R.id.my_activity -> {
                 startActivity(Intent(this, MyActivity::class.java))
             }
+            R.id.rv_diff_activity -> {
+                startActivity(Intent(this, RecycleViewDiffActivity::class.java))
+            }
 
         }
     }
