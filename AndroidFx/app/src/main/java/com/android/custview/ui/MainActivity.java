@@ -108,11 +108,14 @@ public class MainActivity extends BaseActivity {
     }
 
     private MMKV kv;
+    private static final boolean enableLocationService = false;
 
     @SuppressLint("SetWorldReadable")
     @Override
     public void initData() {
-        LocationService.startLocationService(this);
+        if (enableLocationService) {
+            LocationService.startLocationService(this);
+        }
         KLog.logE("00011112255");
         kv = MMKV.mmkvWithID("cmpj");
         kv.encode(PJConstant.ID, 1001);
@@ -638,6 +641,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LocationService.stopLocationService(this);
+        if (enableLocationService) {
+            LocationService.stopLocationService(this);
+        }
     }
 }
