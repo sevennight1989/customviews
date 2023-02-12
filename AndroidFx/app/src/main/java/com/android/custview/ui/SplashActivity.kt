@@ -31,8 +31,8 @@ class SplashActivity : PermissionActivity(), PermissionActivity.CheckPermListene
         checkPermission(
             this,
             R.string.perm_tip,
-            Manifest.permission.ACCESS_NETWORK_STATE,
-            Manifest.permission.INTERNET,
+//            Manifest.permission.ACCESS_NETWORK_STATE,
+//            Manifest.permission.INTERNET,
 //            Manifest.permission.READ_PHONE_STATE,
 //            Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,

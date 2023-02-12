@@ -2,7 +2,9 @@ package com.android.custview.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
@@ -287,10 +289,11 @@ public class MainActivity extends BaseActivity {
                         intent.setClass(MainActivity.this, CustomSurfaceViewList.class);
                         break;
                     case 33:
-                        intent.setClass(MainActivity.this,ApertureActivity.class);
+                        showSingleChoiceDialog();
+//                        intent.setClass(MainActivity.this,ApertureActivity.class);
                         break;
                 }
-                startActivity(intent);
+//                startActivity(intent);
             }
         });
         if (autoScroll) {
@@ -350,6 +353,27 @@ public class MainActivity extends BaseActivity {
         aList.get(0).setName("C");
         KLog.logI("totalList 2---> " + GsonUtils.toJson(totalList));
         hashmapTest();
+    }
+    int yourChoice;
+    private void showSingleChoiceDialog(){
+
+        final String[] items = { "我是1"  ,  "我是2"  ,  "我是3"  ,  "我是4" };
+        yourChoice = -  1  ;
+        AlertDialog.Builder singleChoiceDialog = new AlertDialog.Builder(MainActivity.this);
+        singleChoiceDialog.setTitle(  "我是一个单选Dialog"  );
+        // 第二个参数是默认选项，此处设置为0
+        singleChoiceDialog.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                yourChoice = which;
+                if (yourChoice != -1) {
+                    Toast.makeText(MainActivity.this, "你选择了" + items[yourChoice],
+                            Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            }
+        });
+        singleChoiceDialog.show();
     }
 
     private Gson mGson = new Gson();
