@@ -290,10 +290,10 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 33:
                         showSingleChoiceDialog();
-//                        intent.setClass(MainActivity.this,ApertureActivity.class);
+                        intent.setClass(MainActivity.this,ApertureActivity.class);
                         break;
                 }
-//                startActivity(intent);
+                startActivity(intent);
             }
         });
         if (autoScroll) {
