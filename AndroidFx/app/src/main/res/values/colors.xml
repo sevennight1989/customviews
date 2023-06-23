@@ -7,7 +7,7 @@
     <!-- 本地/内置换肤颜色（日间） -->
     <color name="commonTextColor">#008577</color>
     <color name="commonTextColor1">#ffffff</color>
-
+    <color name="white">#deffffff</color>
     <color name="red_300">#f36c60</color>
     <color name="light_green_300">#aed581</color>
     <color name="teal_300">#4db6ac</color>
