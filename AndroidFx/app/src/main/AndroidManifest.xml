@@ -34,21 +34,24 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
         <activity
-            android:name="com.android.custview.ui.RecycleViewDiffActivity"
+            android:name=".ui.RoundActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.RecycleViewDiffActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.android.custview.ui.ApertureActivity"
+            android:name=".ui.ApertureActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.android.custview.ui.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -137,6 +140,11 @@
             android:name=".service.IntercomTimeWindowService"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name=".service.PreviewWindowService"
+            android:enabled="true"
+            android:exported="true" />
+
 
         <activity
             android:name=".ui.LanguageTestActivity"
