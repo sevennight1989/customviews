@@ -4,7 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".ui.RoundActivity">
+
+    <com.zp.sunflower.view.MaskedCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
+
+
+        <TextureView
+            android:id="@+id/textureVIew"
+            android:layout_width="match_parent"
+            android:layout_height="500px"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.zp.sunflower.view.MaskedCardView>
 
     <com.android.custview.view.CustRoundView
         android:id="@+id/customRoundView"
